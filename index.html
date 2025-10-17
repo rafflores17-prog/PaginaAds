@@ -21,7 +21,6 @@
     }
     #contador { font-size: 1.5em; font-weight: bold; color: #ffc107; }
     
-    /* --- ESTILO DO BOTÃO AZUL --- */
     .botao-azul {
       background-color: #007bff; color: white;
       padding: 12px 28px; border-radius: 50px;
@@ -38,29 +37,42 @@
       color: #28a745; font-weight: bold;
       margin-top: 10px; display: none;
     }
-    /* Adicionado um espaçamento para o rodapé onde o botão vai ficar */
     #rodape-final {
-      margin-top: 50vh; /* Cria espaço para a rolagem funcionar bem */
+      margin-top: 50vh; /* Espaço para garantir a rolagem */
     }
   </style>
 </head>
 <body>
 
   <h1>Anúncio Principal</h1>
+
   <div class="ad-placeholder">
     <script async="async" data-cfasync="false" src="//victimfatalsentiments.com/694579ced308045c2c6c156cc2dceaba/invoke.js"></script>
     <div id="container-694579ced308045c2c6c156cc2dceaba"></div>
   </div>
 
-  <div id="aviso-contador">Aguarde <span id="contador">12</span> segundos...</div>
+  <div class="ad-placeholder">
+    <script type="text/javascript">
+      atOptions = { 'key' : '2f2aa93bee1aa52954a8f17f3434c3db', 'format' : 'iframe', 'height' : 50, 'width' : 320, 'params' : {} };
+    </script>
+    <script type="text/javascript" src="//victimfatalsentiments.com/2f2aa93bee1aa52954a8f17f3434c3db/invoke.js"></script>
+  </div>
   
+  <div id="aviso-contador">Aguarde <span id="contador">12</span> segundos...</div>
+
+  <div class="ad-placeholder">
+    <script async="async" data-cfasync="false" src="//victimfatalsentiments.com/694579ced308045c2c6c156cc2dceaba/invoke.js"></script>
+    <div id="container-694579ced308045c2c6c156cc2dceaba"></div>
+  </div>
+
+  <div class="ad-placeholder">
+     <script type="text/javascript">
+      atOptions = { 'key' : '2f2aa93bee1aa52954a8f17f3434c3db', 'format' : 'iframe', 'height' : 50, 'width' : 320, 'params' : {} };
+    </script>
+    <script type="text/javascript" src="//victimfatalsentiments.com/2f2aa93bee1aa52954a8f17f3434c3db/invoke.js"></script>
+  </div>
+
   <div id="rodape-final">
-    <div class="ad-placeholder">
-      <script type="text/javascript">
-        atOptions = { 'key' : '2f2aa93bee1aa52954a8f17f3434c3db', 'format' : 'iframe', 'height' : 50, 'width' : 320, 'params' : {} };
-      </script>
-      <script type="text/javascript" src="//victimfatalsentiments.com/2f2aa93bee1aa52954a8f17f3434c3db/invoke.js"></script>
-    </div>
     <div id="status-pg1" class="status-liberado">✅ Etapa Desbloqueada!</div>
     <button id="botao-prosseguir" class="botao-azul desabilitado" disabled>Carregando...</button>
   </div>
@@ -87,7 +99,7 @@
         botaoProsseguir.disabled = false;
         botaoProsseguir.classList.remove('desabilitado');
         
-        // FUNÇÃO DE ROLAGEM REATIVADA
+        // A MÁGICA DA ROLAGEM ACONTECE AQUI
         botaoProsseguir.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
         botaoProsseguir.onclick = () => {
