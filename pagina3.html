@@ -7,7 +7,6 @@
   <style>
     body { font-family: sans-serif; text-align: center; padding: 20px; }
     .ad-clicavel {
-      /* REMOVIDO BORDA E FUNDO PARA NÃO MOSTRAR CAIXA VAZIA */
       width: 100%; min-height: 250px;
       margin: 20px 0; display: flex; align-items: center;
       justify-content: center; cursor: pointer;
@@ -16,36 +15,52 @@
       width: 160px; height: 300px;
       margin-left: auto; margin-right: auto;
     }
-    #link-final {
-      display: inline-block; background-color: #d9534f; color: white;
-      padding: 20px 40px; text-decoration: none; border-radius: 5px;
-      font-size: 20px; margin-top: 30px; position: relative; transition: 0.3s;
+    .botao-azul {
+      background-color: #d9534f; /* Começa vermelho/bloqueado */
+      color: white; padding: 12px 28px;
+      border-radius: 50px; text-decoration: none; border: none;
+      cursor: pointer; font-weight: bold; text-transform: uppercase;
+      font-size: 16px; transition: all 0.3s;
+      display: inline-block; position: relative;
     }
-    #link-final:hover { transform: scale(1.05); }
-    #link-final.bloqueado { background-color: #888; pointer-events: none; }
-    #link-final.bloqueado::after {
-      content: '🔒'; font-size: 25px; position: absolute;
-      top: 50%; right: 15px; transform: translateY(-50%);
+    .botao-azul.liberado {
+      background-color: #28a745; /* Fica verde quando liberado */
     }
-    #mensagem { color: #d9534f; font-weight: bold; margin-top: 15px; }
+    .botao-azul.desabilitado {
+      background-color: #aaa; cursor: not-allowed;
+      pointer-events: none;
+    }
+    .botao-azul.desabilitado::after {
+       content: '🔒'; font-size: 18px; margin-left: 10px;
+    }
+    #mensagem-instrucao { color: #555; font-weight: bold; margin-top: 15px; font-size: 1.1em; }
+    .status-liberado {
+      display: none;
+      background-color: #e9f7ea; color: #28a745;
+      padding: 10px; border-radius: 8px; font-weight: bold;
+      max-width: 400px; margin: 20px auto;
+    }
   </style>
 </head>
 <body>
 
-  <h1>Última Etapa</h1>
-  <p id="mensagem">Interaja com um dos anúncios abaixo para liberar seu link!</p>
+  <h1>Você está quase lá!</h1>
+  <p id="mensagem-instrucao">Para desbloquear, passe o mouse ou toque em um anúncio abaixo.</p>
   
-  <a id="link-final" href="#" class="bloqueado" target="_blank">
-    LINK DE DESTINO
+  <div id="status-pg3" class="status-liberado">✅ Seu link está pronto!</div>
+  
+  <a id="link-final" href="#" class="botao-azul desabilitado" target="_blank">
+    Download Bloqueado
   </a>
 
   <div class="anuncios-container">
-    <div class="ad-link"> <div class="ad-clicavel">
+    <div class="ad-link">
+      <div class="ad-clicavel">
         <script src="https://fpyf8.com/88/tag.min.js" data-zone="178782" async data-cfasync="false"></script>
       </div>
     </div>
-    
-    <div class="ad-link"> <div class="ad-clicavel" id="ad-vertical">
+    <div class="ad-link">
+      <div class="ad-clicavel" id="ad-vertical">
         <script type="text/javascript">
           atOptions = { 'key' : '7696c1105ba14352d212bd39c7567e9e', 'format' : 'iframe', 'height' : 300, 'width' : 160, 'params' : {} };
         </script>
@@ -58,25 +73,29 @@
     const params = new URLSearchParams(window.location.search);
     const destino = params.get('destino');
     const linkFinal = document.getElementById('link-final');
-    const mensagem = document.getElementById('mensagem');
-    const adContainers = document.querySelectorAll('.ad-link'); // Seleciona os containers
-    let anuncioClicado = false;
+    const instrucao = document.getElementById('mensagem-instrucao');
+    const statusPg3 = document.getElementById('status-pg3');
+    const adContainers = document.querySelectorAll('.ad-link');
+    let anuncioInteragido = false;
+
+    // SUGESTÕES DE NOMES PARA O BOTÃO
+    const nomesBotoes = ["Acessar Conteúdo", "Fazer Download", "Ver Link"];
 
     function liberarLink() {
-      if (!anuncioClicado) {
-        anuncioClicado = true;
-        linkFinal.classList.remove('bloqueado');
-        linkFinal.style.backgroundColor = '#5cb85c';
+      if (!anuncioInteragido) {
+        anuncioInteragido = true;
+        linkFinal.classList.remove('desabilitado');
+        linkFinal.classList.add('liberado'); // Adiciona classe para cor verde
         linkFinal.href = destino ? destino : 'https://google.com';
-        mensagem.textContent = "✅ Link liberado com sucesso!";
+        linkFinal.textContent = nomesBotoes[0]; // Muda o texto do botão
+        instrucao.style.display = 'none';
+        statusPg3.style.display = 'block';
       }
     }
 
-    // CORREÇÃO: O gatilho agora é 'mouseover' (passar o mouse por cima)
     adContainers.forEach(container => {
       container.addEventListener('mouseover', liberarLink);
     });
   </script>
-
 </body>
 </html>
