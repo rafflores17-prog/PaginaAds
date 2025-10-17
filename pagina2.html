@@ -1,39 +1,52 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página 2</title>
-    <style>
-        body { font-family: sans-serif; text-align: center; padding: 20px; }
-        .ad-placeholder { width: 100%; height: 250px; background-color: #f0f0f0; margin: 20px 0; display: flex; align-items: center; justify-content: center; border: 1px dashed #ccc; }
-        #aviso-delay { font-size: 18px; color: #555; }
-        .botao { background-color: #5cb85c; color: white; padding: 15px 25px; text-decoration: none; border-radius: 5px; font-size: 18px; cursor: pointer; border: none; }
-        .botao.desabilitado { background-color: #888; cursor: not-allowed; }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Página 2</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; padding: 20px; }
+    .ad-placeholder {
+      width: 100%; height: 250px; background-color: #f0f0f0;
+      margin: 20px 0; display: flex; align-items: center;
+      justify-content: center; border: 1px dashed #ccc;
+    }
+    #aviso-delay { font-size: 18px; color: #555; margin: 20px 0; }
+    .botao {
+      background-color: #5cb85c; color: white; padding: 15px 25px;
+      text-decoration: none; border-radius: 5px; font-size: 18px;
+      cursor: pointer; border: none; transition: 0.2s;
+    }
+    .botao:hover { transform: scale(1.03); }
+    .botao.desabilitado { background-color: #888; cursor: not-allowed; }
+  </style>
 </head>
 <body>
 
-    <h1>Mais um passo!</h1>
-    <div class="ad-placeholder">(Outro bloco de anúncio)</div>
+  <h1>Mais um passo!</h1>
+  <div class="ad-placeholder">(Outro bloco de anúncio aqui)</div>
 
-    <p id="aviso-delay">O botão será liberado em breve...</p>
-    <button id="botao-final" class="botao desabilitado" disabled>Acessar a Etapa Final</button>
+  <p id="aviso-delay">O botão será liberado em breve...</p>
+  <button id="botao-final" class="botao desabilitado" disabled>
+    Acessar a Etapa Final
+  </button>
 
-    <script>
-        const botaoFinal = document.getElementById('botao-final');
-        const avisoDelay = document.getElementById('aviso-delay');
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const destino = params.get('destino');
 
-        setTimeout(() => {
-            botaoFinal.disabled = false;
-            botaoFinal.classList.remove('desabilitado');
-            avisoDelay.textContent = "Botão liberado!";
+    const botaoFinal = document.getElementById('botao-final');
+    const avisoDelay = document.getElementById('aviso-delay');
 
-            botaoFinal.onclick = function() {
-                window.location.href = 'pagina3.html';
-            };
-        }, 5000); // 5000 milissegundos = 5 segundos
-    </script>
+    setTimeout(() => {
+      botaoFinal.disabled = false;
+      botaoFinal.classList.remove('desabilitado');
+      avisoDelay.textContent = "Botão liberado!";
+      botaoFinal.onclick = () => {
+        window.location.href = 'pagina3.html?destino=' + encodeURIComponent(destino);
+      };
+    }, 5000);
+  </script>
 
 </body>
 </html>
