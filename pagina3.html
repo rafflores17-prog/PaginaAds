@@ -5,85 +5,103 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Página Final</title>
   <style>
-    body { font-family: sans-serif; text-align: center; padding: 20px; background-color: #f4f4f9; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; text-align: center; padding: 20px; background-color: #f4f4f9; }
     
-    /* NOVO: Painel central que agrupa o conteúdo de download */
-    .unlock-section {
+    /* PAINEL CENTRAL ESTILIZADO COMO NA IMAGEM */
+    .access-panel {
       background-color: white;
       padding: 25px;
       border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
       max-width: 500px;
-      margin: 40px auto; /* Afasta do topo e centraliza */
+      margin: 40px auto;
     }
 
-    .ad-clicavel {
-      width: 100%; min-height: 250px;
-      margin: 20px 0; display: flex; align-items: center;
-      justify-content: center; cursor: pointer;
+    .panel-title {
+      font-weight: bold;
+      color: #38a169; /* Verde escuro */
+      font-size: 1.2em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
     }
-    #ad-vertical {
-      width: 160px; height: 300px;
-      margin-left: auto; margin-right: auto;
+
+    .main-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #e53e3e; /* Vermelho */
+      color: white;
+      padding: 18px 25px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.1em;
+      position: relative;
+      transition: background-color 0.3s ease;
+      box-shadow: 0 4px 10px rgba(229, 62, 62, 0.3);
     }
-    .botao-azul {
-      background-color: #aaa; /* Começa cinza/bloqueado */
-      color: white; padding: 12px 28px;
-      border-radius: 50px; text-decoration: none; border: none;
-      cursor: pointer; font-weight: bold; text-transform: uppercase;
-      font-size: 16px; transition: all 0.3s;
-      display: inline-block; position: relative;
+    .main-button.liberado {
+      background-color: #38a169; /* Verde quando liberado */
+      box-shadow: 0 4px 10px rgba(56, 161, 105, 0.4);
     }
-    /* MUDANÇA: Botão agora fica azul ao ser liberado */
-    .botao-azul.liberado {
-      background-color: #007bff;
-      filter: brightness(1.1);
-    }
-    .botao-azul.desabilitado {
+    .main-button.desabilitado {
       cursor: not-allowed;
       pointer-events: none;
     }
-    .botao-azul.desabilitado::after {
-       content: '🔒'; font-size: 18px; margin-left: 10px;
+    .lock-icon {
+      font-size: 1.2em;
+      margin-left: auto;
+      padding-left: 20px;
     }
-    #mensagem-instrucao { color: #555; font-weight: bold; margin-top: 15px; font-size: 1.1em; }
-    .status-liberado {
-      display: none;
-      background-color: #e9f7ea; color: #28a745;
-      padding: 10px; border-radius: 8px; font-weight: bold;
-      max-width: 400px; margin: 20px auto;
+    
+    .loading-status {
+      margin-top: 10px;
+      color: #718096; /* Cinza */
+      font-size: 0.9em;
+    }
+    .loading-status.success {
+        color: #38a169;
+        font-weight: bold;
+    }
+    /* Animação dos pontos */
+    .loading-dots span {
+        animation: blink 1.4s infinite both;
+    }
+    .loading-dots span:nth-child(2) { animation-delay: .2s; }
+    .loading-dots span:nth-child(3) { animation-delay: .4s; }
+    @keyframes blink {
+        0%, 80%, 100% { opacity: 0; }
+        40% { opacity: 1; }
     }
 
-    /* NOVO: Estilo da área de anúncios para ficar mais profissional */
+    /* Estilo da área de anúncios */
     .anuncios-container {
-      margin-top: 40px;
-      padding: 20px;
-      border: 2px dashed #ccc;
-      border-radius: 12px;
+      margin-top: 40px; padding: 20px;
+      border: 2px dashed #ccc; border-radius: 12px;
       background-color: #fafafa;
     }
-    .anuncios-container h3 {
-      color: #333;
-      margin-top: 0;
-      font-size: 1.2em;
-    }
+    .anuncios-container h3 { color: #333; margin-top: 0; font-size: 1.2em; }
+
   </style>
 </head>
 <body>
 
-  <div class="unlock-section">
-    <h1>Você está quase lá!</h1>
-    <p id="mensagem-instrucao">Para desbloquear, interaja com um anúncio na área abaixo.</p>
+  <div class="access-panel">
+    <h2 class="panel-title">Aperte no botão abaixo para acessar!</h2>
     
-    <div id="status-pg3" class="status-liberado">✅ Seu link está pronto!</div>
-    
-    <a id="link-final" href="#" class="botao-azul desabilitado" target="_blank">
-      Download Bloqueado
+    <a id="link-final" href="#" class="main-button desabilitado" target="_blank">
+      <span id="button-text">Aguardando Liberação</span>
+      <span id="lock-icon" class="lock-icon">🔒</span>
     </a>
+    
+    <p id="status-text" class="loading-status">
+      Carregando <span class="loading-dots"><span>.</span><span>.</span><span>.</span></span>
+    </p>
   </div>
 
   <div class="anuncios-container">
     <h3>Área de Interação</h3>
+    <p style="color: #555; margin-top: -10px; margin-bottom: 20px;">Interaja com um anúncio para liberar o acesso.</p>
     <div class="ad-link">
       <div class="ad-clicavel">
         <script src="https://fpyf8.com/88/tag.min.js" data-zone="178782" async data-cfasync="false"></script>
@@ -103,22 +121,31 @@
     const params = new URLSearchParams(window.location.search);
     const destino = params.get('destino');
     const linkFinal = document.getElementById('link-final');
-    const instrucao = document.getElementById('mensagem-instrucao');
-    const statusPg3 = document.getElementById('status-pg3');
+    const buttonText = document.getElementById('button-text');
+    const lockIcon = document.getElementById('lock-icon');
+    const statusText = document.getElementById('status-text');
     const adContainers = document.querySelectorAll('.ad-link');
     let anuncioInteragido = false;
 
-    const nomesBotoes = ["Acessar Conteúdo", "Fazer Download", "Ver Link"];
-
+    // Função que transforma o painel quando liberado
     function liberarLink() {
       if (!anuncioInteragido) {
         anuncioInteragido = true;
+        
+        // 1. Libera o link e muda a cor
         linkFinal.classList.remove('desabilitado');
         linkFinal.classList.add('liberado');
         linkFinal.href = destino ? destino : 'https://google.com';
-        linkFinal.textContent = nomesBotoes[0];
-        instrucao.style.display = 'none';
-        statusPg3.style.display = 'block';
+        
+        // 2. Muda o texto do botão
+        buttonText.textContent = 'Acessar Conteúdo';
+        
+        // 3. Remove o cadeado
+        lockIcon.style.display = 'none';
+        
+        // 4. Atualiza o status
+        statusText.textContent = '✅ Link Liberado!';
+        statusText.classList.add('success');
       }
     }
 
