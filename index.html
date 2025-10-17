@@ -7,9 +7,10 @@
   <style>
     body { font-family: sans-serif; text-align: center; padding: 20px; }
     .ad-placeholder {
-      width: 100%; height: 250px; background-color: #f0f0f0;
-      margin: 20px 0; display: flex; align-items: center;
+      width: 100%; min-height: 50px; background-color: #f0f0f0;
+      margin: 20px auto; display: flex; align-items: center;
       justify-content: center; border: 1px dashed #ccc;
+      max-width: 728px; /* Limita a largura de banners grandes */
     }
     #contador { font-size: 24px; font-weight: bold; color: #d9534f; }
     .botao {
@@ -25,11 +26,26 @@
 <body>
 
   <h1>Anúncio Principal</h1>
-  <div class="ad-placeholder">(Aqui vai o seu bloco de anúncio principal)</div>
+  <div class="ad-placeholder">
+    <script async="async" data-cfasync="false" src="//victimfatalsentiments.com/694579ced308045c2c6c156cc2dceaba/invoke.js"></script>
+    <div id="container-694579ced308045c2c6c156cc2dceaba"></div>
+  </div>
 
   <p id="aviso">Aguarde <span id="contador">12</span> segundos para prosseguir...</p>
 
   <div id="secao-final">
+    <div class="ad-placeholder">
+      <script type="text/javascript">
+        atOptions = {
+          'key' : '2f2aa93bee1aa52954a8f17f3434c3db',
+          'format' : 'iframe',
+          'height' : 50,
+          'width' : 320,
+          'params' : {}
+        };
+      </script>
+      <script type="text/javascript" src="//victimfatalsentiments.com/2f2aa93bee1aa52954a8f17f3434c3db/invoke.js"></script>
+    </div>
     <button id="botao-prosseguir" class="botao desabilitado" disabled>
       Prosseguir para a Próxima Etapa
     </button>
@@ -54,7 +70,6 @@
         botaoProsseguir.disabled = false;
         botaoProsseguir.classList.remove('desabilitado');
 
-        // Rolagem até o botão
         botaoProsseguir.scrollIntoView({ behavior: 'smooth' });
 
         botaoProsseguir.onclick = () => {
