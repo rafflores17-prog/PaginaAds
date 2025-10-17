@@ -7,20 +7,32 @@
   <style>
     body { font-family: sans-serif; text-align: center; padding: 20px; }
     .ad-placeholder {
-      /* REMOVIDO BORDA E FUNDO PARA NÃO MOSTRAR CAIXA VAZIA */
       width: 100%; min-height: 90px;
       margin: 20px auto; display: flex; align-items: center;
       justify-content: center;
       max-width: 728px;
     }
     #aviso-delay { font-size: 18px; color: #555; margin: 20px 0; }
-    .botao {
-      background-color: #5cb85c; color: white; padding: 15px 25px;
-      text-decoration: none; border-radius: 5px; font-size: 18px;
-      cursor: pointer; border: none; transition: 0.2s;
+    .botao-azul {
+      background-color: #007bff; color: white; padding: 12px 28px;
+      border-radius: 50px; text-decoration: none; border: none;
+      cursor: pointer; font-weight: bold; text-transform: uppercase;
+      font-size: 16px; transition: filter 0.2s;
     }
-    .botao:hover { transform: scale(1.03); }
-    .botao.desabilitado { background-color: #888; cursor: not-allowed; }
+    .botao-azul:hover { filter: brightness(1.1); }
+    .botao-azul.desabilitado {
+      background-color: #aaa; cursor: not-allowed; filter: none;
+    }
+    .status-liberado { /* Mensagem de sucesso profissional */
+      display: none;
+      background-color: #e9f7ea;
+      color: #28a745;
+      padding: 10px;
+      border-radius: 8px;
+      font-weight: bold;
+      max-width: 400px;
+      margin: 20px auto;
+    }
   </style>
 </head>
 <body>
@@ -32,8 +44,9 @@
   <div class="ad-placeholder">
     <script type='text/javascript' src='//victimfatalsentiments.com/09/bc/0d/09bc0d1e4e41282a10b229106cc5a841.js'></script>
   </div>
-
-  <p id="aviso-delay">O botão será liberado em breve...</p>
+  
+  <p id="aviso-delay">Verificando acesso, aguarde...</p>
+  <div id="status-pg2" class="status-liberado">✅ Acesso Liberado!</div>
 
   <div class="ad-placeholder">
     <script type="text/javascript">
@@ -42,24 +55,28 @@
     <script type="text/javascript" src="//victimfatalsentiments.com/39d3491b34ddfbcc4927771b832a3daa/invoke.js"></script>
   </div>
   
-  <button id="botao-final" class="botao desabilitado" disabled>
-    Acessar a Etapa Final
-  </button>
+  <button id="botao-final" class="botao-azul desabilitado" disabled>Aguarde</button>
 
   <script>
     const params = new URLSearchParams(window.location.search);
     const destino = params.get('destino');
     const botaoFinal = document.getElementById('botao-final');
     const avisoDelay = document.getElementById('aviso-delay');
+    const statusPg2 = document.getElementById('status-pg2');
+
+    // SUGESTÕES DE NOMES PARA O BOTÃO
+    const nomesBotoes = ["Liberar Acesso", "Ir para Etapa Final", "Validar Acesso"];
+    botaoFinal.textContent = nomesBotoes[0];
+
     setTimeout(() => {
       botaoFinal.disabled = false;
       botaoFinal.classList.remove('desabilitado');
-      avisoDelay.textContent = "Botão liberado!";
+      avisoDelay.style.display = 'none';
+      statusPg2.style.display = 'block';
       botaoFinal.onclick = () => {
         window.location.href = 'pagina3.html?destino=' + encodeURIComponent(destino);
       };
     }, 5000);
   </script>
-
 </body>
 </html>
