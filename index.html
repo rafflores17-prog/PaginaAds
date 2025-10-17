@@ -5,18 +5,37 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Página 1</title>
   <style>
-    body { font-family: sans-serif; text-align: center; padding: 20px; }
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding: 20px;
+      /* ADICIONADO: Espaço no topo para o contador fixo não cobrir o conteúdo */
+      padding-top: 80px;
+    }
     .ad-placeholder {
       width: 100%; min-height: 50px;
       margin: 20px auto; display: flex; align-items: center;
       justify-content: center;
       max-width: 728px;
     }
+    
+    /* --- ESTILO ATUALIZADO DO CONTADOR --- */
     #aviso-contador {
-      background-color: rgba(0, 0, 0, 0.8); color: white;
-      padding: 10px; border-radius: 8px; position: sticky;
-      top: 10px; z-index: 999;
-      width: 90%; max-width: 400px; margin: 30px auto;
+      background-color: rgba(0, 0, 0, 0.85);
+      color: white;
+      padding: 12px;
+      border-radius: 0 0 12px 12px; /* Cantos arredondados só embaixo */
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      
+      position: fixed; /* <<-- MUDANÇA PRINCIPAL: Fixo no topo */
+      top: 0;          /* Alinhado no topo */
+      left: 0;
+      right: 0;
+      
+      z-index: 9999;   /* Garante que ele fique sobre todos os elementos */
+      width: 90%;
+      max-width: 400px;
+      margin: 0 auto; /* Centraliza horizontalmente */
       font-size: 1.2em;
     }
     #contador { font-size: 1.5em; font-weight: bold; color: #ffc107; }
@@ -38,11 +57,13 @@
       margin-top: 10px; display: none;
     }
     #rodape-final {
-      margin-top: 50vh; /* Espaço para garantir a rolagem */
+      margin-top: 50vh;
     }
   </style>
 </head>
 <body>
+  
+  <div id="aviso-contador">Aguarde <span id="contador">12</span> segundos...</div>
 
   <h1>Anúncio Principal</h1>
 
@@ -58,8 +79,6 @@
     <script type="text/javascript" src="//victimfatalsentiments.com/2f2aa93bee1aa52954a8f17f3434c3db/invoke.js"></script>
   </div>
   
-  <div id="aviso-contador">Aguarde <span id="contador">12</span> segundos...</div>
-
   <div class="ad-placeholder">
     <script async="async" data-cfasync="false" src="//victimfatalsentiments.com/694579ced308045c2c6c156cc2dceaba/invoke.js"></script>
     <div id="container-694579ced308045c2c6c156cc2dceaba"></div>
@@ -99,7 +118,6 @@
         botaoProsseguir.disabled = false;
         botaoProsseguir.classList.remove('desabilitado');
         
-        // A MÁGICA DA ROLAGEM ACONTECE AQUI
         botaoProsseguir.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
         botaoProsseguir.onclick = () => {
