@@ -7,12 +7,21 @@
   <style>
     body { font-family: sans-serif; text-align: center; padding: 20px; }
     .ad-clicavel {
-      width: 100%; height: 250px; background-color: #f0f0f0;
+      width: 100%; min-height: 250px; background-color: #f0f0f0;
       margin: 20px 0; display: flex; align-items: center;
       justify-content: center; border: 2px dashed #0275d8; cursor: pointer;
       transition: 0.3s;
     }
     .ad-clicavel:hover { background-color: #e0eaff; }
+    
+    /* ESTILO ADICIONADO PARA O ANÚNCIO VERTICAL */
+    #ad-vertical {
+      width: 160px; /* Largura exata do anúncio */
+      height: 300px; /* Altura exata do anúncio */
+      margin-left: auto; /* Centraliza o bloco */
+      margin-right: auto; /* Centraliza o bloco */
+    }
+    
     #link-final {
       display: inline-block; background-color: #d9534f; color: white;
       padding: 20px 40px; text-decoration: none; border-radius: 5px;
@@ -37,8 +46,26 @@
   </a>
 
   <div class="anuncios-container">
-    <a href="#" target="_blank" class="ad-link"><div class="ad-clicavel">(Anúncio Clicável 1)</div></a>
-    <a href="#" target="_blank" class="ad-link"><div class="ad-clicavel">(Anúncio Clicável 2)</div></a>
+    <a href="#" target="_blank" class="ad-link">
+      <div class="ad-clicavel">
+        <script src="https://fpyf8.com/88/tag.min.js" data-zone="178782" async data-cfasync="false"></script>
+      </div>
+    </a>
+    
+    <a href="#" target="_blank" class="ad-link">
+      <div class="ad-clicavel" id="ad-vertical">
+        <script type="text/javascript">
+          atOptions = {
+            'key' : '7696c1105ba14352d212bd39c7567e9e',
+            'format' : 'iframe',
+            'height' : 300,
+            'width' : 160,
+            'params' : {}
+          };
+        </script>
+        <script type="text/javascript" src="//victimfatalsentiments.com/7696c1105ba14352d212bd39c7567e9e/invoke.js"></script>
+      </div>
+    </a>
   </div>
 
   <script>
