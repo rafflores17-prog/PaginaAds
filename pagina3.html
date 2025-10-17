@@ -5,7 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Página Final</title>
   <style>
-    body { font-family: sans-serif; text-align: center; padding: 20px; }
+    body { font-family: sans-serif; text-align: center; padding: 20px; background-color: #f4f4f9; }
+    
+    /* NOVO: Painel central que agrupa o conteúdo de download */
+    .unlock-section {
+      background-color: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      max-width: 500px;
+      margin: 40px auto; /* Afasta do topo e centraliza */
+    }
+
     .ad-clicavel {
       width: 100%; min-height: 250px;
       margin: 20px 0; display: flex; align-items: center;
@@ -16,18 +27,20 @@
       margin-left: auto; margin-right: auto;
     }
     .botao-azul {
-      background-color: #d9534f; /* Começa vermelho/bloqueado */
+      background-color: #aaa; /* Começa cinza/bloqueado */
       color: white; padding: 12px 28px;
       border-radius: 50px; text-decoration: none; border: none;
       cursor: pointer; font-weight: bold; text-transform: uppercase;
       font-size: 16px; transition: all 0.3s;
       display: inline-block; position: relative;
     }
+    /* MUDANÇA: Botão agora fica azul ao ser liberado */
     .botao-azul.liberado {
-      background-color: #28a745; /* Fica verde quando liberado */
+      background-color: #007bff;
+      filter: brightness(1.1);
     }
     .botao-azul.desabilitado {
-      background-color: #aaa; cursor: not-allowed;
+      cursor: not-allowed;
       pointer-events: none;
     }
     .botao-azul.desabilitado::after {
@@ -40,20 +53,37 @@
       padding: 10px; border-radius: 8px; font-weight: bold;
       max-width: 400px; margin: 20px auto;
     }
+
+    /* NOVO: Estilo da área de anúncios para ficar mais profissional */
+    .anuncios-container {
+      margin-top: 40px;
+      padding: 20px;
+      border: 2px dashed #ccc;
+      border-radius: 12px;
+      background-color: #fafafa;
+    }
+    .anuncios-container h3 {
+      color: #333;
+      margin-top: 0;
+      font-size: 1.2em;
+    }
   </style>
 </head>
 <body>
 
-  <h1>Você está quase lá!</h1>
-  <p id="mensagem-instrucao">Para desbloquear, passe o mouse ou toque em um anúncio abaixo.</p>
-  
-  <div id="status-pg3" class="status-liberado">✅ Seu link está pronto!</div>
-  
-  <a id="link-final" href="#" class="botao-azul desabilitado" target="_blank">
-    Download Bloqueado
-  </a>
+  <div class="unlock-section">
+    <h1>Você está quase lá!</h1>
+    <p id="mensagem-instrucao">Para desbloquear, interaja com um anúncio na área abaixo.</p>
+    
+    <div id="status-pg3" class="status-liberado">✅ Seu link está pronto!</div>
+    
+    <a id="link-final" href="#" class="botao-azul desabilitado" target="_blank">
+      Download Bloqueado
+    </a>
+  </div>
 
   <div class="anuncios-container">
+    <h3>Área de Interação</h3>
     <div class="ad-link">
       <div class="ad-clicavel">
         <script src="https://fpyf8.com/88/tag.min.js" data-zone="178782" async data-cfasync="false"></script>
@@ -78,16 +108,15 @@
     const adContainers = document.querySelectorAll('.ad-link');
     let anuncioInteragido = false;
 
-    // SUGESTÕES DE NOMES PARA O BOTÃO
     const nomesBotoes = ["Acessar Conteúdo", "Fazer Download", "Ver Link"];
 
     function liberarLink() {
       if (!anuncioInteragido) {
         anuncioInteragido = true;
         linkFinal.classList.remove('desabilitado');
-        linkFinal.classList.add('liberado'); // Adiciona classe para cor verde
+        linkFinal.classList.add('liberado');
         linkFinal.href = destino ? destino : 'https://google.com';
-        linkFinal.textContent = nomesBotoes[0]; // Muda o texto do botão
+        linkFinal.textContent = nomesBotoes[0];
         instrucao.style.display = 'none';
         statusPg3.style.display = 'block';
       }
@@ -97,5 +126,6 @@
       container.addEventListener('mouseover', liberarLink);
     });
   </script>
+
 </body>
 </html>
