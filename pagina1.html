@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página 1</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; padding: 20px; }
+        .ad-placeholder { width: 100%; height: 250px; background-color: #f0f0f0; margin: 20px 0; display: flex; align-items: center; justify-content: center; border: 1px dashed #ccc; }
+        #contador { font-size: 24px; font-weight: bold; color: #d9534f; }
+        .botao { background-color: #0275d8; color: white; padding: 15px 25px; text-decoration: none; border-radius: 5px; font-size: 18px; cursor: pointer; border: none; }
+        .botao.desabilitado { background-color: #888; cursor: not-allowed; }
+        #secao-final { margin-top: 100vh; /* Força a rolagem */ }
+    </style>
+</head>
+<body>
+
+    <h1>Anúncio Principal</h1>
+    <div class="ad-placeholder">(Aqui vai o seu primeiro bloco de anúncio - Ex: Google AdSense)</div>
+
+    <p id="aviso">Aguarde <span id="contador">12</span> segundos para prosseguir...</p>
+
+    <div id="secao-final">
+        <button id="botao-prosseguir" class="botao desabilitado" disabled>Prosseguir para a Próxima Etapa</button>
+    </div>
+
+    <script>
+        let tempoRestante = 12;
+        const contadorElemento = document.getElementById('contador');
+        const botaoProsseguir = document.getElementById('botao-prosseguir');
+        const avisoElemento = document.getElementById('aviso');
+
+        const intervalo = setInterval(() => {
+            tempoRestante--;
+            contadorElemento.textContent = tempoRestante;
+
+            if (tempoRestante <= 0) {
+                clearInterval(intervalo);
+                avisoElemento.textContent = "Pode prosseguir!";
+                botaoProsseguir.disabled = false;
+                botaoProsseguir.classList.remove('desabilitado');
+                
+                // Rola a página para baixo até o botão
+                window.scrollTo({
+                    top: document.body.scrollHeight,
+                    behavior: 'smooth'
+                });
+
+                // Adiciona o evento de clique para ir para a página 2
+                botaoProsseguir.onclick = function() {
+                    window.location.href = 'pagina2.html';
+                };
+            }
+        }, 1000);
+    </script>
+
+</body>
+</html>
