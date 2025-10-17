@@ -7,21 +7,15 @@
   <style>
     body { font-family: sans-serif; text-align: center; padding: 20px; }
     .ad-clicavel {
-      width: 100%; min-height: 250px; background-color: #f0f0f0;
+      /* REMOVIDO BORDA E FUNDO PARA NÃO MOSTRAR CAIXA VAZIA */
+      width: 100%; min-height: 250px;
       margin: 20px 0; display: flex; align-items: center;
-      justify-content: center; border: 2px dashed #0275d8; cursor: pointer;
-      transition: 0.3s;
+      justify-content: center; cursor: pointer;
     }
-    .ad-clicavel:hover { background-color: #e0eaff; }
-    
-    /* ESTILO ADICIONADO PARA O ANÚNCIO VERTICAL */
     #ad-vertical {
-      width: 160px; /* Largura exata do anúncio */
-      height: 300px; /* Altura exata do anúncio */
-      margin-left: auto; /* Centraliza o bloco */
-      margin-right: auto; /* Centraliza o bloco */
+      width: 160px; height: 300px;
+      margin-left: auto; margin-right: auto;
     }
-    
     #link-final {
       display: inline-block; background-color: #d9534f; color: white;
       padding: 20px 40px; text-decoration: none; border-radius: 5px;
@@ -39,42 +33,33 @@
 <body>
 
   <h1>Última Etapa</h1>
-  <p id="mensagem">Clique em um dos anúncios abaixo para liberar seu link!</p>
+  <p id="mensagem">Interaja com um dos anúncios abaixo para liberar seu link!</p>
   
   <a id="link-final" href="#" class="bloqueado" target="_blank">
     LINK DE DESTINO
   </a>
 
   <div class="anuncios-container">
-    <a href="#" target="_blank" class="ad-link">
-      <div class="ad-clicavel">
+    <div class="ad-link"> <div class="ad-clicavel">
         <script src="https://fpyf8.com/88/tag.min.js" data-zone="178782" async data-cfasync="false"></script>
       </div>
-    </a>
+    </div>
     
-    <a href="#" target="_blank" class="ad-link">
-      <div class="ad-clicavel" id="ad-vertical">
+    <div class="ad-link"> <div class="ad-clicavel" id="ad-vertical">
         <script type="text/javascript">
-          atOptions = {
-            'key' : '7696c1105ba14352d212bd39c7567e9e',
-            'format' : 'iframe',
-            'height' : 300,
-            'width' : 160,
-            'params' : {}
-          };
+          atOptions = { 'key' : '7696c1105ba14352d212bd39c7567e9e', 'format' : 'iframe', 'height' : 300, 'width' : 160, 'params' : {} };
         </script>
         <script type="text/javascript" src="//victimfatalsentiments.com/7696c1105ba14352d212bd39c7567e9e/invoke.js"></script>
       </div>
-    </a>
+    </div>
   </div>
 
   <script>
     const params = new URLSearchParams(window.location.search);
     const destino = params.get('destino');
-
     const linkFinal = document.getElementById('link-final');
     const mensagem = document.getElementById('mensagem');
-    const adLinks = document.querySelectorAll('.ad-link');
+    const adContainers = document.querySelectorAll('.ad-link'); // Seleciona os containers
     let anuncioClicado = false;
 
     function liberarLink() {
@@ -87,8 +72,9 @@
       }
     }
 
-    adLinks.forEach(link => {
-      link.addEventListener('click', liberarLink);
+    // CORREÇÃO: O gatilho agora é 'mouseover' (passar o mouse por cima)
+    adContainers.forEach(container => {
+      container.addEventListener('mouseover', liberarLink);
     });
   </script>
 
