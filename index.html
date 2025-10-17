@@ -7,12 +7,25 @@
   <style>
     body { font-family: sans-serif; text-align: center; padding: 20px; }
     .ad-placeholder {
-      width: 100%; min-height: 50px; background-color: #f0f0f0;
+      width: 100%; min-height: 50px;
       margin: 20px auto; display: flex; align-items: center;
-      justify-content: center; border: 1px dashed #ccc;
-      max-width: 728px; /* Limita a largura de banners grandes */
+      justify-content: center;
+      max-width: 728px;
     }
-    #contador { font-size: 24px; font-weight: bold; color: #d9534f; }
+    #aviso-contador {
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 10px;
+      border-radius: 8px;
+      position: sticky; /* Efeito Fixo ao rolar */
+      top: 10px;       /* Distância do topo */
+      z-index: 999;    /* Para ficar sobre outros elementos */
+      width: 90%;
+      max-width: 400px;
+      margin: 20px auto;
+      font-size: 1.2em;
+    }
+    #contador { font-size: 1.5em; font-weight: bold; color: #ffc107; }
     .botao {
       background-color: #0275d8; color: white; padding: 15px 25px;
       text-decoration: none; border-radius: 5px; font-size: 18px;
@@ -20,7 +33,7 @@
     }
     .botao:hover { transform: scale(1.03); }
     .botao.desabilitado { background-color: #888; cursor: not-allowed; }
-    #secao-final { margin-top: 100vh; }
+    #secao-final { margin-top: 40px; /* Reduzido o espaço em branco */ }
   </style>
 </head>
 <body>
@@ -31,18 +44,12 @@
     <div id="container-694579ced308045c2c6c156cc2dceaba"></div>
   </div>
 
-  <p id="aviso">Aguarde <span id="contador">12</span> segundos para prosseguir...</p>
+  <div id="aviso-contador">Aguarde <span id="contador">12</span> segundos...</div>
 
   <div id="secao-final">
     <div class="ad-placeholder">
       <script type="text/javascript">
-        atOptions = {
-          'key' : '2f2aa93bee1aa52954a8f17f3434c3db',
-          'format' : 'iframe',
-          'height' : 50,
-          'width' : 320,
-          'params' : {}
-        };
+        atOptions = { 'key' : '2f2aa93bee1aa52954a8f17f3434c3db', 'format' : 'iframe', 'height' : 50, 'width' : 320, 'params' : {} };
       </script>
       <script type="text/javascript" src="//victimfatalsentiments.com/2f2aa93bee1aa52954a8f17f3434c3db/invoke.js"></script>
     </div>
@@ -55,29 +62,24 @@
     const params = new URLSearchParams(window.location.search);
     const destino = params.get('destino');
     let tempoRestante = 12;
-
     const contadorElemento = document.getElementById('contador');
     const botaoProsseguir = document.getElementById('botao-prosseguir');
-    const avisoElemento = document.getElementById('aviso');
+    const avisoContador = document.getElementById('aviso-contador');
 
     const intervalo = setInterval(() => {
       tempoRestante--;
       contadorElemento.textContent = tempoRestante;
-
       if (tempoRestante <= 0) {
         clearInterval(intervalo);
-        avisoElemento.textContent = "Pode prosseguir!";
+        avisoContador.innerHTML = "<strong>Pode prosseguir!</strong>";
         botaoProsseguir.disabled = false;
         botaoProsseguir.classList.remove('desabilitado');
-
         botaoProsseguir.scrollIntoView({ behavior: 'smooth' });
-
         botaoProsseguir.onclick = () => {
           window.location.href = 'pagina2.html?destino=' + encodeURIComponent(destino);
         };
       }
     }, 1000);
   </script>
-
 </body>
 </html>
