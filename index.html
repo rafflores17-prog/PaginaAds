@@ -6,129 +6,125 @@
   <title>Página 1</title>
   <style>
     body {
-      font-family: sans-serif; text-align: center;
-      padding: 20px; padding-top: 80px;
+      font-family: sans-serif;
+      text-align: center;
+      padding: 20px;
+      /* ADICIONADO: Espaço no topo para o contador fixo não cobrir o conteúdo */
+      padding-top: 80px;
     }
-    /* --- ESTILO DO AVISO DE ADBLOCK --- */
-    #adblock-overlay {
-      display: none; /* Começa escondido */
-      position: fixed; top: 0; left: 0;
-      width: 100%; height: 100%;
-      background-color: rgba(0, 0, 0, 0.9);
-      z-index: 10000;
-      justify-content: center; align-items: center;
-      color: black;
-    }
-    .adblock-message {
-      background-color: white; padding: 30px;
-      border-radius: 10px; text-align: center;
-      max-width: 90%; width: 400px;
-    }
-    .adblock-message h2 { color: #e53e3e; }
-    /* --- FIM DO ESTILO ADBLOCK --- */
-    
     .ad-placeholder {
       width: 100%; min-height: 50px;
       margin: 20px auto; display: flex; align-items: center;
-      justify-content: center; max-width: 728px;
+      justify-content: center;
+      max-width: 728px;
     }
+    
+    /* --- ESTILO ATUALIZADO DO CONTADOR --- */
     #aviso-contador {
-      background-color: rgba(0, 0, 0, 0.85); color: white;
-      padding: 12px; border-radius: 0 0 12px 12px;
+      background-color: rgba(0, 0, 0, 0.85);
+      color: white;
+      padding: 12px;
+      border-radius: 0 0 12px 12px; /* Cantos arredondados só embaixo */
       box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-      position: fixed; top: 0; left: 0; right: 0;
-      z-index: 9999; width: 90%; max-width: 400px;
-      margin: 0 auto; font-size: 1.2em;
+      
+      position: fixed; /* <<-- MUDANÇA PRINCIPAL: Fixo no topo */
+      top: 0;          /* Alinhado no topo */
+      left: 0;
+      right: 0;
+      
+      z-index: 9999;   /* Garante que ele fique sobre todos os elementos */
+      width: 90%;
+      max-width: 400px;
+      margin: 0 auto; /* Centraliza horizontalmente */
+      font-size: 1.2em;
     }
     #contador { font-size: 1.5em; font-weight: bold; color: #ffc107; }
+    
     .botao-azul {
-      background-color: #007bff; color: white; padding: 12px 28px;
-      border-radius: 50px; text-decoration: none; border: none;
-      cursor: pointer; font-weight: bold; text-transform: uppercase;
+      background-color: #007bff; color: white;
+      padding: 12px 28px; border-radius: 50px;
+      text-decoration: none; border: none; cursor: pointer;
+      font-weight: bold; text-transform: uppercase;
       font-size: 16px; transition: filter 0.2s;
       display: inline-block; margin-top: 15px;
     }
-    .botao-azul.desabilitado { background-color: #aaa; cursor: not-allowed; }
+    .botao-azul:hover { filter: brightness(1.1); }
+    .botao-azul.desabilitado {
+      background-color: #aaa; cursor: not-allowed; filter: none;
+    }
     .status-liberado {
       color: #28a745; font-weight: bold;
       margin-top: 10px; display: none;
     }
-    #rodape-final { margin-top: 50vh; }
+    #rodape-final {
+      margin-top: 50vh;
+    }
   </style>
 </head>
 <body>
   
-  <div id="adblock-overlay">
-    <div class="adblock-message">
-      <h2>AdBlock Detectado!</h2>
-      <p>Para continuar, por favor, desative seu bloqueador de anúncios e <strong>atualize a página</strong>.</p>
-      <p>Nosso site depende da publicidade para se manter no ar.</p>
-    </div>
-  </div>
-
   <div id="aviso-contador">Aguarde <span id="contador">12</span> segundos...</div>
 
   <h1>Anúncio Principal</h1>
-  
-  <div class="ad-placeholder adsbox">
+
+  <div class="ad-placeholder">
     <script async="async" data-cfasync="false" src="//victimfatalsentiments.com/694579ced308045c2c6c156cc2dceaba/invoke.js"></script>
     <div id="container-694579ced308045c2c6c156cc2dceaba"></div>
   </div>
 
   <div class="ad-placeholder">
-    <script type="text/javascript"> /* ...código do anúncio... */ </script>
+    <script type="text/javascript">
+      atOptions = { 'key' : '2f2aa93bee1aa52954a8f17f3434c3db', 'format' : 'iframe', 'height' : 50, 'width' : 320, 'params' : {} };
+    </script>
     <script type="text/javascript" src="//victimfatalsentiments.com/2f2aa93bee1aa52954a8f17f3434c3db/invoke.js"></script>
   </div>
   
+  <div class="ad-placeholder">
+    <script async="async" data-cfasync="false" src="//victimfatalsentiments.com/694579ced308045c2c6c156cc2dceaba/invoke.js"></script>
+    <div id="container-694579ced308045c2c6c156cc2dceaba"></div>
+  </div>
+
+  <div class="ad-placeholder">
+     <script type="text/javascript">
+      atOptions = { 'key' : '2f2aa93bee1aa52954a8f17f3434c3db', 'format' : 'iframe', 'height' : 50, 'width' : 320, 'params' : {} };
+    </script>
+    <script type="text/javascript" src="//victimfatalsentiments.com/2f2aa93bee1aa52954a8f17f3434c3db/invoke.js"></script>
+  </div>
+
   <div id="rodape-final">
     <div id="status-pg1" class="status-liberado">✅ Etapa Desbloqueada!</div>
-    <button id="botao-prosseguir" class="botao-azul desabilitado" disabled>Avançar</button>
+    <button id="botao-prosseguir" class="botao-azul desabilitado" disabled>Carregando...</button>
   </div>
 
   <script>
-    // --- SCRIPT DE DETECÇÃO DE ADBLOCK ---
-    document.addEventListener('DOMContentLoaded', function() {
-      // Pequeno delay para dar tempo do AdBlocker agir
-      setTimeout(function() {
-        const adBox = document.querySelector('.adsbox');
-        if (adBox.offsetHeight === 0) {
-          // AdBlocker detectado! Mostra o aviso.
-          document.getElementById('adblock-overlay').style.display = 'flex';
-        } else {
-          // Nenhum AdBlocker. Inicia a lógica normal da página.
-          iniciarLogicaDaPagina();
-        }
-      }, 300);
-    });
+    const params = new URLSearchParams(window.location.search);
+    const destino = params.get('destino');
+    let tempoRestante = 12;
+    const contadorElemento = document.getElementById('contador');
+    const botaoProsseguir = document.getElementById('botao-prosseguir');
+    const avisoContador = document.getElementById('aviso-contador');
+    const statusPg1 = document.getElementById('status-pg1');
 
-    // --- LÓGICA NORMAL DA PÁGINA (SÓ RODA SEM ADBLOCK) ---
-    function iniciarLogicaDaPagina() {
-      const params = new URLSearchParams(window.location.search);
-      const destino = params.get('destino');
-      let tempoRestante = 12;
-      const contadorElemento = document.getElementById('contador');
-      const botaoProsseguir = document.getElementById('botao-prosseguir');
-      const avisoContador = document.getElementById('aviso-contador');
-      const statusPg1 = document.getElementById('status-pg1');
+    const nomesBotoes = ["Próxima Etapa", "Avançar", "Continuar"];
+    botaoProsseguir.textContent = nomesBotoes[0];
 
-      const intervalo = setInterval(() => {
-        tempoRestante--;
-        contadorElemento.textContent = tempoRestante;
-        if (tempoRestante <= 0) {
-          clearInterval(intervalo);
-          avisoContador.style.display = 'none';
-          statusPg1.style.display = 'block';
-          botaoProsseguir.disabled = false;
-          botaoProsseguir.classList.remove('desabilitado');
-          
-          botaoProsseguir.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    const intervalo = setInterval(() => {
+      tempoRestante--;
+      contadorElemento.textContent = tempoRestante;
+      if (tempoRestante <= 0) {
+        clearInterval(intervalo);
+        avisoContador.style.display = 'none';
+        statusPg1.style.display = 'block';
+        botaoProsseguir.disabled = false;
+        botaoProsseguir.classList.remove('desabilitado');
+        
+        botaoProsseguir.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
-          botaoProsseguir.onclick = () => {
-            window.location.href = 'pagina2.html?destino=' + encodeURIComponent(destino);
-          };
-        }
-      }, 1000);
-    }
+        botaoProsseguir.onclick = () => {
+          window.location.href = 'pagina2.html?destino=' + encodeURIComponent(destino);
+        };
+      }
+    }, 1000);
   </script>
 </body>
 </html>
