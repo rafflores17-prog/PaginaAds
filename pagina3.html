@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Página Final</title>
   <style>
+    /* Estilos do corpo e do painel de adblock (sem alterações) */
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; text-align: center; padding: 20px; background-color: #f4f4f9; }
     #adblock-overlay {
       display: none; position: fixed; top: 0; left: 0;
@@ -17,28 +18,21 @@
     }
     .adblock-message h2 { color: #e53e3e; }
     
-    .access-panel {
-      background-color: white; padding: 25px; border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-      max-width: 500px; margin: 40px auto;
+    /* NOVO: Estilo da "isca" para garantir que seja detectada pelos AdBlockers */
+    .ad-banner-bait {
+        height: 1px !important;
+        width: 1px !important;
+        position: fixed !important;
+        left: -10000px !important;
+        top: -1000px !important;
+        display: block !important;
     }
-    .panel-title {
-      font-weight: bold; color: #38a169;
-      font-size: 1.2em; text-transform: uppercase;
-      margin-bottom: 20px;
-    }
-    .main-button {
-      display: flex; align-items: center; justify-content: center;
-      background-color: #e53e3e; color: white;
-      padding: 18px 25px; border-radius: 50px;
-      text-decoration: none; font-weight: bold;
-      font-size: 1.1em; position: relative;
-      transition: background-color 0.3s ease;
-      box-shadow: 0 4px 10px rgba(229, 62, 62, 0.3);
-    }
-    .main-button.liberado {
-      background-color: #38a169; box-shadow: 0 4px 10px rgba(56, 161, 105, 0.4);
-    }
+
+    /* Outros estilos da página (sem alterações) */
+    .access-panel { background-color: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); max-width: 500px; margin: 40px auto; }
+    .panel-title { font-weight: bold; color: #38a169; font-size: 1.2em; text-transform: uppercase; margin-bottom: 20px; }
+    .main-button { display: flex; align-items: center; justify-content: center; background-color: #e53e3e; color: white; padding: 18px 25px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 1.1em; position: relative; transition: background-color 0.3s ease; box-shadow: 0 4px 10px rgba(229, 62, 62, 0.3); }
+    .main-button.liberado { background-color: #38a169; box-shadow: 0 4px 10px rgba(56, 161, 105, 0.4); }
     .main-button.desabilitado { cursor: not-allowed; pointer-events: none; }
     .lock-icon { font-size: 1.2em; margin-left: auto; padding-left: 20px; }
     .loading-status { margin-top: 10px; color: #718096; font-size: 0.9em; }
@@ -47,15 +41,12 @@
     .loading-dots span:nth-child(2) { animation-delay: .2s; }
     .loading-dots span:nth-child(3) { animation-delay: .4s; }
     @keyframes blink { 0%, 80%, 100% { opacity: 0; } 40% { opacity: 1; } }
-    .anuncios-container {
-      margin-top: 40px; padding: 20px;
-      border: 2px dashed #ccc; border-radius: 12px;
-      background-color: #fafafa;
-    }
+    .anuncios-container { margin-top: 40px; padding: 20px; border: 2px dashed #ccc; border-radius: 12px; background-color: #fafafa; }
     .anuncios-container h3 { color: #333; margin-top: 0; font-size: 1.2em; }
   </style>
 </head>
 <body>
+  <div id="ad-bait" class="ad-banner-bait"></div>
 
   <div id="adblock-overlay">
     <div class="adblock-message">
@@ -65,39 +56,44 @@
   </div>
 
   <div class="access-panel">
-    <h2 class="panel-title">Aperte no botão abaixo para acessar!</h2>
-    <a id="link-final" href="#" class="main-button desabilitado" target="_blank">
-      <span id="button-text">Aguardando Liberação</span>
-      <span id="lock-icon" class="lock-icon">🔒</span>
-    </a>
-    <p id="status-text" class="loading-status">
-      Carregando <span class="loading-dots"><span>.</span><span>.</span><span>.</span></span>
-    </p>
+      <h2 class="panel-title">Aperte no botão abaixo para acessar!</h2>
+      <a id="link-final" href="#" class="main-button desabilitado" target="_blank">
+        <span id="button-text">Aguardando Liberação</span>
+        <span id="lock-icon" class="lock-icon">🔒</span>
+      </a>
+      <p id="status-text" class="loading-status">
+        Carregando <span class="loading-dots"><span>.</span><span>.</span><span>.</span></span>
+      </p>
   </div>
 
   <div class="anuncios-container">
-    <h3>Área de Interação</h3>
-    <p style="color: #555;">Interaja com um anúncio para liberar o acesso.</p>
-    <div class="ad-link adsbox">
-      <div class="ad-clicavel">
-        <script src="https://fpyf8.com/88/tag.min.js" data-zone="178782" async data-cfasync="false"></script>
+      <h3>Área de Interação</h3>
+      <p style="color: #555;">Interaja com um anúncio para liberar o acesso.</p>
+      <div class="ad-link">
+        <div class="ad-clicavel">
+          <script src="https://fpyf8.com/88/tag.min.js" data-zone="178782" async data-cfasync="false"></script>
+        </div>
       </div>
-    </div>
   </div>
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
+      // Pequeno delay para garantir que a página e o AdBlocker carreguem
       setTimeout(function() {
-        const adBox = document.querySelector('.adsbox');
-        if (adBox.offsetHeight === 0) {
+        // A checagem agora é na "isca", não no anúncio real
+        const adBait = document.getElementById('ad-bait');
+        if (!adBait || adBait.offsetHeight === 0) {
+          // AdBlocker detectado se a isca foi removida ou escondida
           document.getElementById('adblock-overlay').style.display = 'flex';
         } else {
+          // Nenhum AdBlocker. Inicia a lógica normal da página.
           iniciarLogicaDaPagina();
         }
       }, 300);
     });
 
     function iniciarLogicaDaPagina() {
+      // Toda a lógica de liberar o botão continua a mesma
       const params = new URLSearchParams(window.location.search);
       const destino = params.get('destino');
       const linkFinal = document.getElementById('link-final');
