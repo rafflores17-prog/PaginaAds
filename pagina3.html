@@ -40,27 +40,46 @@
     margin-top: 10px; color: #718096; font-size: 0.9em;
   }
 
-  /* --- NOVA DICA DE ADBLOCK --- */
-  .adblock-hint {
+  /* CSS PARA A BARRA DE PROGRESSO */
+  .progress-container {
     margin-top: 15px;
-    font-size: 0.9em;
-    color: #a0aec0; /* Cinza discreto */
-    transition: all 0.5s ease;
+    background-color: #e0e0e0;
+    border-radius: 50px;
+    padding: 3px; /* Espaçamento interno */
   }
-  .adblock-hint.active {
-    color: var(--cor-perigo);
+  .progress-bar {
+    width: 0%;
+    height: 25px;
+    background-color: var(--cor-primaria);
+    border-radius: 50px;
+    transition: width 3s linear; /* Duração da animação da barra */
+    text-align: center;
+    line-height: 25px;
+    color: white;
     font-weight: bold;
-    animation: pulse 1.5s infinite;
+    font-size: 0.9em;
   }
-  @keyframes pulse {
-    0% { transform: scale(1); opacity: 0.9; }
-    50% { transform: scale(1.05); opacity: 1; }
-    100% { transform: scale(1); opacity: 0.9; }
-  }
-  
+
+  /* CSS PARA A ÁREA DE INTERAÇÃO (TODA CLICÁVEL) */
   .anuncios-container {
-    margin-top: 40px; padding: 20px; border: 2px dashed #ccc;
+    margin-top: 40px; padding: 10px; border: 2px dashed #ccc;
     border-radius: 12px; background-color: #fafafa;
+    min-height: 250px; /* Altura mínima para o banner */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  .anuncios-container:hover {
+    background-color: #e9f5e9; /* Fundo verde claro ao passar o mouse */
+    border-color: var(--cor-primaria);
+  }
+  /* O contêiner direto do anúncio */
+  .ad-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 </style>
 </head>
@@ -73,25 +92,20 @@
       <span id="button-text">Aguardando Liberação</span>
       <span id="lock-icon" class="lock-icon">🔒</span>
     </a>
-    <p id="status-text" class="loading-status">Aguardando interação...</p>
 
-    <p class="adblock-hint" id="adblock-hint">
-      Botão não liberou? Talvez seu AdBlock esteja impedindo.
-    </p>
+    <div class="progress-container" id="progress-container" style="display: none;">
+      <div class="progress-bar" id="progress-bar"></div>
+    </div>
+    
+    <p id="status-text" class="loading-status">Aguardando interação...</p>
   </div>
 
   <div class="anuncios-container" id="ads-area">
-    <h3>Área de Interação</h3>
-    <p style="color: #555; margin-top: -10px; margin-bottom: 20px;">Clique em um anúncio para liberar o acesso.</p>
-    
-    <div class="ad-link">
-      <script src="https://fpyf8.com/88/tag.min.js" data-zone="178782" async data-cfasync="false"></script>
-    </div>
-    <div class="ad-link">
-      <script type="text/javascript">
-        atOptions = { 'key' : '7696c1105ba14352d212bd39c7567e9e', 'format' : 'iframe', 'height' : 300, 'width' : 160, 'params' : {} };
-      </script>
-      <script type="text/javascript" src="//victimfatalsentiments.com/7696c1105ba14352d212bd39c7567e9e/invoke.js"></script>
+    <div> <h3 style="margin-bottom: 5px;">Área de Interação</h3>
+      <p style="color: #555; margin-top: 0; margin-bottom: 20px;">Clique em qualquer lugar deste quadro para liberar o acesso.</p>
+      <div class="ad-link">
+        <script src="https://fpyf8.com/88/tag.min.js" data-zone="178782" async data-cfasync="false"></script>
+      </div>
     </div>
   </div>
 </div>
@@ -102,8 +116,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const linkFinal = document.getElementById('link-final');
   const buttonText = document.getElementById('button-text');
   const lockIcon = document.getElementById('lock-icon');
-  const adHint = document.getElementById('adblock-hint');
+  const statusText = document.getElementById('status-text');
   const adsArea = document.getElementById('ads-area');
+  const progressContainer = document.getElementById('progress-container');
+  const progressBar = document.getElementById('progress-bar');
   
   let linkLiberado = false;
 
@@ -111,25 +127,31 @@ document.addEventListener('DOMContentLoaded', () => {
     if (linkLiberado) return;
     linkLiberado = true;
     
-    linkFinal.classList.remove('desabilitado');
-    linkFinal.classList.add('liberado');
-    linkFinal.href = destino;
-    buttonText.textContent = 'Acessar Conteúdo';
-    lockIcon.style.display = 'none';
-    adHint.style.display = 'none'; // Esconde a dica, pois não é mais necessária
+    // Esconde o botão e o texto, mostra a barra de progresso
+    linkFinal.style.display = 'none';
+    statusText.style.display = 'none';
+    progressContainer.style.display = 'block';
+    
+    // Força o navegador a renderizar a barra com 0% antes de animar
+    setTimeout(() => {
+      progressBar.style.width = '100%';
+      progressBar.textContent = 'Verificando...';
+    }, 50);
+
+    // Após a barra encher (3 segundos), libera o link de verdade
+    setTimeout(() => {
+      progressContainer.style.display = 'none'; // Esconde a barra
+      linkFinal.style.display = 'flex'; // Mostra o botão novamente
+      linkFinal.classList.remove('desabilitado');
+      linkFinal.classList.add('liberado');
+      linkFinal.href = destino;
+      buttonText.textContent = 'Acessar Conteúdo';
+      lockIcon.style.display = 'none';
+    }, 3000); // 3000ms = 3 segundos
   }
 
   // Listener para liberar o link
   adsArea.addEventListener('click', liberarLink);
-
-  // Lógica da Dica Pulsante
-  setTimeout(() => {
-    // Se depois de 10 segundos o link ainda não foi liberado...
-    if (!linkLiberado) {
-      // ...ativa o aviso pulsante.
-      adHint.classList.add('active');
-    }
-  }, 10000); // 10 segundos de espera
 });
 </script>
 
