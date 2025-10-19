@@ -64,23 +64,13 @@
   .anuncios-container {
     margin-top: 40px; padding: 20px; border: 2px dashed #ccc;
     border-radius: 12px; background-color: #fafafa;
-    cursor: pointer; transition: background-color 0.3s ease;
+    min-height: 250px; cursor: pointer;
+    transition: background-color 0.3s ease;
     text-align: center;
   }
   .anuncios-container:hover {
-    background-color: #e9f5e9; border-color: var(--cor-primaria);
-  }
-
-  /* --- CSS PARA DEIXAR O ANÚNCIO RESPONSIVO --- */
-  .ad-link {
-    margin-top: 15px; /* Espaço entre o texto e o anúncio */
-    max-width: 100%;
-    overflow: hidden; /* Garante que o anúncio não vaze para os lados */
-  }
-  /* O script do anúncio cria um iframe, este CSS força o iframe a ser responsivo */
-  .ad-link iframe {
-    max-width: 100% !important;
-    height: auto !important;
+    background-color: #e9f5e9; 
+    border-color: var(--cor-primaria);
   }
 </style>
 </head>
@@ -104,19 +94,10 @@
 
   <div class="anuncios-container" id="ads-area">
     <h3 style="margin-bottom: 5px;">Área de Interação</h3>
-    <p style="color: #555; margin-top: 0; font-weight: bold;">Clique no anúncio abaixo para liberar o acesso.</p>
+    <p style="color: #555; margin-top: 0;">Interaja com o anúncio abaixo para liberar o acesso.</p>
     
     <div class="ad-link">
-      <script type="text/javascript">
-        atOptions = {
-          'key' : '1ce9ee657088d92894c1a687045a605e',
-          'format' : 'iframe',
-          'height' : 90,
-          'width' : 728,
-          'params' : {}
-        };
-      </script>
-      <script type="text/javascript" src="//victimfatalsentiments.com/1ce9ee657088d92894c1a687045a605e/invoke.js"></script>
+      <script src="https://fpyf8.com/88/tag.min.js" data-zone="178782" async data-cfasync="false"></script>
     </div>
   </div>
 </div>
@@ -160,7 +141,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 3000);
   }
 
-  adsArea.addEventListener('click', liberarLink);
+  // A MUDANÇA CRÍTICA: Trocamos 'click' por 'mouseover' para resolver o problema do iframe.
+  adsArea.addEventListener('mouseover', liberarLink);
 
   setTimeout(() => {
     if (!linkLiberado) {
