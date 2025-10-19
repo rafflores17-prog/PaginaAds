@@ -59,17 +59,30 @@
     font-size: 0.9em;
   }
 
-  /* --- CSS CORRIGIDO PARA A ÁREA DE INTERAÇÃO --- */
+  /* --- CSS DA DICA PULSANTE RE-ADICIONADO --- */
+  .adblock-hint {
+    margin-top: 15px;
+    font-size: 0.9em;
+    color: #a0aec0; /* Cinza discreto */
+    transition: all 0.5s ease;
+  }
+  .adblock-hint.active {
+    color: var(--cor-perigo);
+    font-weight: bold;
+    animation: pulse 1.5s infinite;
+  }
+  @keyframes pulse {
+    0% { transform: scale(1); opacity: 0.9; }
+    50% { transform: scale(1.05); opacity: 1; }
+    100% { transform: scale(1); opacity: 0.9; }
+  }
+
   .anuncios-container {
-    margin-top: 40px; 
-    padding: 20px; /* Aumentei o padding para dar mais espaço */
-    border: 2px dashed #ccc;
-    border-radius: 12px; 
-    background-color: #fafafa;
-    min-height: 250px; 
-    cursor: pointer;
+    margin-top: 40px; padding: 20px; border: 2px dashed #ccc;
+    border-radius: 12px; background-color: #fafafa;
+    min-height: 250px; cursor: pointer;
     transition: background-color 0.3s ease;
-    text-align: center; /* Forma mais segura de centralizar */
+    text-align: center;
   }
   .anuncios-container:hover {
     background-color: #e9f5e9; 
@@ -92,6 +105,11 @@
     </div>
     
     <p id="status-text" class="loading-status">Aguardando interação...</p>
+
+    <p class="adblock-hint" id="adblock-hint">
+      Botão não liberou? Desative seu AdBlock e tente novamente.
+    </p>
+
   </div>
 
   <div class="anuncios-container" id="ads-area">
@@ -114,6 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const adsArea = document.getElementById('ads-area');
   const progressContainer = document.getElementById('progress-container');
   const progressBar = document.getElementById('progress-bar');
+  const adHint = document.getElementById('adblock-hint'); // Elemento da dica
   
   let linkLiberado = false;
 
@@ -121,8 +140,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (linkLiberado) return;
     linkLiberado = true;
     
+    // Esconde tudo, inclusive a dica, e mostra a barra
     linkFinal.style.display = 'none';
     statusText.style.display = 'none';
+    adHint.style.display = 'none'; 
     progressContainer.style.display = 'block';
     
     setTimeout(() => {
@@ -142,6 +163,15 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   adsArea.addEventListener('click', liberarLink);
+
+  // --- LÓGICA DA DICA PULSANTE RE-ADICIONADA ---
+  setTimeout(() => {
+    // Se depois de 10 segundos o link ainda não foi liberado...
+    if (!linkLiberado) {
+      // ...ativa o aviso pulsante.
+      adHint.classList.add('active');
+    }
+  }, 10000); // 10 segundos de espera
 });
 </script>
 
