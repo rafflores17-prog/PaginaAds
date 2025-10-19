@@ -39,50 +39,32 @@
   .loading-status {
     margin-top: 10px; color: #718096; font-size: 0.9em;
   }
-  .loading-status.success { color: var(--cor-primaria); font-weight: bold; }
+
+  /* --- NOVA DICA DE ADBLOCK --- */
+  .adblock-hint {
+    margin-top: 15px;
+    font-size: 0.9em;
+    color: #a0aec0; /* Cinza discreto */
+    transition: all 0.5s ease;
+  }
+  .adblock-hint.active {
+    color: var(--cor-perigo);
+    font-weight: bold;
+    animation: pulse 1.5s infinite;
+  }
+  @keyframes pulse {
+    0% { transform: scale(1); opacity: 0.9; }
+    50% { transform: scale(1.05); opacity: 1; }
+    100% { transform: scale(1); opacity: 0.9; }
+  }
+  
   .anuncios-container {
     margin-top: 40px; padding: 20px; border: 2px dashed #ccc;
     border-radius: 12px; background-color: #fafafa;
   }
-  /* --- NOVO BANNER DE ADBLOCK --- */
-  .adblock-banner {
-    display: none; /* Inicia oculto */
-    background-color: var(--cor-perigo);
-    color: white;
-    padding: 20px;
-    margin: 0 auto 30px auto;
-    max-width: 500px;
-    border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(229, 62, 62, 0.4);
-  }
-  .adblock-banner .icon {
-    font-size: 3em;
-    display: block;
-    margin-bottom: 10px;
-  }
-  .adblock-banner h2 {
-    margin: 0 0 10px 0;
-    font-size: 1.5em;
-  }
-  .adblock-banner p {
-    margin: 0 0 15px 0;
-    font-size: 1.1em;
-    line-height: 1.5;
-  }
-  .adblock-banner button {
-    background: white; color: var(--cor-perigo); border: none; padding: 10px 20px;
-    border-radius: 8px; font-size: 1em; cursor: pointer; font-weight: bold;
-  }
 </style>
 </head>
 <body>
-
-<div class="adblock-banner" id="adblock-banner">
-  <span class="icon">🚫</span>
-  <h2>AdBlock Detectado!</h2>
-  <p>Para acessar o conteúdo, por favor, <strong>desative seu AdBlock</strong> e clique no botão abaixo para recarregar a página.</p>
-  <button onclick="location.reload()">Tentar Novamente</button>
-</div>
 
 <div id="main-content">
   <div class="access-panel">
@@ -92,108 +74,62 @@
       <span id="lock-icon" class="lock-icon">🔒</span>
     </a>
     <p id="status-text" class="loading-status">Aguardando interação...</p>
+
+    <p class="adblock-hint" id="adblock-hint">
+      Botão não liberou? Talvez seu AdBlock esteja impedindo.
+    </p>
   </div>
 
   <div class="anuncios-container" id="ads-area">
     <h3>Área de Interação</h3>
     <p style="color: #555; margin-top: -10px; margin-bottom: 20px;">Clique em um anúncio para liberar o acesso.</p>
+    
+    <div class="ad-link">
+      <script src="https://fpyf8.com/88/tag.min.js" data-zone="178782" async data-cfasync="false"></script>
     </div>
+    <div class="ad-link">
+      <script type="text/javascript">
+        atOptions = { 'key' : '7696c1105ba14352d212bd39c7567e9e', 'format' : 'iframe', 'height' : 300, 'width' : 160, 'params' : {} };
+      </script>
+      <script type="text/javascript" src="//victimfatalsentiments.com/7696c1105ba14352d212bd39c7567e9e/invoke.js"></script>
+    </div>
+  </div>
 </div>
 
 <script>
-  window.anunciosCarregados = false;
-</script>
-<script src="ads.js" async></script>
-<script>
 document.addEventListener('DOMContentLoaded', () => {
   const destino = new URLSearchParams(window.location.search).get('destino') || 'https://google.com';
-  const adblockBanner = document.getElementById('adblock-banner');
-  const mainContent = document.getElementById('main-content');
   const linkFinal = document.getElementById('link-final');
   const buttonText = document.getElementById('button-text');
   const lockIcon = document.getElementById('lock-icon');
-  const statusText = document.getElementById('status-text');
+  const adHint = document.getElementById('adblock-hint');
   const adsArea = document.getElementById('ads-area');
   
-  let anuncioInteragido = false;
-  let adBlockerAtivo = false;
+  let linkLiberado = false;
 
   function liberarLink() {
-    if (anuncioInteragido || adBlockerAtivo) return;
-    anuncioInteragido = true;
+    if (linkLiberado) return;
+    linkLiberado = true;
+    
     linkFinal.classList.remove('desabilitado');
     linkFinal.classList.add('liberado');
     linkFinal.href = destino;
     buttonText.textContent = 'Acessar Conteúdo';
     lockIcon.style.display = 'none';
-    statusText.textContent = '✅ Link Liberado!';
-    statusText.classList.add('success');
+    adHint.style.display = 'none'; // Esconde a dica, pois não é mais necessária
   }
 
-  function dispararAlertaAdBlock() {
-    if (adBlockerAtivo) return;
-    adBlockerAtivo = true;
-    console.error("CONFIRMADO: AdBlock está ativo! Exibindo banner.");
-    mainContent.style.display = 'none'; // Esconde o conteúdo principal
-    adblockBanner.style.display = 'block'; // Mostra o banner de aviso
-  }
+  // Listener para liberar o link
+  adsArea.addEventListener('click', liberarLink);
 
-  function verificarAdBlock() {
-    // Técnica 1: Elemento Isca
-    const testeAdElement = document.createElement('div');
-    testeAdElement.className = 'adsbox ad-banner';
-    testeAdElement.style.position = 'absolute'; testeAdElement.style.height = '1px';
-    document.body.appendChild(testeAdElement);
-    setTimeout(() => {
-        if (!testeAdElement.offsetHeight) {
-            dispararAlertaAdBlock();
-        }
-        testeAdElement.remove();
-    }, 100);
-
-    // Técnica 2: Arquivo Isca
-    setTimeout(() => {
-        if (!window.anunciosCarregados) {
-            dispararAlertaAdBlock();
-        }
-    }, 500);
-  }
-
-  // NOVO: Função para carregar os scripts de anúncio de forma segura
-  function carregarAnuncios() {
-      // Script 1
-      const script1 = document.createElement('script');
-      script1.src = 'https://fpyf8.com/88/tag.min.js';
-      script1.dataset.zone = '178782';
-      script1.async = true;
-      script1.setAttribute('data-cfasync', 'false');
-      adsArea.appendChild(script1);
-
-      // Script 2
-      const script2Wrapper = document.createElement('div');
-      const script2Options = document.createElement('script');
-      script2Options.type = 'text/javascript';
-      script2Options.innerHTML = "atOptions = { 'key' : '7696c1105ba14352d212bd39c7567e9e', 'format' : 'iframe', 'height' : 300, 'width' : 160, 'params' : {} };";
-      const script2Invoke = document.createElement('script');
-      script2Invoke.type = 'text/javascript';
-      script2Invoke.src = '//victimfatalsentiments.com/7696c1105ba14352d212bd39c7567e9e/invoke.js';
-      
-      script2Wrapper.appendChild(script2Options);
-      script2Wrapper.appendChild(script2Invoke);
-      adsArea.appendChild(script2Wrapper);
-  }
-
-  // --- LÓGICA PRINCIPAL ---
-  verificarAdBlock();
-  
-  // Apenas carrega os anúncios e adiciona o listener se o AdBlock não foi detectado logo de cara
+  // Lógica da Dica Pulsante
   setTimeout(() => {
-      if (!adBlockerAtivo) {
-          carregarAnuncios();
-          adsArea.addEventListener('click', liberarLink);
-      }
-  }, 600); // Espera um pouco mais que os detectores
-
+    // Se depois de 10 segundos o link ainda não foi liberado...
+    if (!linkLiberado) {
+      // ...ativa o aviso pulsante.
+      adHint.classList.add('active');
+    }
+  }, 10000); // 10 segundos de espera
 });
 </script>
 
