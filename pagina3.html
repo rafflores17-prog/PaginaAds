@@ -263,7 +263,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- Configurações ---
   const destinationUrl = new URLSearchParams(window.location.search).get('destino') || 'https://google.com';
   const unlockDelay = 3000; // 3 segundos
-  
+
   // Ícone de check (substitui o cadeado)
   const unlockedIconSVG = `
     <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M10.0007 15.1709L19.1931 5.97852L20.6073 7.39273L10.0007 17.9993L3.63672 11.6354L5.05093 10.2212L10.0007 15.1709Z"></path></svg>
@@ -278,16 +278,28 @@ document.addEventListener('DOMContentLoaded', () => {
     panelSubtitle.textContent = 'Por favor, aguarde enquanto validamos sua solicitação.';
     
     statusText.textContent = 'Analisando...';
+    progressBar.textContent = '0%'; // Inicia o texto em 0%
     progressContainer.style.display = 'block';
 
-    // Inicia a animação da barra de progresso
+    // Inicia a animação da barra de progresso (visual)
     setTimeout(() => {
       progressBar.style.width = '100%';
-      progressBar.textContent = '100%';
     }, 100);
+
+    // --- NOVO: Lógica para animar o número da porcentagem ---
+    let progress = 0;
+    const interval = setInterval(() => {
+      progress++;
+      if (progress <= 100) {
+        progressBar.textContent = progress + '%';
+      } else {
+        clearInterval(interval);
+      }
+    }, unlockDelay / 100); // Calcula o tempo do intervalo para sincronizar com a animação
 
     // Finaliza o processo após o tempo definido
     setTimeout(() => {
+      clearInterval(interval); // Garante que o intervalo pare
       panelTitle.textContent = 'Acesso Liberado!';
       panelSubtitle.textContent = 'Clique no botão abaixo para ir ao seu destino.';
       
