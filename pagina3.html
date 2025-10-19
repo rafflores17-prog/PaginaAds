@@ -41,35 +41,19 @@
   }
 
   .progress-container {
-    margin-top: 15px;
-    background-color: #e0e0e0;
-    border-radius: 50px;
-    padding: 3px;
+    margin-top: 15px; background-color: #e0e0e0; border-radius: 50px; padding: 3px;
   }
   .progress-bar {
-    width: 0%;
-    height: 25px;
-    background-color: var(--cor-primaria);
-    border-radius: 50px;
-    transition: width 3s linear;
-    text-align: center;
-    line-height: 25px;
-    color: white;
-    font-weight: bold;
-    font-size: 0.9em;
+    width: 0%; height: 25px; background-color: var(--cor-primaria); border-radius: 50px;
+    transition: width 3s linear; text-align: center; line-height: 25px;
+    color: white; font-weight: bold; font-size: 0.9em;
   }
 
-  /* --- CSS DA DICA PULSANTE RE-ADICIONADO --- */
   .adblock-hint {
-    margin-top: 15px;
-    font-size: 0.9em;
-    color: #a0aec0; /* Cinza discreto */
-    transition: all 0.5s ease;
+    margin-top: 15px; font-size: 0.9em; color: #a0aec0; transition: all 0.5s ease;
   }
   .adblock-hint.active {
-    color: var(--cor-perigo);
-    font-weight: bold;
-    animation: pulse 1.5s infinite;
+    color: var(--cor-perigo); font-weight: bold; animation: pulse 1.5s infinite;
   }
   @keyframes pulse {
     0% { transform: scale(1); opacity: 0.9; }
@@ -80,13 +64,23 @@
   .anuncios-container {
     margin-top: 40px; padding: 20px; border: 2px dashed #ccc;
     border-radius: 12px; background-color: #fafafa;
-    min-height: 250px; cursor: pointer;
-    transition: background-color 0.3s ease;
+    cursor: pointer; transition: background-color 0.3s ease;
     text-align: center;
   }
   .anuncios-container:hover {
-    background-color: #e9f5e9; 
-    border-color: var(--cor-primaria);
+    background-color: #e9f5e9; border-color: var(--cor-primaria);
+  }
+
+  /* --- CSS PARA DEIXAR O ANÚNCIO RESPONSIVO --- */
+  .ad-link {
+    margin-top: 15px; /* Espaço entre o texto e o anúncio */
+    max-width: 100%;
+    overflow: hidden; /* Garante que o anúncio não vaze para os lados */
+  }
+  /* O script do anúncio cria um iframe, este CSS força o iframe a ser responsivo */
+  .ad-link iframe {
+    max-width: 100% !important;
+    height: auto !important;
   }
 </style>
 </head>
@@ -99,25 +93,30 @@
       <span id="button-text">Aguardando Liberação</span>
       <span id="lock-icon" class="lock-icon">🔒</span>
     </a>
-
     <div class="progress-container" id="progress-container" style="display: none;">
       <div class="progress-bar" id="progress-bar"></div>
     </div>
-    
     <p id="status-text" class="loading-status">Aguardando interação...</p>
-
     <p class="adblock-hint" id="adblock-hint">
       Botão não liberou? Desative seu AdBlock e tente novamente.
     </p>
-
   </div>
 
   <div class="anuncios-container" id="ads-area">
     <h3 style="margin-bottom: 5px;">Área de Interação</h3>
-    <p style="color: #555; margin-top: 0; margin-bottom: 20px;">Clique em qualquer lugar deste quadro para liberar o acesso.</p>
+    <p style="color: #555; margin-top: 0; font-weight: bold;">Clique no anúncio abaixo para liberar o acesso.</p>
     
     <div class="ad-link">
-      <script src="https://fpyf8.com/88/tag.min.js" data-zone="178782" async data-cfasync="false"></script>
+      <script type="text/javascript">
+        atOptions = {
+          'key' : '1ce9ee657088d92894c1a687045a605e',
+          'format' : 'iframe',
+          'height' : 90,
+          'width' : 728,
+          'params' : {}
+        };
+      </script>
+      <script type="text/javascript" src="//victimfatalsentiments.com/1ce9ee657088d92894c1a687045a605e/invoke.js"></script>
     </div>
   </div>
 </div>
@@ -132,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const adsArea = document.getElementById('ads-area');
   const progressContainer = document.getElementById('progress-container');
   const progressBar = document.getElementById('progress-bar');
-  const adHint = document.getElementById('adblock-hint'); // Elemento da dica
+  const adHint = document.getElementById('adblock-hint');
   
   let linkLiberado = false;
 
@@ -140,7 +139,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (linkLiberado) return;
     linkLiberado = true;
     
-    // Esconde tudo, inclusive a dica, e mostra a barra
     linkFinal.style.display = 'none';
     statusText.style.display = 'none';
     adHint.style.display = 'none'; 
@@ -164,14 +162,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   adsArea.addEventListener('click', liberarLink);
 
-  // --- LÓGICA DA DICA PULSANTE RE-ADICIONADA ---
   setTimeout(() => {
-    // Se depois de 10 segundos o link ainda não foi liberado...
     if (!linkLiberado) {
-      // ...ativa o aviso pulsante.
       adHint.classList.add('active');
     }
-  }, 10000); // 10 segundos de espera
+  }, 10000);
 });
 </script>
 
