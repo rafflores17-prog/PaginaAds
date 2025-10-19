@@ -1,274 +1,316 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Aguarde a Liberação</title>
-<style>
-  :root {
-    --cor-primaria: #38a169;
-    --cor-perigo: #e53e3e;
-    --cor-fundo: #f0f2f5;
-  }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aguarde a Liberação do Acesso</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-primary: #2d8a5b;
+      --color-primary-light: #e9f5e9;
+      --color-danger: #e53e3e;
+      --color-background: #f0f2f5;
+      --color-text: #333333;
+      --color-text-light: #6c757d;
+      --color-disabled: #a0aec0;
+      --color-white: #ffffff;
+      --shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+      --border-radius: 12px;
+    }
 
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    text-align: center;
-    padding: 20px;
-    background-color: var(--cor-fundo);
-    margin: 0;
-  }
+    * {
+      box-sizing: border-box;
+    }
 
-  .access-panel {
-    background-color: white;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-    max-width: 500px;
-    margin: 40px auto;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fade-in 0.6s forwards;
-  }
+    body {
+      font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+      background-color: var(--color-background);
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      color: var(--color-text);
+    }
 
-  @keyframes fade-in {
-    to { opacity: 1; transform: translateY(0); }
-  }
+    .container {
+        max-width: 500px;
+        width: 100%;
+        animation: fadeIn 0.8s ease-out;
+    }
 
-  .panel-title {
-    font-weight: bold;
-    color: var(--cor-primaria);
-    font-size: 1.2em;
-    text-transform: uppercase;
-    margin-bottom: 20px;
-  }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
 
-  .main-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #a0aec0;
-    color: white;
-    padding: 18px 25px;
-    border-radius: 50px;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 1.1em;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  }
+    .access-panel {
+      background-color: var(--color-white);
+      padding: 30px 35px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      margin-bottom: 30px;
+    }
 
-  .main-button.liberado {
-    background-color: var(--cor-primaria);
-    cursor: pointer;
-    animation: pulse-green 1s ease;
-  }
+    .panel-title {
+      font-weight: 700;
+      color: var(--color-text);
+      font-size: 1.5em;
+      margin: 0 0 10px 0;
+    }
+    
+    .panel-subtitle {
+        color: var(--color-text-light);
+        font-size: 1em;
+        margin: 0 0 25px 0;
+    }
 
-  @keyframes pulse-green {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
-  }
+    .main-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background-color: var(--color-disabled);
+      color: var(--color-white);
+      padding: 16px 25px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1em;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      cursor: not-allowed;
+      border: none;
+    }
 
-  .main-button.desabilitado {
-    opacity: 0.7;
-    cursor: not-allowed;
-    pointer-events: none;
-  }
+    .main-button.unlocked {
+      background-color: var(--color-primary);
+      cursor: pointer;
+      pointer-events: all;
+    }
 
-  .lock-icon {
-    font-size: 1.2em;
-    margin-left: auto;
-    padding-left: 20px;
-  }
+    .main-button.unlocked:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 4px 15px rgba(45, 138, 91, 0.3);
+    }
 
-  .loading-status {
-    margin-top: 10px;
-    color: #718096;
-    font-size: 0.9em;
-  }
+    .main-button .icon {
+        width: 22px;
+        height: 22px;
+    }
 
-  .progress-container {
-    margin-top: 15px;
-    background-color: #e0e0e0;
-    border-radius: 50px;
-    padding: 3px;
-  }
+    .progress-container {
+      margin-top: 15px;
+      background-color: #e9ecef;
+      border-radius: 50px;
+      padding: 4px;
+      display: none; /* Inicia oculto */
+    }
 
-  .progress-bar {
-    width: 0%;
-    height: 25px;
-    background-color: var(--cor-primaria);
-    border-radius: 50px;
-    transition: width 0.3s linear;
-    text-align: center;
-    line-height: 25px;
-    color: white;
-    font-weight: bold;
-    font-size: 0.9em;
-  }
+    .progress-bar {
+      width: 0%;
+      height: 20px;
+      background: linear-gradient(90deg, #38a169, #2d8a5b);
+      border-radius: 50px;
+      transition: width 3s linear;
+      text-align: center;
+      line-height: 20px;
+      color: var(--color-white);
+      font-weight: 600;
+      font-size: 0.8em;
+    }
+    
+    .status-text {
+        margin-top: 15px;
+        color: var(--color-text-light);
+        font-size: 0.9em;
+        min-height: 1.2em; /* Evita que o layout "pule" */
+    }
 
-  .adblock-hint {
-    margin-top: 15px;
-    font-size: 0.9em;
-    color: #a0aec0;
-    transition: all 0.5s ease;
-  }
+    .adblock-hint {
+      margin-top: 15px;
+      font-size: 0.85em;
+      color: var(--color-disabled);
+      transition: all 0.5s ease;
+      font-weight: 600;
+      display: none; /* Inicia oculto, mostra via JS */
+    }
 
-  .adblock-hint.active {
-    color: var(--cor-perigo);
-    font-weight: bold;
-    animation: pulse-red 1.5s infinite;
-  }
+    .adblock-hint.active {
+      display: block;
+      color: var(--color-danger);
+      animation: pulse-red 1.5s infinite;
+    }
 
-  @keyframes pulse-red {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
-  }
+    @keyframes pulse-red {
+      0%, 100% { transform: scale(1); opacity: 0.8; }
+      50% { transform: scale(1.03); opacity: 1; }
+    }
 
-  /* --- ÁREA DE INTERAÇÃO --- */
-  .anuncios-container {
-    margin-top: 40px;
-    padding: 20px;
-    border: 2px dashed #ccc;
-    border-radius: 12px;
-    background-color: #fafafa;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-align: center;
-    animation: pulse-border 2s infinite;
-  }
+    .ad-container {
+      padding: 25px;
+      border: 2px dashed var(--color-disabled);
+      border-radius: var(--border-radius);
+      background-color: #fafafa;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      animation: pulse-border 2s infinite;
+      text-align: center;
+    }
 
-  .anuncios-container:hover {
-    background-color: #e9f5e9;
-    border-color: var(--cor-primaria);
-    animation-play-state: paused;
-  }
+    .ad-container:hover {
+      background-color: var(--color-primary-light);
+      border-color: var(--color-primary);
+      animation-play-state: paused;
+    }
 
-  @keyframes pulse-border {
-    0% { box-shadow: 0 0 0 0 rgba(56, 161, 105, 0.4); }
-    70% { box-shadow: 0 0 0 10px rgba(56, 161, 105, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(56, 161, 105, 0); }
-  }
+    @keyframes pulse-border {
+      0% { box-shadow: 0 0 0 0 rgba(45, 138, 91, 0.4); }
+      70% { box-shadow: 0 0 0 12px rgba(45, 138, 91, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(45, 138, 91, 0); }
+    }
+    
+    .ad-container .icon {
+        font-size: 2.5em;
+        animation: move-up-down 1.5s infinite ease-in-out;
+    }
+    
+    @keyframes move-up-down {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
 
-  .interaction-icon {
-    font-size: 3em;
-    animation: move-up-down 1.5s infinite;
-  }
+    .ad-container h3 {
+        margin: 10px 0 5px 0;
+        font-size: 1.3em;
+    }
 
-  @keyframes move-up-down {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-  }
+    .ad-container p {
+        margin: 0;
+        color: var(--color-text-light);
+        font-weight: 600;
+    }
 
-  .ad-link {
-    margin-top: 15px;
-  }
-
-  .anuncios-container iframe {
-    max-width: 100%;
-    height: auto;
-  }
-</style>
+  </style>
 </head>
 <body>
 
-<div id="main-content">
+<div class="container">
   <div class="access-panel">
-    <h2 class="panel-title">APERTE NO BOTÃO ABAIXO PARA ACESSAR!</h2>
-
-    <a id="link-final" href="#" class="main-button desabilitado" target="_blank">
-      <span id="button-text">Aguardando Liberação</span>
-      <span id="lock-icon" class="lock-icon">🔒</span>
+    <h2 id="panel-title" class="panel-title">Acesso Restrito</h2>
+    <p id="panel-subtitle" class="panel-subtitle">Siga o passo abaixo para continuar</p>
+    
+    <a id="final-link" href="#" class="main-button">
+        <span id="button-icon">
+            <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1.99994C8.68629 1.99994 6 4.68623 6 7.99994V10.9999H5C4.44772 10.9999 4 11.4477 4 11.9999V20.9999C4 21.5522 4.44772 21.9999 5 21.9999H19C19.5523 21.9999 20 21.5522 20 20.9999V11.9999C20 11.4477 19.5523 10.9999 19 10.9999H18V7.99994C18 4.68623 15.3137 1.99994 12 1.99994ZM12 3.99994C14.2091 3.99994 16 5.79079 16 7.99994V10.9999H8V7.99994C8 5.79079 9.79086 3.99994 12 3.99994Z"></path></svg>
+        </span>
+        <span id="button-text">Aguardando Liberação</span>
     </a>
 
-    <div class="progress-container" id="progress-container" style="display: none;">
+    <div class="progress-container" id="progress-container">
       <div class="progress-bar" id="progress-bar"></div>
     </div>
+    
+    <p id="status-text" class="status-text"></p>
 
-    <p id="status-text" class="loading-status">Aguardando interação...</p>
-    <p class="adblock-hint" id="adblock-hint">
-      Botão não liberou? Desative seu AdBlock e tente novamente.
-    </p>
   </div>
 
-  <div class="anuncios-container" id="ads-area">
-    <div class="interaction-icon">👆</div>
-    <h3 style="margin-bottom: 5px; font-size: 1.5em; color: #333;">Quase lá!</h3>
-    <p style="color: #555; margin-top: 0; font-weight: bold;">Clique aqui para liberar o acesso</p>
+  <div class="ad-container" id="ads-area">
+    <div class="icon">👇</div>
+    <h3>Quase lá!</h3>
+    <p>Clique aqui para validar o acesso</p>
     
-    <div class="ad-link">
-      <script src="https://fpyf8.com/88/tag.min.js" data-zone="178782" async data-cfasync="false"></script>
+    <div class="ad-slot" style="margin-top: 15px;">
+        <script src="https://fpyf8.com/88/tag.min.js" data-zone="178782" async data-cfasync="false"></script>
     </div>
-    
-    <div class="ad-link">
-      <script type="text/javascript">
-        atOptions = {
-          'key' : '7696c1105ba14352d212bd39c7567e9e',
-          'format' : 'iframe',
-          'height' : 300,
-          'width' : 160,
-          'params' : {}
-        };
-      </script>
-      <script type="text/javascript" src="//victimfatalsentiments.com/7696c1105ba14352d212bd39c7567e9e/invoke.js"></script>
+    <div class="ad-slot">
+        <script type="text/javascript">
+            atOptions = {
+                'key' : '7696c1105ba14352d212bd39c7567e9e',
+                'format' : 'iframe',
+                'height' : 300,
+                'width' : 160,
+                'params' : {}
+            };
+        </script>
+        <script type="text/javascript" src="//victimfatalsentiments.com/7696c1105ba14352d212bd39c7567e9e/invoke.js"></script>
     </div>
   </div>
+
+  <p class="adblock-hint" id="adblock-hint">
+    Problemas para liberar? Desative seu AdBlock e clique na área acima novamente.
+  </p>
 </div>
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-  const destino = new URLSearchParams(window.location.search).get('destino') || 'https://google.com';
-  const linkFinal = document.getElementById('link-final');
+  // --- Seleção de Elementos ---
+  const finalLink = document.getElementById('final-link');
   const buttonText = document.getElementById('button-text');
-  const lockIcon = document.getElementById('lock-icon');
+  const buttonIcon = document.getElementById('button-icon');
   const statusText = document.getElementById('status-text');
   const adsArea = document.getElementById('ads-area');
   const progressContainer = document.getElementById('progress-container');
   const progressBar = document.getElementById('progress-bar');
   const adHint = document.getElementById('adblock-hint');
+  const panelTitle = document.getElementById('panel-title');
+  const panelSubtitle = document.getElementById('panel-subtitle');
 
-  let linkLiberado = false;
-  let hintTimeout;
+  // --- Configurações ---
+  const destinationUrl = new URLSearchParams(window.location.search).get('destino') || 'https://google.com';
+  const unlockDelay = 3000; // 3 segundos
+  
+  // Ícone de check (substitui o cadeado)
+  const unlockedIconSVG = `
+    <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M10.0007 15.1709L19.1931 5.97852L20.6073 7.39273L10.0007 17.9993L3.63672 11.6354L5.05093 10.2212L10.0007 15.1709Z"></path></svg>
+  `;
 
-  function liberarLink() {
-    if (linkLiberado) return;
-    linkLiberado = true;
-    clearTimeout(hintTimeout);
+  // --- Função Principal de Desbloqueio ---
+  const startUnlockingProcess = () => {
+    adsArea.style.display = 'none';
+    adHint.classList.remove('active');
 
-    linkFinal.style.display = 'none';
-    statusText.style.display = 'none';
-    adHint.style.display = 'none';
-    progressContainer.style.display = 'block';
+    panelTitle.textContent = 'Verificando Acesso';
+    panelSubtitle.textContent = 'Por favor, aguarde enquanto validamos sua solicitação.';
     
-    let progress = 0;
-    const intervalo = setInterval(() => {
-      progress += 10;
-      progressBar.style.width = progress + '%';
-      progressBar.textContent = progress + '%';
-      if (progress >= 100) {
-        clearInterval(intervalo);
-        finalizarLiberacao();
-      }
-    }, 300);
-  }
+    statusText.textContent = 'Analisando...';
+    progressContainer.style.display = 'block';
 
-  function finalizarLiberacao() {
-    progressContainer.style.display = 'none';
-    linkFinal.style.display = 'flex';
-    linkFinal.classList.remove('desabilitado');
-    linkFinal.classList.add('liberado');
-    linkFinal.href = destino;
-    buttonText.textContent = 'Acessar Conteúdo';
-    lockIcon.style.display = 'none';
-  }
+    // Inicia a animação da barra de progresso
+    setTimeout(() => {
+      progressBar.style.width = '100%';
+      progressBar.textContent = '100%';
+    }, 100);
 
-  ['click', 'touchstart'].forEach(evt => adsArea.addEventListener(evt, liberarLink));
+    // Finaliza o processo após o tempo definido
+    setTimeout(() => {
+      panelTitle.textContent = 'Acesso Liberado!';
+      panelSubtitle.textContent = 'Clique no botão abaixo para ir ao seu destino.';
+      
+      finalLink.classList.add('unlocked');
+      finalLink.href = destinationUrl;
+      buttonText.textContent = 'Acessar Conteúdo';
+      buttonIcon.innerHTML = unlockedIconSVG;
+      
+      progressContainer.style.display = 'none';
+      statusText.textContent = 'Tudo pronto!';
+    }, unlockDelay);
+  };
 
-  // Caso o usuário não interaja em 10 segundos, mostrar aviso
-  hintTimeout = setTimeout(() => {
-    if (!linkLiberado) adHint.classList.add('active');
+  // --- Event Listeners ---
+  // Ouve o clique na área de anúncios APENAS UMA VEZ
+  adsArea.addEventListener('click', startUnlockingProcess, { once: true });
+
+  // Mostra a dica de AdBlock se o usuário não interagir após 10 segundos
+  setTimeout(() => {
+    // Verifica se a área de anúncios ainda está visível
+    if (window.getComputedStyle(adsArea).display !== 'none') {
+      adHint.classList.add('active');
+    }
   }, 10000);
 });
 </script>
