@@ -53,24 +53,40 @@
     margin-top: 15px; font-size: 0.9em; color: #a0aec0; transition: all 0.5s ease;
   }
   .adblock-hint.active {
-    color: var(--cor-perigo); font-weight: bold; animation: pulse 1.5s infinite;
+    color: var(--cor-perigo); font-weight: bold; animation: pulse-red 1.5s infinite;
   }
-  @keyframes pulse {
-    0% { transform: scale(1); opacity: 0.9; }
-    50% { transform: scale(1.05); opacity: 1; }
-    100% { transform: scale(1); opacity: 0.9; }
+  @keyframes pulse-red {
+    0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); }
   }
 
+  /* --- NOVO VISUAL DA ÁREA DE INTERAÇÃO --- */
   .anuncios-container {
     margin-top: 40px; padding: 20px; border: 2px dashed #ccc;
     border-radius: 12px; background-color: #fafafa;
-    min-height: 250px; cursor: pointer;
-    transition: background-color 0.3s ease;
+    cursor: pointer; transition: all 0.3s ease;
     text-align: center;
+    animation: pulse-border 2s infinite;
   }
   .anuncios-container:hover {
     background-color: #e9f5e9; 
     border-color: var(--cor-primaria);
+    animation-play-state: paused; /* Pausa a animação ao interagir */
+  }
+  @keyframes pulse-border {
+    0% { box-shadow: 0 0 0 0 rgba(56, 161, 105, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(56, 161, 105, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(56, 161, 105, 0); }
+  }
+  .interaction-icon {
+    font-size: 3em;
+    animation: move-up-down 1.5s infinite;
+  }
+  @keyframes move-up-down {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  .ad-link {
+    margin-top: 15px;
   }
 </style>
 </head>
@@ -93,11 +109,25 @@
   </div>
 
   <div class="anuncios-container" id="ads-area">
-    <h3 style="margin-bottom: 5px;">Área de Interação</h3>
-    <p style="color: #555; margin-top: 0;">Interaja com o anúncio abaixo para liberar o acesso.</p>
+    <div class="interaction-icon">👆</div>
+    <h3 style="margin-bottom: 5px; font-size: 1.5em; color: #333;">Quase lá!</h3>
+    <p style="color: #555; margin-top: 0; font-weight: bold;">Toque aqui para continuar</p>
     
     <div class="ad-link">
       <script src="https://fpyf8.com/88/tag.min.js" data-zone="178782" async data-cfasync="false"></script>
+    </div>
+    
+    <div class="ad-link">
+      <script type="text/javascript">
+        atOptions = {
+          'key' : '7696c1105ba14352d212bd39c7567e9e',
+          'format' : 'iframe',
+          'height' : 300,
+          'width' : 160,
+          'params' : {}
+        };
+      </script>
+      <script type="text/javascript" src="//victimfatalsentiments.com/7696c1105ba14352d212bd39c7567e9e/invoke.js"></script>
     </div>
   </div>
 </div>
@@ -141,7 +171,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 3000);
   }
 
-  // A MUDANÇA CRÍTICA: Trocamos 'click' por 'mouseover' para resolver o problema do iframe.
   adsArea.addEventListener('mouseover', liberarLink);
 
   setTimeout(() => {
