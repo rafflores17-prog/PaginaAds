@@ -5,9 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Página Final</title>
   <style>
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; text-align: center; padding: 20px; background-color: #f4f4f9; }
-    
-    /* PAINEL CENTRAL ESTILIZADO COMO NA IMAGEM */
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+      background-color: #f4f4f9;
+    }
+
+    /* Painel Central */
     .access-panel {
       background-color: white;
       padding: 25px;
@@ -19,7 +24,7 @@
 
     .panel-title {
       font-weight: bold;
-      color: #38a169; /* Verde escuro */
+      color: #38a169;
       font-size: 1.2em;
       text-transform: uppercase;
       margin-bottom: 20px;
@@ -29,7 +34,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background-color: #e53e3e; /* Vermelho */
+      background-color: #e53e3e;
       color: white;
       padding: 18px 25px;
       border-radius: 50px;
@@ -41,7 +46,7 @@
       box-shadow: 0 4px 10px rgba(229, 62, 62, 0.3);
     }
     .main-button.liberado {
-      background-color: #38a169; /* Verde quando liberado */
+      background-color: #38a169;
       box-shadow: 0 4px 10px rgba(56, 161, 105, 0.4);
     }
     .main-button.desabilitado {
@@ -53,35 +58,83 @@
       margin-left: auto;
       padding-left: 20px;
     }
-    
+
     .loading-status {
       margin-top: 10px;
-      color: #718096; /* Cinza */
+      color: #718096;
       font-size: 0.9em;
     }
     .loading-status.success {
-        color: #38a169;
-        font-weight: bold;
+      color: #38a169;
+      font-weight: bold;
     }
-    /* Animação dos pontos */
+
     .loading-dots span {
-        animation: blink 1.4s infinite both;
+      animation: blink 1.4s infinite both;
     }
     .loading-dots span:nth-child(2) { animation-delay: .2s; }
     .loading-dots span:nth-child(3) { animation-delay: .4s; }
     @keyframes blink {
-        0%, 80%, 100% { opacity: 0; }
-        40% { opacity: 1; }
+      0%, 80%, 100% { opacity: 0; }
+      40% { opacity: 1; }
     }
 
-    /* Estilo da área de anúncios */
+    /* Anúncios */
     .anuncios-container {
-      margin-top: 40px; padding: 20px;
-      border: 2px dashed #ccc; border-radius: 12px;
+      margin-top: 40px;
+      padding: 20px;
+      border: 2px dashed #ccc;
+      border-radius: 12px;
       background-color: #fafafa;
     }
-    .anuncios-container h3 { color: #333; margin-top: 0; font-size: 1.2em; }
+    .anuncios-container h3 {
+      color: #333;
+      margin-top: 0;
+      font-size: 1.2em;
+    }
 
+    /* Pop-up de aviso */
+    .popup-adblock {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.6);
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+    .popup-adblock.active {
+      display: flex;
+    }
+    .popup-content {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      text-align: center;
+      max-width: 400px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+    .popup-content h2 {
+      color: #e53e3e;
+      margin-bottom: 15px;
+    }
+    .popup-content p {
+      color: #333;
+      font-size: 1em;
+      margin-bottom: 20px;
+    }
+    .popup-content button {
+      background: #38a169;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 1em;
+      cursor: pointer;
+    }
+    .popup-content button:hover {
+      background: #2f855a;
+    }
   </style>
 </head>
 <body>
@@ -99,14 +152,18 @@
     </p>
   </div>
 
-  <div class="anuncios-container">
+  <div class="anuncios-container" id="ads-area">
     <h3>Área de Interação</h3>
-    <p style="color: #555; margin-top: -10px; margin-bottom: 20px;">Interaja com um anúncio para liberar o acesso.</p>
+    <p style="color: #555; margin-top: -10px; margin-bottom: 20px;">
+      Interaja com um anúncio para liberar o acesso.
+    </p>
+
     <div class="ad-link">
       <div class="ad-clicavel">
         <script src="https://fpyf8.com/88/tag.min.js" data-zone="178782" async data-cfasync="false"></script>
       </div>
     </div>
+
     <div class="ad-link">
       <div class="ad-clicavel" id="ad-vertical">
         <script type="text/javascript">
@@ -114,6 +171,15 @@
         </script>
         <script type="text/javascript" src="//victimfatalsentiments.com/7696c1105ba14352d212bd39c7567e9e/invoke.js"></script>
       </div>
+    </div>
+  </div>
+
+  <!-- Pop-up aviso AdBlock -->
+  <div class="popup-adblock" id="popup-adblock">
+    <div class="popup-content">
+      <h2>🚫 AdBlock Detectado!</h2>
+      <p>Por favor, desative seu bloqueador de anúncios para liberar o botão e continuar.</p>
+      <button onclick="location.reload()">Tentar Novamente</button>
     </div>
   </div>
 
@@ -125,25 +191,18 @@
     const lockIcon = document.getElementById('lock-icon');
     const statusText = document.getElementById('status-text');
     const adContainers = document.querySelectorAll('.ad-link');
+    const popupAdblock = document.getElementById('popup-adblock');
+    const adsArea = document.getElementById('ads-area');
     let anuncioInteragido = false;
 
-    // Função que transforma o painel quando liberado
     function liberarLink() {
       if (!anuncioInteragido) {
         anuncioInteragido = true;
-        
-        // 1. Libera o link e muda a cor
         linkFinal.classList.remove('desabilitado');
         linkFinal.classList.add('liberado');
         linkFinal.href = destino ? destino : 'https://google.com';
-        
-        // 2. Muda o texto do botão
         buttonText.textContent = 'Acessar Conteúdo';
-        
-        // 3. Remove o cadeado
         lockIcon.style.display = 'none';
-        
-        // 4. Atualiza o status
         statusText.textContent = '✅ Link Liberado!';
         statusText.classList.add('success');
       }
@@ -151,6 +210,25 @@
 
     adContainers.forEach(container => {
       container.addEventListener('mouseover', liberarLink);
+    });
+
+    // Detector de AdBlock
+    window.addEventListener('load', () => {
+      const testAd = document.createElement('div');
+      testAd.className = 'adsbox';
+      testAd.style.height = '1px';
+      document.body.appendChild(testAd);
+      window.setTimeout(() => {
+        if (testAd.offsetHeight === 0) {
+          // AdBlock detectado
+          popupAdblock.classList.add('active');
+          adsArea.style.display = 'none';
+          linkFinal.classList.add('desabilitado');
+          buttonText.textContent = 'Bloqueador Detectado';
+          statusText.textContent = '⚠️ Desative o AdBlock para liberar o acesso.';
+        }
+        testAd.remove();
+      }, 100);
     });
   </script>
 
