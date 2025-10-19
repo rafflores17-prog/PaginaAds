@@ -3,15 +3,20 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Página Final</title>
+<title>Aguarde a Liberação</title>
 <style>
+  :root {
+    --cor-primaria: #38a169; /* Verde */
+    --cor-perigo: #e53e3e;   /* Vermelho */
+    --cor-fundo: #f0f2f5;
+  }
   body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     text-align: center;
     padding: 20px;
-    background-color: #f4f4f9;
+    background-color: var(--cor-fundo);
+    margin: 0;
   }
-
   .access-panel {
     background-color: white;
     padding: 25px;
@@ -20,20 +25,18 @@
     max-width: 500px;
     margin: 40px auto;
   }
-
   .panel-title {
     font-weight: bold;
-    color: #38a169;
+    color: var(--cor-primaria);
     font-size: 1.2em;
     text-transform: uppercase;
     margin-bottom: 20px;
   }
-
   .main-button {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #e53e3e;
+    background-color: var(--cor-perigo);
     color: white;
     padding: 18px 25px;
     border-radius: 50px;
@@ -41,33 +44,33 @@
     font-weight: bold;
     font-size: 1.1em;
     position: relative;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease;
     box-shadow: 0 4px 10px rgba(229, 62, 62, 0.3);
   }
   .main-button.liberado {
-    background-color: #38a169;
+    background-color: var(--cor-primaria);
     box-shadow: 0 4px 10px rgba(56, 161, 105, 0.4);
+    transform: scale(1.02);
   }
   .main-button.desabilitado {
     cursor: not-allowed;
     pointer-events: none;
+    filter: grayscale(0.5);
   }
   .lock-icon {
     font-size: 1.2em;
     margin-left: auto;
     padding-left: 20px;
   }
-
   .loading-status {
     margin-top: 10px;
     color: #718096;
     font-size: 0.9em;
   }
   .loading-status.success {
-    color: #38a169;
+    color: var(--cor-primaria);
     font-weight: bold;
   }
-
   .loading-dots span {
     animation: blink 1.4s infinite both;
   }
@@ -77,63 +80,69 @@
     0%, 80%, 100% { opacity: 0; }
     40% { opacity: 1; }
   }
-
   .anuncios-container {
-    margin-top: 40px;
-    padding: 20px;
-    border: 2px dashed #ccc;
-    border-radius: 12px;
-    background-color: #fafafa;
+    margin-top: 40px; padding: 20px; border: 2px dashed #ccc;
+    border-radius: 12px; background-color: #fafafa;
   }
   .anuncios-container h3 {
-    color: #333;
-    margin-top: 0;
-    font-size: 1.2em;
+    color: #333; margin-top: 0; font-size: 1.2em;
   }
 
-  /* Pop-up AdBlock */
-  .popup-adblock {
-    display: none;
+  /* --- POP-UP ADBLOCK MELHORADO --- */
+  .popup-overlay {
+    display: none; /* Inicia oculto */
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(0,0,0,0.6);
+    background: rgba(0, 0, 0, 0.85); /* Fundo mais escuro */
+    backdrop-filter: blur(8px); /* Efeito de vidro fosco */
     justify-content: center;
     align-items: center;
     z-index: 9999;
+    padding: 20px;
   }
-  .popup-adblock.active {
+  .popup-overlay.active {
     display: flex;
     animation: fadeIn 0.5s ease forwards;
   }
   @keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.95); }
-    to { opacity: 1; transform: scale(1); }
+    from { opacity: 0; }
+    to { opacity: 1; }
   }
   .popup-content {
     background: white;
-    padding: 30px;
+    padding: 30px 40px;
     border-radius: 12px;
     text-align: center;
-    max-width: 400px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    max-width: 450px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.4);
+    border-top: 5px solid var(--cor-perigo);
+  }
+  .popup-icon {
+    font-size: 4em;
+    color: var(--cor-perigo);
+    animation: attention 1s ease infinite;
+  }
+  @keyframes attention {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
   }
   .popup-content h2 {
-    color: #e53e3e;
-    margin-bottom: 15px;
+    color: #1a202c;
+    font-size: 1.8em;
+    margin: 15px 0;
   }
   .popup-content p {
-    color: #333;
-    font-size: 1em;
-    margin-bottom: 20px;
+    color: #4a5568;
+    font-size: 1.1em;
+    margin-bottom: 25px;
+    line-height: 1.6;
   }
   .popup-content button {
-    background: #38a169;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 8px;
-    font-size: 1em;
-    cursor: pointer;
+    background: var(--cor-primaria);
+    color: white; border: none; padding: 12px 25px;
+    border-radius: 8px; font-size: 1.1em; cursor: pointer;
+    font-weight: bold;
+    transition: background 0.2s;
   }
   .popup-content button:hover {
     background: #2f855a;
@@ -149,86 +158,92 @@
     <span id="lock-icon" class="lock-icon">🔒</span>
   </a>
   <p id="status-text" class="loading-status">
-    Carregando <span class="loading-dots"><span>.</span><span>.</span><span>.</span></span>
+    Aguardando interação <span class="loading-dots"><span>.</span><span>.</span><span>.</span></span>
   </p>
 </div>
 
 <div class="anuncios-container" id="ads-area">
   <h3>Área de Interação</h3>
-  <p style="color: #555; margin-top: -10px; margin-bottom: 20px;">Interaja com um anúncio para liberar o acesso.</p>
+  <p style="color: #555; margin-top: -10px; margin-bottom: 20px;">Clique em um anúncio para liberar o acesso.</p>
   
   <div class="ad-link">
-    <div class="ad-clicavel">
       <script src="https://fpyf8.com/88/tag.min.js" data-zone="178782" async data-cfasync="false"></script>
-    </div>
   </div>
 
   <div class="ad-link">
-    <div class="ad-clicavel" id="ad-vertical">
       <script type="text/javascript">
         atOptions = { 'key' : '7696c1105ba14352d212bd39c7567e9e', 'format' : 'iframe', 'height' : 300, 'width' : 160, 'params' : {} };
       </script>
       <script type="text/javascript" src="//victimfatalsentiments.com/7696c1105ba14352d212bd39c7567e9e/invoke.js"></script>
-    </div>
   </div>
 </div>
 
-<div class="popup-adblock" id="popup-adblock">
+<div class="popup-overlay" id="popup-adblock">
   <div class="popup-content">
-    <h2>🚫 AdBlock Detectado!</h2>
-    <p>Por favor, desative o bloqueador de anúncios para liberar o botão de acesso.</p>
-    <button onclick="location.reload()">Tentar Novamente</button>
+    <div class="popup-icon">⚠️</div>
+    <h2>AdBlock Detectado!</h2>
+    <p>
+      Para continuar, <strong>desative seu bloqueador de anúncios</strong> e atualize a página. 
+      Nosso site depende da publicidade para se manter online.
+    </p>
+    <button onclick="location.reload()">Já desativei, quero tentar novamente!</button>
   </div>
 </div>
+
 
 <script>
-const destino = new URLSearchParams(window.location.search).get('destino');
-const linkFinal = document.getElementById('link-final');
-const buttonText = document.getElementById('button-text');
-const lockIcon = document.getElementById('lock-icon');
-const statusText = document.getElementById('status-text');
-const popupAdblock = document.getElementById('popup-adblock');
-const adsArea = document.getElementById('ads-area');
-let anuncioInteragido = false;
-let adBlockDetectado = false;
+  // Variável para o arquivo isca
+  window.anunciosCarregados = false;
+</script>
+<script src="ads.js" async></script> <script>
+document.addEventListener('DOMContentLoaded', () => {
+  const destino = new URLSearchParams(window.location.search).get('destino') || 'https://google.com';
+  const linkFinal = document.getElementById('link-final');
+  const buttonText = document.getElementById('button-text');
+  const lockIcon = document.getElementById('lock-icon');
+  const statusText = document.getElementById('status-text');
+  const popupAdblock = document.getElementById('popup-adblock');
+  const adsArea = document.getElementById('ads-area');
+  let anuncioInteragido = false;
 
-function liberarLink() {
-  if (!anuncioInteragido && !adBlockDetectado) {
+  // Função para liberar o link
+  function liberarLink() {
+    if (anuncioInteragido) return; // Já foi liberado, não faz nada
     anuncioInteragido = true;
+    
     linkFinal.classList.remove('desabilitado');
     linkFinal.classList.add('liberado');
-    linkFinal.href = destino ? destino : 'https://google.com';
+    linkFinal.href = destino;
     buttonText.textContent = 'Acessar Conteúdo';
     lockIcon.style.display = 'none';
     statusText.textContent = '✅ Link Liberado!';
     statusText.classList.add('success');
   }
-}
 
-// Interação
-document.querySelectorAll('.ad-link').forEach(container => {
-  container.addEventListener('mouseover', liberarLink);
-});
+  // Função para verificar AdBlock
+  function verificarAdBlock() {
+    // Atraso de 500ms para dar chance do ads.js carregar
+    setTimeout(() => {
+      if (window.anunciosCarregados === false) {
+        console.error("AdBlock Detectado!");
+        // Mostra o pop-up agressivo
+        popupAdblock.classList.add('active');
+        // Trava tudo na página
+        document.body.style.overflow = 'hidden';
+      } else {
+        console.log("AdBlock não detectado. Anúncios devem carregar.");
+      }
+    }, 500);
+  }
 
-// Detector reforçado
-window.addEventListener('load', () => {
-  const testAd = document.createElement('div');
-  testAd.className = 'adsbox';
-  testAd.style.height = '1px';
-  document.body.appendChild(testAd);
+  // --- LÓGICA PRINCIPAL ---
+  
+  // 1. Verifica se tem AdBlock assim que a página carrega
+  verificarAdBlock();
 
-  setTimeout(() => {
-    // Se elemento foi bloqueado
-    if (testAd.offsetHeight === 0 || !document.querySelector('iframe[src*="victimfatalsentiments"], script[src*="fpyf8"]')) {
-      adBlockDetectado = true;
-      popupAdblock.classList.add('active');
-      adsArea.style.display = 'none';
-      linkFinal.classList.add('desabilitado');
-      buttonText.textContent = 'Bloqueador Detectado';
-      statusText.textContent = '⚠️ Desative o AdBlock para continuar.';
-    }
-    testAd.remove();
-  }, 2500); // Espera até 2.5s pra verificar se carregou anúncios
+  // 2. Adiciona o listener de clique nos anúncios para liberar o botão
+  // Usar 'click' é um pouco mais confiável que 'mouseover'
+  adsArea.addEventListener('click', liberarLink);
 });
 </script>
 
