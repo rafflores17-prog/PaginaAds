@@ -39,17 +39,6 @@
       color: var(--color-text);
     }
     
-    /* --- NOVO: Estilo para o Elemento-Isca --- */
-    /* Este é o elemento que o AdBlocker vai tentar esconder */
-    .adsbox {
-        height: 1px !important;
-        width: 1px !important;
-        position: absolute !important;
-        left: -9999px !important;
-        top: -9999px !important;
-        visibility: hidden !important;
-    }
-
     .container {
         max-width: 500px;
         width: 100%;
@@ -264,8 +253,6 @@
 </head>
 <body>
 
-<div class="adsbox" id="ad-bait-element"></div>
-
 <div class="adblock-modal-overlay" id="adblock-modal">
     <div class="adblock-modal-content">
         <div class="icon">
@@ -325,25 +312,29 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-    // --- NOVA VERIFICAÇÃO DE ADBLOCK (MAIS ROBUSTA) ---
-    const adBait = document.getElementById('ad-bait-element');
-    // Damos um pequeno tempo para o navegador e as extensões agirem
+    // --- VERIFICAÇÃO DE ADBLOCK USANDO O CONTAINER REAL DE ANÚNCIOS ---
+    // Selecionamos o próprio container que deveria exibir os anúncios.
+    const adsAreaCheck = document.getElementById('ads-area');
+    
+    // Damos um tempo para o navegador e as extensões agirem.
     setTimeout(() => {
-        // Se a altura do elemento-isca for 0, o AdBlocker o escondeu.
-        if (adBait.offsetHeight === 0) {
-            console.log("AdBlocker DETECTADO!");
+        // Se a altura do container for muito pequena (ou zero), o AdBlocker o escondeu.
+        // Usamos < 10 para segurança, caso ele fique com 1px de altura.
+        if (adsAreaCheck.offsetHeight < 10) {
+            console.log("AdBlocker DETECTADO! A área de anúncios foi escondida.");
             document.getElementById('adblock-modal').style.display = 'flex';
         } else {
-            console.log("AdBlocker não detectado.");
+            console.log("AdBlocker não detectado. A área de anúncios está visível.");
         }
-    }, 300);
+    }, 500); // Aumentei o tempo para 500ms para dar mais segurança na detecção
 
   // --- O RESTO DO SEU CÓDIGO ORIGINAL (SEM ALTERAÇÕES) ---
   const finalLink = document.getElementById('final-link');
   const buttonText = document.getElementById('button-text');
   const buttonIcon = document.getElementById('button-icon');
   const statusText = document.getElementById('status-text');
-  const adsArea = document.getElementById('ads-area');
+  // A variável adsAreaCheck já foi declarada acima, então podemos reutilizá-la
+  // const adsArea = document.getElementById('ads-area');
   const progressContainer = document.getElementById('progress-container');
   const progressBar = document.getElementById('progress-bar');
   const panelTitle = document.getElementById('panel-title');
@@ -357,7 +348,7 @@ document.addEventListener('DOMContentLoaded', () => {
   `;
 
   const startUnlockingProcess = () => {
-    adsArea.style.display = 'none';
+    adsAreaCheck.style.display = 'none';
     panelTitle.textContent = 'Verificando Acesso';
     panelSubtitle.textContent = 'Por favor, aguarde enquanto validamos sua solicitação.';
     statusText.textContent = 'Analisando...';
@@ -391,7 +382,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }, unlockDelay);
   };
 
-  adsArea.addEventListener('click', startUnlockingProcess, { once: true });
+  adsAreaCheck.addEventListener('click', startUnlockingProcess, { once: true });
 });
 </script>
 
