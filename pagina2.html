@@ -20,7 +20,7 @@
   </div>
   <script>
     const params = new URLSearchParams(window.location.search);
-    const destino = params.get('destino');
+    const destino = params.get('destino') || 'https://www.vidiofy.com.br';
     let tempoRestante = 12;
     const contadorElemento = document.getElementById('contador');
     const botaoProsseguir = document.getElementById('botao-prosseguir');
@@ -39,8 +39,8 @@
         botaoProsseguir.classList.remove('desabilitado');
         botaoProsseguir.scrollIntoView({ behavior: 'smooth', block: 'center' });
         botaoProsseguir.onclick = () => {
-          // Pega o link normal e CODIFICA de novo para passar para a página 3
-          const encodedDestino = btoa(destino || 'https://www.vidiofy.com.br');
+          // Para os NOVOS links, vamos continuar passando o segredo em Base64
+          const encodedDestino = btoa(destino);
           window.location.href = 'pagina3.html?destino=' + encodeURIComponent(encodedDestino);
         };
       }
