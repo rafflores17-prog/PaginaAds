@@ -1,380 +1,90 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Aguarde a Liberação do Acesso</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-  
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Aguarde a Liberação do Acesso</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --color-primary: #2d8a5b;
-      --color-primary-light: #e9f5e9;
-      --color-danger: #e53e3e;
-      --color-background: #f0f2f5;
-      --color-text: #333333;
-      --color-text-light: #6c757d;
-      --color-disabled: #a0aec0;
-      --color-white: #ffffff;
-      --shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-      --border-radius: 12px;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      text-align: center;
-      padding: 20px;
-      background-color: var(--color-background);
-      margin: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      color: var(--color-text);
-    }
-    
-    .container {
-        max-width: 500px;
-        width: 100%;
-        animation: fadeIn 0.8s ease-out;
-    }
-
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-
-    .access-panel {
-      background-color: var(--color-white);
-      padding: 30px 35px;
-      border-radius: var(--border-radius);
-      box-shadow: var(--shadow);
-      margin-bottom: 30px;
-    }
-
-    .panel-title {
-      font-weight: 700;
-      color: var(--color-text);
-      font-size: 1.5em;
-      margin: 0 0 10px 0;
-    }
-    
-    .panel-subtitle {
-        color: var(--color-text-light);
-        font-size: 1em;
-        margin: 0 0 25px 0;
-    }
-
-    .main-button {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      background-color: var(--color-disabled);
-      color: var(--color-white);
-      padding: 16px 25px;
-      border-radius: 50px;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 1.1em;
-      transition: background-color 0.3s ease, transform 0.2s ease;
-      cursor: not-allowed;
-      border: none;
-    }
-
-    .main-button.unlocked {
-      background-color: var(--color-primary);
-      cursor: pointer;
-      pointer-events: all;
-    }
-
-    .main-button.unlocked:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 4px 15px rgba(45, 138, 91, 0.3);
-    }
-
-    .main-button .icon {
-        width: 22px;
-        height: 22px;
-    }
-
-    .progress-container {
-      margin-top: 15px;
-      background-color: #e9ecef;
-      border-radius: 50px;
-      padding: 4px;
-      display: none; /* Inicia oculto */
-    }
-
-    .progress-bar {
-      width: 0%;
-      height: 20px;
-      background: linear-gradient(90deg, #38a169, #2d8a5b);
-      border-radius: 50px;
-      transition: width 3s linear;
-      text-align: center;
-      line-height: 20px;
-      color: var(--color-white);
-      font-weight: 600;
-      font-size: 0.8em;
-    }
-    
-    .status-text {
-        margin-top: 15px;
-        color: var(--color-text-light);
-        font-size: 0.9em;
-        min-height: 1.2em; /* Evita que o layout "pule" */
-    }
-    
-    .ad-container {
-      padding: 25px;
-      border: 2px dashed var(--color-disabled);
-      border-radius: var(--border-radius);
-      background-color: #fafafa;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      animation: pulse-border 2s infinite;
-      text-align: center;
-    }
-
-    .ad-container:hover {
-      background-color: var(--color-primary-light);
-      border-color: var(--color-primary);
-      animation-play-state: paused;
-    }
-
-    @keyframes pulse-border {
-      0% { box-shadow: 0 0 0 0 rgba(45, 138, 91, 0.4); }
-      70% { box-shadow: 0 0 0 12px rgba(45, 138, 91, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(45, 138, 91, 0); }
-    }
-    
-    .ad-container .icon {
-        font-size: 2.5em;
-        animation: move-up-down 1.5s infinite ease-in-out;
-    }
-    
-    @keyframes move-up-down {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
-
-    .ad-container h3 {
-        margin: 10px 0 5px 0;
-        font-size: 1.3em;
-    }
-
-    .ad-container p {
-        margin: 0;
-        color: var(--color-text-light);
-        font-weight: 600;
-    }
-
-    /* --- ESTILOS DO MODAL DE ADBLOCK (sem alterações) --- */
-    .adblock-modal-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.75);
-        display: none; /* Começa oculto */
-        justify-content: center;
-        align-items: center;
-        z-index: 9999;
-        padding: 15px;
-        backdrop-filter: blur(5px);
-    }
-    
-    .adblock-modal-content {
-        background-color: var(--color-white);
-        padding: 30px;
-        border-radius: var(--border-radius);
-        max-width: 400px;
-        width: 100%;
-        text-align: center;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        animation: fadeIn 0.5s ease-out;
-    }
-    
-    .adblock-modal-content .icon {
-        width: 80px;
-        height: 80px;
-        margin: 0 auto 15px auto;
-        background-color: #fbecec;
-        border: 4px solid var(--color-danger);
-        border-radius: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: var(--color-danger);
-    }
-    
-    .adblock-modal-content .icon svg {
-        width: 40px;
-        height: 40px;
-    }
-
-    .adblock-modal-content h2 {
-        font-size: 1.8em;
-        color: var(--color-text);
-        margin: 0 0 10px 0;
-    }
-    
-    .adblock-modal-content p {
-        color: var(--color-text-light);
-        font-size: 1.05em;
-        line-height: 1.6;
-        margin-bottom: 25px;
-    }
-    
-    .adblock-refresh-button {
-        display: inline-block;
-        background-color: var(--color-primary);
-        color: var(--color-white);
-        padding: 12px 30px;
-        border-radius: 50px;
-        font-weight: 600;
-        text-decoration: none;
-        cursor: pointer;
-        transition: background-color 0.2s;
-    }
-    
-    .adblock-refresh-button:hover {
-        background-color: #256d49;
-    }
+    /* O CSS da página 3 continua o mesmo */
+    :root{--color-primary:#2d8a5b;--color-primary-light:#e9f5e9;--color-danger:#e53e3e;--color-background:#f0f2f5;--color-text:#333;--color-text-light:#6c757d;--color-disabled:#a0aec0;--color-white:#fff;--shadow:0 10px 25px rgba(0,0,0,.08);--border-radius:12px}*{box-sizing:border-box}body{font-family:'Poppins',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;text-align:center;padding:20px;background-color:var(--color-background);margin:0;display:flex;justify-content:center;align-items:center;min-height:100vh;color:var(--color-text)}.container{max-width:500px;width:100%;animation:fadeIn .8s ease-out}@keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}.access-panel{background-color:var(--color-white);padding:30px 35px;border-radius:var(--border-radius);box-shadow:var(--shadow);margin-bottom:30px}.panel-title{font-weight:700;color:var(--color-text);font-size:1.5em;margin:0 0 10px}.panel-subtitle{color:var(--color-text-light);font-size:1em;margin:0 0 25px}.main-button{display:flex;align-items:center;justify-content:center;gap:10px;background-color:var(--color-disabled);color:var(--color-white);padding:16px 25px;border-radius:50px;text-decoration:none;font-weight:600;font-size:1.1em;transition:background-color .3s ease,transform .2s ease;cursor:not-allowed;border:none}.main-button.unlocked{background-color:var(--color-primary);cursor:pointer;pointer-events:all}.main-button.unlocked:hover{transform:translateY(-3px);box-shadow:0 4px 15px rgba(45,138,91,.3)}.main-button .icon{width:22px;height:22px}.progress-container{margin-top:15px;background-color:#e9ecef;border-radius:50px;padding:4px;display:none}.progress-bar{width:0;height:20px;background:linear-gradient(90deg,#38a169,#2d8a5b);border-radius:50px;transition:width 3s linear;text-align:center;line-height:20px;color:var(--color-white);font-weight:600;font-size:.8em}.status-text{margin-top:15px;color:var(--color-text-light);font-size:.9em;min-height:1.2em}.ad-container{padding:25px;border:2px dashed var(--color-disabled);border-radius:var(--border-radius);background-color:#fafafa;cursor:pointer;transition:all .3s ease;animation:pulse-border 2s infinite;text-align:center}.ad-container:hover{background-color:var(--color-primary-light);border-color:var(--color-primary);animation-play-state:paused}@keyframes pulse-border{0%{box-shadow:0 0 0 0 rgba(45,138,91,.4)}70%{box-shadow:0 0 0 12px rgba(45,138,91,0)}100%{box-shadow:0 0 0 0 rgba(45,138,91,0)}}.ad-container .icon{font-size:2.5em;animation:move-up-down 1.5s infinite ease-in-out}@keyframes move-up-down{0%,to{transform:translateY(0)}50%{transform:translateY(-10px)}}.ad-container h3{margin:10px 0 5px;font-size:1.3em}.ad-container p{margin:0;color:var(--color-text-light);font-weight:600}.adblock-modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,.75);display:none;justify-content:center;align-items:center;z-index:9999;padding:15px;backdrop-filter:blur(5px)}.adblock-modal-content{background-color:var(--color-white);padding:30px;border-radius:var(--border-radius);max-width:400px;width:100%;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.2);animation:fadeIn .5s ease-out}.adblock-modal-content .icon{width:80px;height:80px;margin:0 auto 15px;background-color:#fbecec;border:4px solid var(--color-danger);border-radius:50%;display:flex;justify-content:center;align-items:center;color:var(--color-danger)}.adblock-modal-content .icon svg{width:40px;height:40px}.adblock-modal-content h2{font-size:1.8em;color:var(--color-text);margin:0 0 10px}.adblock-modal-content p{color:var(--color-text-light);font-size:1.05em;line-height:1.6;margin-bottom:25px}.adblock-refresh-button{display:inline-block;background-color:var(--color-primary);color:var(--color-white);padding:12px 30px;border-radius:50px;font-weight:600;text-decoration:none;cursor:pointer;transition:background-color .2s}.adblock-refresh-button:hover{background-color:#256d49}
   </style>
 </head>
 <body>
-
 <div class="adblock-modal-overlay" id="adblock-modal">
     <div class="adblock-modal-content">
-        <div class="icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M15.936 2.5L21.5 8.064V15.936L15.936 21.5H8.064L2.5 15.936V8.064L8.064 2.5H15.936ZM15 17H9V19H15V17ZM15 5H9V15H15V5Z"></path></svg>
-        </div>
-        <h2>AdBlocker Detectado!</h2>
-        <p>
-            Detectamos que você está usando uma extensão para bloquear anúncios. 
-            Por favor, desative seu AdBlocker e atualize a página para continuar.
-        </p>
+        <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M15.936 2.5L21.5 8.064V15.936L15.936 21.5H8.064L2.5 15.936V8.064L8.064 2.5H15.936ZM15 17H9V19H15V17ZM15 5H9V15H15V5Z"></path></svg></div>
+        <h2>AdBlocker Detectado!</h2><p>Detectamos que você está usando uma extensão para bloquear anúncios. Por favor, desative seu AdBlocker e atualize a página para continuar.</p>
         <a class="adblock-refresh-button" onclick="location.reload()">Atualizar Página</a>
     </div>
 </div>
-
 <div class="container">
   <div class="access-panel">
-    <h2 id="panel-title" class="panel-title">Acesso Restrito</h2>
-    <p id="panel-subtitle" class="panel-subtitle">Siga o passo abaixo para continuar</p>
-    
+    <h2 id="panel-title" class="panel-title">Acesso Restrito</h2><p id="panel-subtitle" class="panel-subtitle">Siga o passo abaixo para continuar</p>
     <a id="final-link" href="#" class="main-button">
-        <span id="button-icon">
-            <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1.99994C8.68629 1.99994 6 4.68623 6 7.99994V10.9999H5C4.44772 10.9999 4 11.4477 4 11.9999V20.9999C4 21.5522 4.44772 21.9999 5 21.9999H19C19.5523 21.9999 20 21.5522 20 20.9999V11.9999C20 11.4477 19.5523 10.9999 19 10.9999H18V7.99994C18 4.68623 15.3137 1.99994 12 1.99994ZM12 3.99994C14.2091 3.99994 16 5.79079 16 7.99994V10.9999H8V7.99994C8 5.79079 9.79086 3.99994 12 3.99994Z"></path></svg>
-        </span>
+        <span id="button-icon"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1.99994C8.68629 1.99994 6 4.68623 6 7.99994V10.9999H5C4.44772 10.9999 4 11.4477 4 11.9999V20.9999C4 21.5522 4.44772 21.9999 5 21.9999H19C19.5523 21.9999 20 21.5522 20 20.9999V11.9999C20 11.4477 19.5523 10.9999 19 10.9999H18V7.99994C18 4.68623 15.3137 1.99994 12 1.99994ZM12 3.99994C14.2091 3.99994 16 5.79079 16 7.99994V10.9999H8V7.99994C8 5.79079 9.79086 3.99994 12 3.99994Z"></path></svg></span>
         <span id="button-text">Aguardando Liberação</span>
     </a>
-
-    <div class="progress-container" id="progress-container">
-      <div class="progress-bar" id="progress-bar"></div>
-    </div>
-    
+    <div class="progress-container" id="progress-container"><div class="progress-bar" id="progress-bar"></div></div>
     <p id="status-text" class="status-text"></p>
-
   </div>
-
   <div class="ad-container" id="ads-area">
-    <div class="icon">👇</div>
-    <h3>Quase lá!</h3>
-    <p>Clique aqui para validar o acesso</p>
-    
-    <div class="ad-slot" style="margin-top: 15px;">
-        <script src="https://fpyf8.com/88/tag.min.js" data-zone="178782" async data-cfasync="false"></script>
-    </div>
-    <div class="ad-slot">
-        <script type="text/javascript">
-            atOptions = {
-                'key' : '7696c1105ba14352d212bd39c7567e9e',
-                'format' : 'iframe',
-                'height' : 300,
-                'width' : 160,
-                'params' : {}
-            };
-        </script>
-        <script type="text/javascript" src="//victimfatalsentiments.com/7696c1105ba14352d212bd39c7567e9e/invoke.js"></script>
-    </div>
+    <div class="icon">👇</div><h3>Quase lá!</h3><p>Clique aqui para validar o acesso</p>
+    <div class="ad-slot" style="margin-top: 15px;"><script src="https://fpyf8.com/88/tag.min.js" data-zone="178782" async data-cfasync="false"></script></div>
+    <div class="ad-slot"><script type="text/javascript">atOptions={'key':'7696c1105ba14352d212bd39c7567e9e','format':'iframe','height':300,'width':160,'params':{}};</script><script type="text/javascript" src="//victimfatalsentiments.com/7696c1105ba14352d212bd39c7567e9e/invoke.js"></script></div>
   </div>
 </div>
-
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-    // --- VERIFICAÇÃO DE ADBLOCK USANDO O CONTAINER REAL DE ANÚNCIOS ---
-    // Selecionamos o próprio container que deveria exibir os anúncios.
     const adsAreaCheck = document.getElementById('ads-area');
-    
-    // Damos um tempo para o navegador e as extensões agirem.
     setTimeout(() => {
-        // Se a altura do container for muito pequena (ou zero), o AdBlocker o escondeu.
-        // Usamos < 10 para segurança, caso ele fique com 1px de altura.
-        if (adsAreaCheck.offsetHeight < 10) {
-            console.log("AdBlocker DETECTADO! A área de anúncios foi escondida.");
-            document.getElementById('adblock-modal').style.display = 'flex';
-        } else {
-            console.log("AdBlocker não detectado. A área de anúncios está visível.");
-        }
-    }, 500); // Aumentei o tempo para 500ms para dar mais segurança na detecção
+        if (adsAreaCheck.offsetHeight < 10) { document.getElementById('adblock-modal').style.display = 'flex'; }
+    }, 500);
 
-  // --- O RESTO DO SEU CÓDIGO ORIGINAL (SEM ALTERAÇÕES) ---
   const finalLink = document.getElementById('final-link');
   const buttonText = document.getElementById('button-text');
   const buttonIcon = document.getElementById('button-icon');
   const statusText = document.getElementById('status-text');
-  // A variável adsAreaCheck já foi declarada acima, então podemos reutilizá-la
-  // const adsArea = document.getElementById('ads-area');
   const progressContainer = document.getElementById('progress-container');
   const progressBar = document.getElementById('progress-bar');
   const panelTitle = document.getElementById('panel-title');
   const panelSubtitle = document.getElementById('panel-subtitle');
 
-  const destinationUrl = new URLSearchParams(window.location.search).get('destino') || 'https://google.com';
+  // --- MUDANÇA ESSENCIAL AQUI ---
+  const params = new URLSearchParams(window.location.search);
+  const encodedDestino = params.get('destino');
+  let destinationUrl = 'https://www.vidiofy.com.br'; // Destino padrão
+  if(encodedDestino) {
+      try {
+          destinationUrl = atob(encodedDestino); // Decodifica o link secreto
+      } catch(e) { console.error("Erro ao decodificar:", e); }
+  }
+  // --- FIM DA MUDANÇA ---
+  
   const unlockDelay = 3000;
 
-  const unlockedIconSVG = `
-    <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M10.0007 15.1709L19.1931 5.97852L20.6073 7.39273L10.0007 17.9993L3.63672 11.6354L5.05093 10.2212L10.0007 15.1709Z"></path></svg>
-  `;
+  const unlockedIconSVG = `<svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M10.0007 15.1709L19.1931 5.97852L20.6073 7.39273L10.0007 17.9993L3.63672 11.6354L5.05093 10.2212L10.0007 15.1709Z"></path></svg>`;
 
   const startUnlockingProcess = () => {
     adsAreaCheck.style.display = 'none';
     panelTitle.textContent = 'Verificando Acesso';
-    panelSubtitle.textContent = 'Por favor, aguarde enquanto validamos sua solicitação.';
+    panelSubtitle.textContent = 'Aguarde enquanto validamos sua solicitação.';
     statusText.textContent = 'Analisando...';
     progressBar.textContent = '0%';
     progressContainer.style.display = 'block';
-
-    setTimeout(() => {
-      progressBar.style.width = '100%';
-    }, 100);
-
+    setTimeout(() => { progressBar.style.width = '100%'; }, 100);
+    
     let progress = 0;
     const interval = setInterval(() => {
       progress++;
-      if (progress <= 100) {
-        progressBar.textContent = progress + '%';
-      } else {
-        clearInterval(interval);
-      }
+      if (progress <= 100) { progressBar.textContent = progress + '%'; }
+      else { clearInterval(interval); }
     }, unlockDelay / 100);
 
     setTimeout(() => {
       clearInterval(interval);
       panelTitle.textContent = 'Acesso Liberado!';
-      panelSubtitle.textContent = 'Clique no botão abaixo para ir ao seu destino.';
+      panelSubtitle.textContent = 'Clique para ir ao seu destino.';
       finalLink.classList.add('unlocked');
-      finalLink.href = destinationUrl;
+      finalLink.href = destinationUrl; // A mágica acontece aqui!
       buttonText.textContent = 'Acessar Conteúdo';
       buttonIcon.innerHTML = unlockedIconSVG;
       progressContainer.style.display = 'none';
@@ -385,6 +95,5 @@ document.addEventListener('DOMContentLoaded', () => {
   adsAreaCheck.addEventListener('click', startUnlockingProcess, { once: true });
 });
 </script>
-
 </body>
 </html>
