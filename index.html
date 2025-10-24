@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Página 1</title>
   <style>
+    /* Seu CSS continua o mesmo */
     body {
       font-family: sans-serif;
       text-align: center;
@@ -18,18 +19,12 @@
       max-width: 728px;
     }
     #aviso-contador {
-      background-color: rgba(0, 0, 0, 0.85);
-      color: white;
-      padding: 12px;
-      border-radius: 0 0 12px 12px;
+      background-color: rgba(0, 0, 0, 0.85); color: white;
+      padding: 12px; border-radius: 0 0 12px 12px;
       box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 9999;
-      width: 90%;
-      max-width: 400px;
-      margin: 0 auto;
-      font-size: 1.2em;
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 9999; width: 90%; max-width: 400px;
+      margin: 0 auto; font-size: 1.2em;
     }
     #contador { font-size: 1.5em; font-weight: bold; color: #ffc107; }
     .botao-azul {
@@ -48,28 +43,8 @@
       color: #28a745; font-weight: bold;
       margin-top: 10px; display: none;
     }
-    #rodape-final {
-      margin-top: 50vh;
-    }
-    .amazon-banner {
-        display: flex; flex-direction: column; width: 300px;
-        border: 1px solid #ddd; border-radius: 12px;
-        overflow: hidden; text-decoration: none; color: #111;
-        background-color: #ffffff; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        transition: transform 0.3s ease;
-    }
-    .amazon-banner:hover { transform: translateY(-5px); }
-    .amazon-banner-image img { width: 100%; height: auto; display: block; border-bottom: 1px solid #ddd; }
-    .amazon-banner-details { padding: 1rem; text-align: center; }
-    .amazon-product-title {
-        font-size: 0.9rem; font-weight: 500; margin-bottom: 1rem;
-        display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;  
-        overflow: hidden; min-height: 40px;
-    }
-    .amazon-buy-button {
-        display: inline-block; background-color: #FF9900; color: #111;
-        font-weight: 600; padding: 10px 20px; border-radius: 8px; font-size: 1rem;
-    }
+    #rodape-final { margin-top: 50vh; }
+    /* ... (resto do seu CSS) ... */
   </style>
 </head>
 <body>
@@ -79,29 +54,9 @@
   <h1>Anúncio Principal</h1>
 
   <div class="ad-placeholder">
-    <a href="https://amzn.to/47EpLPs" target="_blank" rel="sponsored" class="amazon-banner">
-        <div class="amazon-banner-image">
-            <img src="https://m.media-amazon.com/images/I/61K7fAOac9L._AC_UF1000,1000_QL80_.jpg" alt="Fire TV Stick na Amazon">
-        </div>
-        <div class="amazon-banner-details">
-            <p class="amazon-product-title">Fire TV Stick | Streaming em Full HD com Alexa</p>
-            <span class="amazon-buy-button">Ver Oferta na Amazon</span>
-        </div>
-    </a>
-  </div>
-
-  <div class="ad-placeholder">
     <script async="async" data-cfasync="false" src="//victimfatalsentiments.com/694579ced308045c2c6c156cc2dceaba/invoke.js"></script>
     <div id="container-694579ced308045c2c6c156cc2dceaba"></div>
   </div>
-
-  <div class="ad-placeholder">
-    <script type="text/javascript">
-      atOptions = { 'key' : '2f2aa93bee1aa52954a8f17f3434c3db', 'format' : 'iframe', 'height' : 50, 'width' : 320, 'params' : {} };
-    </script>
-    <script type="text/javascript" src="//victimfatalsentiments.com/2f2aa93bee1aa52954a8f17f3434c3db/invoke.js"></script>
-  </div>
-  
   <div id="rodape-final">
     <div id="status-pg1" class="status-liberado">✅ Etapa Desbloqueada!</div>
     <button id="botao-prosseguir" class="botao-azul desabilitado" disabled>Carregando...</button>
@@ -109,9 +64,11 @@
 
   <script>
     const params = new URLSearchParams(window.location.search);
-    const destino = params.get('destino');
-    const smartLink = 'https://victimfatalsentiments.com/fxgzhb5e?key=3823c25827101f6ca9e1188db300506f'; // SEU SMART LINK AQUI
-    
+    // --- MUDANÇA PRINCIPAL AQUI ---
+    const encodedDestino = params.get('destino');
+    const destino = atob(encodedDestino); // atob() decodifica o link secreto
+    // --- FIM DA MUDANÇA ---
+
     let tempoRestante = 12;
     const contadorElemento = document.getElementById('contador');
     const botaoProsseguir = document.getElementById('botao-prosseguir');
@@ -119,7 +76,7 @@
     const statusPg1 = document.getElementById('status-pg1');
 
     const nomesBotoes = ["Próxima Etapa", "Avançar", "Continuar"];
-    botaoProsseguir.textContent = nomesBotoes[Math.floor(Math.random() * nomesBotoes.length)]; // Deixa o nome do botão aleatório
+    botaoProsseguir.textContent = nomesBotoes[0];
 
     const intervalo = setInterval(() => {
       tempoRestante--;
@@ -133,12 +90,8 @@
         
         botaoProsseguir.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
-        // AQUI ESTÁ A MUDANÇA PRINCIPAL
         botaoProsseguir.onclick = () => {
-          // Abre o Smart Link em uma nova aba
-          window.open(smartLink, '_blank');
-          
-          // Leva o usuário para a pagina2 na aba atual
+          // A URL para a próxima página agora é construída com o link já decodificado
           window.location.href = 'pagina2.html?destino=' + encodeURIComponent(destino);
         };
       }
