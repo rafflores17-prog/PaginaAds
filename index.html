@@ -27,16 +27,23 @@
   </div>
   <script>
     const params = new URLSearchParams(window.location.search);
-    const encodedDestino = params.get('destino');
-    let destino = 'https://www.vidiofy.com.br'; // Um destino padrão seguro
+    const destinoParam = params.get('destino');
+    let destino = 'https://www.vidiofy.com.br'; // Destino padrão seguro
 
-    // SÓ TENTA DECODIFICAR SE O PARÂMETRO EXISTIR
-    if (encodedDestino) {
+    if (destinoParam) {
       try {
-        destino = atob(encodedDestino);
+        // Tenta decodificar. Se funcionar, é um link NOVO (Base64)
+        const decoded = atob(destinoParam);
+        // Checagem extra: o resultado parece uma URL?
+        if (decoded.startsWith('http')) {
+            destino = decoded;
+        } else {
+            // Se decodificou mas não parece um link, assume que era um link ANTIGO que por acaso parecia Base64
+            destino = destinoParam;
+        }
       } catch (e) {
-        console.error("Erro ao decodificar o destino:", e);
-        // Se der erro (ex: não é Base64 válido), mantém o destino padrão
+        // Se der erro ao decodificar, é um link ANTIGO (texto normal)
+        destino = destinoParam;
       }
     }
     
@@ -58,7 +65,6 @@
         botaoProsseguir.classList.remove('desabilitado');
         botaoProsseguir.scrollIntoView({ behavior: 'smooth', block: 'center' });
         botaoProsseguir.onclick = () => {
-          // Passa o link JÁ DECODIFICADO para a próxima página
           window.location.href = 'pagina2.html?destino=' + encodeURIComponent(destino);
         };
       }
