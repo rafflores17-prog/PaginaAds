@@ -1,82 +1,50 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Página 2</title>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Página 2</title>
   <style>
-    body { font-family: sans-serif; text-align: center; padding: 20px; }
-    .ad-placeholder {
-      width: 100%; min-height: 90px;
-      margin: 20px auto; display: flex; align-items: center;
-      justify-content: center;
-      max-width: 728px;
-    }
-    #aviso-delay { font-size: 18px; color: #555; margin: 20px 0; }
-    .botao-azul {
-      background-color: #007bff; color: white; padding: 12px 28px;
-      border-radius: 50px; text-decoration: none; border: none;
-      cursor: pointer; font-weight: bold; text-transform: uppercase;
-      font-size: 16px; transition: filter 0.2s;
-    }
-    .botao-azul:hover { filter: brightness(1.1); }
-    .botao-azul.desabilitado {
-      background-color: #aaa; cursor: not-allowed; filter: none;
-    }
-    .status-liberado { /* Mensagem de sucesso profissional */
-      display: none;
-      background-color: #e9f7ea;
-      color: #28a745;
-      padding: 10px;
-      border-radius: 8px;
-      font-weight: bold;
-      max-width: 400px;
-      margin: 20px auto;
-    }
+    /* O CSS da página 2 continua o mesmo */
+    body{font-family:sans-serif;text-align:center;padding:20px;padding-top:80px}.ad-placeholder{width:100%;min-height:50px;margin:20px auto;display:flex;align-items:center;justify-content:center;max-width:728px}#aviso-contador{background-color:rgba(0,0,0,.85);color:#fff;padding:12px;border-radius:0 0 12px 12px;box-shadow:0 4px 8px rgba(0,0,0,.2);position:fixed;top:0;left:0;right:0;z-index:9999;width:90%;max-width:400px;margin:0 auto;font-size:1.2em}#contador{font-size:1.5em;font-weight:700;color:#ffc107}.botao-azul{background-color:#007bff;color:#fff;padding:12px 28px;border-radius:50px;text-decoration:none;border:none;cursor:pointer;font-weight:700;text-transform:uppercase;font-size:16px;transition:filter .2s;display:inline-block;margin-top:15px}.botao-azul:hover{filter:brightness(1.1)}.botao-azul.desabilitado{background-color:#aaa;cursor:not-allowed;filter:none}.status-liberado{color:#28a745;font-weight:700;margin-top:10px;display:none}#rodape-final{margin-top:50vh}
   </style>
 </head>
 <body>
-
-  <h1>Mais um passo!</h1>
+  <div id="aviso-contador">Aguarde <span id="contador">12</span> segundos...</div>
+  <h1>Anúncio Secundário</h1>
   <div class="ad-placeholder">
-    <script type='text/javascript' src='//victimfatalsentiments.com/12/2d/c0/122dc0aa78d478a255e4434fc5b1cd64.js'></script>
+    <script async="async" data-cfasync="false" src="//victimfatalsentiments.com/694579ced308045c2c6c156cc2dceaba/invoke.js"></script>
+    <div id="container-694579ced308045c2c6c156cc2dceaba"></div>
   </div>
-  <div class="ad-placeholder">
-    <script type='text/javascript' src='//victimfatalsentiments.com/09/bc/0d/09bc0d1e4e41282a10b229106cc5a841.js'></script>
+  <div id="rodape-final">
+    <div id="status-pg1" class="status-liberado">✅ Etapa Desbloqueada!</div>
+    <button id="botao-prosseguir" class="botao-azul desabilitado" disabled>Carregando...</button>
   </div>
-  
-  <p id="aviso-delay">Verificando acesso, aguarde...</p>
-  <div id="status-pg2" class="status-liberado">✅ Acesso Liberado!</div>
-
-  <div class="ad-placeholder">
-    <script type="text/javascript">
-      atOptions = { 'key' : '39d3491b34ddfbcc4927771b832a3daa', 'format' : 'iframe', 'height' : 250, 'width' : 300, 'params' : {} };
-    </script>
-    <script type="text/javascript" src="//victimfatalsentiments.com/39d3491b34ddfbcc4927771b832a3daa/invoke.js"></script>
-  </div>
-  
-  <button id="botao-final" class="botao-azul desabilitado" disabled>Aguarde</button>
-
   <script>
     const params = new URLSearchParams(window.location.search);
     const destino = params.get('destino');
-    const botaoFinal = document.getElementById('botao-final');
-    const avisoDelay = document.getElementById('aviso-delay');
-    const statusPg2 = document.getElementById('status-pg2');
+    let tempoRestante = 12;
+    const contadorElemento = document.getElementById('contador');
+    const botaoProsseguir = document.getElementById('botao-prosseguir');
+    const avisoContador = document.getElementById('aviso-contador');
+    const statusPg1 = document.getElementById('status-pg1');
+    botaoProsseguir.textContent = "Próxima Etapa";
 
-    // SUGESTÕES DE NOMES PARA O BOTÃO
-    const nomesBotoes = ["Liberar Acesso", "Ir para Etapa Final", "Validar Acesso"];
-    botaoFinal.textContent = nomesBotoes[0];
-
-    setTimeout(() => {
-      botaoFinal.disabled = false;
-      botaoFinal.classList.remove('desabilitado');
-      avisoDelay.style.display = 'none';
-      statusPg2.style.display = 'block';
-      botaoFinal.onclick = () => {
-        window.location.href = 'pagina3.html?destino=' + encodeURIComponent(destino);
-      };
-    }, 5000);
+    const intervalo = setInterval(() => {
+      tempoRestante--;
+      contadorElemento.textContent = tempoRestante;
+      if (tempoRestante <= 0) {
+        clearInterval(intervalo);
+        avisoContador.style.display = 'none';
+        statusPg1.style.display = 'block';
+        botaoProsseguir.disabled = false;
+        botaoProsseguir.classList.remove('desabilitado');
+        botaoProsseguir.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        botaoProsseguir.onclick = () => {
+          // Pega o link normal e CODIFICA de novo para passar para a página 3
+          const encodedDestino = btoa(destino || 'https://www.vidiofy.com.br');
+          window.location.href = 'pagina3.html?destino=' + encodeURIComponent(encodedDestino);
+        };
+      }
+    }, 1000);
   </script>
 </body>
 </html>
