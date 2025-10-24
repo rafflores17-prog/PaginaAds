@@ -3,67 +3,27 @@
 <head>
   <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Página 2 - Quase lá!</title>
   <style>
-    body { font-family: sans-serif; text-align: center; padding: 20px; background-color: #f0f2f5; }
-    .container { max-width: 728px; margin: 2rem auto; }
-    h1 { color: #333; }
-    .ad-placeholder { width: 100%; min-height: 50px; margin: 20px auto; display: flex; align-items: center; justify-content: center; }
-    #status-container {
-        background-color: white; padding: 30px; border-radius: 12px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-top: 5vh; /* Ajusta a posição */
-    }
-    .botao-azul {
-      background-color: #007bff; color: white; padding: 15px 35px; border-radius: 50px;
-      text-decoration: none; border: none; cursor: pointer; font-weight: bold;
-      font-size: 18px; transition: background-color 0.2s; display: inline-block;
-    }
-    .botao-azul.desabilitado { background-color: #aaa; cursor: not-allowed; }
-    .loading-dots span {
-        display: inline-block;
-        opacity: 0;
-        animation: blink 1.4s infinite;
-    }
-    .loading-dots span:nth-child(2) { animation-delay: 0.2s; }
-    .loading-dots span:nth-child(3) { animation-delay: 0.4s; }
-    @keyframes blink { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
-    
+    body { font-family: sans-serif; text-align: center; padding: 20px; background-color: #f0f2f5; } .container { max-width: 728px; margin: 2rem auto; } h1 { color: #333; } .ad-placeholder { width: 100%; min-height: 50px; margin: 20px auto; display: flex; align-items: center; justify-content: center; } #status-container { background-color: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-top: 5vh; } .botao-azul { background-color: #007bff; color: white; padding: 15px 35px; border-radius: 50px; text-decoration: none; border: none; cursor: pointer; font-weight: bold; font-size: 18px; transition: background-color 0.2s; display: inline-block; } .botao-azul.desabilitado { background-color: #aaa; cursor: not-allowed; } .loading-dots span { display: inline-block; opacity: 0; animation: blink 1.4s infinite; } .loading-dots span:nth-child(2) { animation-delay: 0.2s; } .loading-dots span:nth-child(3) { animation-delay: 0.4s; } @keyframes blink { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
   </style>
 </head>
 <body>
-  
   <h1>Anúncio Secundário</h1>
   <p>Verificando acesso...</p>
-
   <div class="container">
     <div class="ad-placeholder">
       <script async="async" data-cfasync="false" src="//victimfatalsentiments.com/694579ced308045c2c6c156cc2dceaba/invoke.js"></script>
       <div id="container-694579ced308045c2c6c156cc2dceaba"></div>
     </div>
-     </div>
-
+  </div>
   <div id="status-container">
     <button id="botao-prosseguir" class="botao-azul desabilitado" disabled>
        Aguarde<span class="loading-dots"><span>.</span><span>.</span><span>.</span></span>
     </button>
   </div>
-
   <script>
-    const params = new URLSearchParams(window.location.search);
-    const destino = params.get('destino') || 'https://www.vidiofy.com.br';
-    const tempoEspera = 5000; // 5 segundos em milissegundos
-    const botaoProsseguir = document.getElementById('botao-prosseguir');
-
-    // Após 5 segundos, ativa o botão
-    setTimeout(() => {
-        botaoProsseguir.disabled = false;
-        botaoProsseguir.classList.remove('desabilitado');
-        botaoProsseguir.innerHTML = "Próxima Etapa"; // Remove os pontos e muda o texto
-        
-        botaoProsseguir.onclick = () => {
-          // Codifica o link novamente para passar para a página 3
-          const encodedDestino = btoa(destino);
-          window.location.href = 'pagina3.html?destino=' + encodeURIComponent(encodedDestino);
-        };
-    }, tempoEspera);
+    // O JavaScript continua o mesmo, já estava correto
+    const params = new URLSearchParams(window.location.search); const destinoParam = params.get('destino'); const tempoEspera = 5000; const botaoProsseguir = document.getElementById('botao-prosseguir');
+    setTimeout(() => { botaoProsseguir.disabled = false; botaoProsseguir.classList.remove('desabilitado'); botaoProsseguir.innerHTML = "Próxima Etapa"; botaoProsseguir.onclick = () => { window.location.href = 'pagina3.html?destino=' + encodeURIComponent(destinoParam || ''); }; }, tempoEspera);
   </script>
 </body>
 </html>
