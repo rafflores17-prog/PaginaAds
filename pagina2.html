@@ -1,71 +1,50 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Página 2 - Quase lá!</title>
-    <style>
-        body { font-family: sans-serif; text-align: center; padding: 20px; background-color: #f0f2f5; margin: 0; }
-        .container { max-width: 728px; margin: 2rem auto; }
-        h1 { color: #333; margin-bottom: 0.5rem; }
-        p { color: #555; margin-top: 0; font-size: 1.1em; margin-bottom: 2rem;}
-        .ad-placeholder { width: 100%; min-height: 50px; margin: 20px auto; display: flex; align-items: center; justify-content: center; }
-        #status-container { background-color: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-top: 5vh; display: inline-block; }
-        .botao-azul { background-color: #007bff; color: white; padding: 15px 35px; border-radius: 50px; text-decoration: none; border: none; cursor: pointer; font-weight: bold; font-size: 18px; transition: background-color 0.3s ease; display: inline-block; min-width: 180px; }
-        .botao-azul.desabilitado { background-color: #aaa; cursor: not-allowed; opacity: 0.7;}
-        .loading-dots span { display: inline-block; opacity: 0; animation: blink 1.4s infinite; }
-        .loading-dots span:nth-child(2) { animation-delay: 0.2s; }
-        .loading-dots span:nth-child(3) { animation-delay: 0.4s; }
-        @keyframes blink { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
-    </style>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Página 2</title>
+  <style>
+    /* O CSS da página 2 continua o mesmo */
+    body{font-family:sans-serif;text-align:center;padding:20px;padding-top:80px}.ad-placeholder{width:100%;min-height:50px;margin:20px auto;display:flex;align-items:center;justify-content:center;max-width:728px}#aviso-contador{background-color:rgba(0,0,0,.85);color:#fff;padding:12px;border-radius:0 0 12px 12px;box-shadow:0 4px 8px rgba(0,0,0,.2);position:fixed;top:0;left:0;right:0;z-index:9999;width:90%;max-width:400px;margin:0 auto;font-size:1.2em}#contador{font-size:1.5em;font-weight:700;color:#ffc107}.botao-azul{background-color:#007bff;color:#fff;padding:12px 28px;border-radius:50px;text-decoration:none;border:none;cursor:pointer;font-weight:700;text-transform:uppercase;font-size:16px;transition:filter .2s;display:inline-block;margin-top:15px}.botao-azul:hover{filter:brightness(1.1)}.botao-azul.desabilitado{background-color:#aaa;cursor:not-allowed;filter:none}.status-liberado{color:#28a745;font-weight:700;margin-top:10px;display:none}#rodape-final{margin-top:50vh}
+  </style>
 </head>
 <body>
-  
+  <div id="aviso-contador">Aguarde <span id="contador">12</span> segundos...</div>
   <h1>Anúncio Secundário</h1>
-  <p>Verificando acesso...</p>
-
-  <div class="container">
-    <div class="ad-placeholder">
-      <script async="async" data-cfasync="false" src="//victimfatalsentiments.com/694579ced308045c2c6c156cc2dceaba/invoke.js"></script>
-      <div id="container-694579ced308045c2c6c156cc2dceaba"></div>
-    </div>
-     <div class="ad-placeholder">
-       <script type="text/javascript">
-            atOptions = {
-                'key' : '2f2aa93bee1aa52954a8f17f3434c3db',
-                'format' : 'iframe',
-                'height' : 50,
-                'width' : 320,
-                'params' : {}
-            };
-        </script>
-        <script type="text/javascript" src="//victimfatalsentiments.com/2f2aa93bee1aa52954a8f17f3434c3db/invoke.js"></script>
-      </div>
-      </div>
-
-  <div id="status-container">
-    <button id="botao-prosseguir" class="botao-azul desabilitado" disabled>
-       Aguarde<span class="loading-dots"><span>.</span><span>.</span><span>.</span></span>
-    </button>
+  <div class="ad-placeholder">
+    <script async="async" data-cfasync="false" src="//victimfatalsentiments.com/694579ced308045c2c6c156cc2dceaba/invoke.js"></script>
+    <div id="container-694579ced308045c2c6c156cc2dceaba"></div>
   </div>
-
+  <div id="rodape-final">
+    <div id="status-pg1" class="status-liberado">✅ Etapa Desbloqueada!</div>
+    <button id="botao-prosseguir" class="botao-azul desabilitado" disabled>Carregando...</button>
+  </div>
   <script>
     const params = new URLSearchParams(window.location.search);
-    const destinoParam = params.get('destino'); // Recebe o destino (pode ser Base64 ou normal)
-    const tempoEspera = 5000; // 5 segundos
+    const destino = params.get('destino') || 'https://www.vidiofy.com.br';
+    let tempoRestante = 12;
+    const contadorElemento = document.getElementById('contador');
     const botaoProsseguir = document.getElementById('botao-prosseguir');
+    const avisoContador = document.getElementById('aviso-contador');
+    const statusPg1 = document.getElementById('status-pg1');
+    botaoProsseguir.textContent = "Próxima Etapa";
 
-    // Após 5 segundos, ativa o botão
-    setTimeout(() => {
+    const intervalo = setInterval(() => {
+      tempoRestante--;
+      contadorElemento.textContent = tempoRestante;
+      if (tempoRestante <= 0) {
+        clearInterval(intervalo);
+        avisoContador.style.display = 'none';
+        statusPg1.style.display = 'block';
         botaoProsseguir.disabled = false;
         botaoProsseguir.classList.remove('desabilitado');
-        botaoProsseguir.innerHTML = "Próxima Etapa"; // Remove os pontos e muda o texto
-        
+        botaoProsseguir.scrollIntoView({ behavior: 'smooth', block: 'center' });
         botaoProsseguir.onclick = () => {
-          // Passa o parâmetro 'destino' EXATAMENTE como recebeu para a página 3
-          window.location.href = 'pagina3.html?destino=' + encodeURIComponent(destinoParam || '');
+          // Para os NOVOS links, vamos continuar passando o segredo em Base64
+          const encodedDestino = btoa(destino);
+          window.location.href = 'pagina3.html?destino=' + encodeURIComponent(encodedDestino);
         };
-    }, tempoEspera);
+      }
+    }, 1000);
   </script>
 </body>
 </html>
