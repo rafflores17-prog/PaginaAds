@@ -1,89 +1,156 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Página 2 - Quase lá!</title>
-  <style>
-    /* Estilos ESSENCIAIS para esta página */
-    body { font-family: sans-serif; text-align: center; padding: 20px; background-color: #f0f2f5; margin: 0; }
-    .container { max-width: 728px; margin: 2rem auto; }
-    h1 { color: #333; margin-bottom: 0.5rem; }
-    p { color: #555; margin-top: 0; font-size: 1.1em; margin-bottom: 2rem;}
-    .ad-placeholder { width: 100%; min-height: 50px; margin: 20px auto; display: flex; align-items: center; justify-content: center; }
-    #status-container {
-        background-color: white;
-        padding: 30px;
-        border-radius: 12px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        margin-top: 5vh; /* Ajusta a posição vertical */
-        display: inline-block; /* Faz a caixa se ajustar ao conteúdo */
-    }
-    .botao-azul {
-      background-color: #007bff; color: white; padding: 15px 35px; border-radius: 50px;
-      text-decoration: none; border: none; cursor: pointer; font-weight: bold;
-      font-size: 18px; transition: background-color 0.3s ease; display: inline-block;
-      min-width: 180px; /* Garante largura mínima para "Aguarde..." */
-    }
-    .botao-azul.desabilitado {
-        background-color: #aaa;
-        cursor: not-allowed;
-        opacity: 0.7;
-    }
-    .loading-dots span { /* Pontinhos animados */
-        display: inline-block;
-        opacity: 0;
-        animation: blink 1.4s infinite;
-    }
-    .loading-dots span:nth-child(2) { animation-delay: 0.2s; }
-    .loading-dots span:nth-child(3) { animation-delay: 0.4s; }
-    @keyframes blink { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Página 2 - Verificando Acesso</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-primary: #007bff;
+            --color-primary-light: #cfe2ff;
+            --color-background: #f4f7f9; /* Fundo ligeiramente cinza */
+            --color-card-background: #ffffff;
+            --color-text: #343a40;
+            --color-text-light: #6c757d;
+            --color-disabled: #adb5bd;
+            --shadow: 0 8px 20px rgba(0, 0, 0, 0.07);
+            --border-radius: 12px;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--color-background);
+            color: var(--color-text);
+            text-align: center;
+            padding: 20px;
+            display: flex;
+            flex-direction: column; /* Organiza conteúdo em coluna */
+            align-items: center; /* Centraliza horizontalmente */
+            min-height: 100vh;
+        }
+        .main-content {
+            width: 100%;
+            max-width: 800px; /* Largura máxima para conteúdo */
+        }
+        h1 {
+            color: var(--color-primary);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            font-size: 1.8em; /* Tamanho um pouco maior */
+        }
+        p.subtitle {
+            color: var(--color-text-light);
+            font-size: 1.1em;
+            margin-bottom: 2.5rem; /* Mais espaço abaixo do subtítulo */
+        }
+        .ad-placeholder {
+            width: 100%;
+            min-height: 50px;
+            margin: 25px auto; /* Aumenta margem vertical */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #eee; /* Cor de fundo enquanto o anúncio carrega */
+            border-radius: var(--border-radius);
+            overflow: hidden; /* Garante que o anúncio fique dentro */
+        }
+        #status-container {
+            background-color: var(--color-card-background);
+            padding: 30px 40px; /* Mais padding interno */
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-top: 2rem; /* Espaço acima do botão */
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        .botao-azul {
+            background: linear-gradient(90deg, #007bff, #0056b3); /* Gradiente no botão */
+            color: white;
+            padding: 16px 40px; /* Botão maior */
+            border-radius: 50px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            font-weight: 600; /* Peso da fonte */
+            font-size: 1.1em; /* Tamanho da fonte */
+            transition: all 0.3s ease; /* Transição suave */
+            display: inline-flex; /* Para alinhar texto e pontos */
+            align-items: center;
+            justify-content: center;
+            min-width: 200px; /* Largura mínima */
+            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.2);
+        }
+        .botao-azul:not(.desabilitado):hover {
+            filter: brightness(1.1);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 123, 255, 0.3);
+        }
+        .botao-azul.desabilitado {
+            background: var(--color-disabled); /* Fundo cinza quando desabilitado */
+            cursor: not-allowed;
+            box-shadow: none; /* Remove sombra quando desabilitado */
+        }
+        .loading-dots span { /* Pontinhos animados */
+            display: inline-block;
+            opacity: 0;
+            animation: blink 1.4s infinite;
+            margin-left: 2px;
+        }
+        .loading-dots span:nth-child(1) { animation-delay: 0s; }
+        .loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+        .loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes blink { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
+    </style>
 </head>
 <body>
-  
-  <h1>Anúncio Secundário</h1>
-  <p>Verificando acesso...</p>
 
-  <div class="container"> <div class="ad-placeholder">
-      <script async="async" data-cfasync="false" src="//victimfatalsentiments.com/694579ced308045c2c6c156cc2dceaba/invoke.js"></script>
-      <div id="container-694579ced308045c2c6c156cc2dceaba"></div>
+    <div class="main-content">
+        <h1>Quase lá!</h1>
+        <p class="subtitle">Seu acesso será liberado em instantes...</p>
+
+        <div class="ad-placeholder">
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : '39d3491b34ddfbcc4927771b832a3daa',
+                    'format' : 'iframe',
+                    'height' : 250,
+                    'width' : 300,
+                    'params' : {}
+                };
+            </script>
+            <script type="text/javascript" src="//victimfatalsentiments.com/39d3491b34ddfbcc4927771b832a3daa/invoke.js"></script>
+        </div>
+
+        </div>
+
+    <div id="status-container">
+        <button id="botao-prosseguir" class="botao-azul desabilitado" disabled>
+           Aguarde<span class="loading-dots"><span>.</span><span>.</span><span>.</span></span>
+        </button>
     </div>
-     <div class="ad-placeholder">
-       <script type="text/javascript">
-            atOptions = {
-                'key' : '2f2aa93bee1aa52954a8f17f3434c3db',
-                'format' : 'iframe',
-                'height' : 50,
-                'width' : 320,
-                'params' : {}
+
+    <script type='text/javascript' src='//victimfatalsentiments.com/09/bc/0d/09bc0d1e4e41282a10b229106cc5a841.js'></script>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const destinoParam = params.get('destino'); // Recebe o destino (pode ser Base64 ou normal)
+        const tempoEspera = 5000; // 5 segundos
+        const botaoProsseguir = document.getElementById('botao-prosseguir');
+
+        // Após 5 segundos, ativa o botão
+        setTimeout(() => {
+            botaoProsseguir.disabled = false;
+            botaoProsseguir.classList.remove('desabilitado');
+            botaoProsseguir.innerHTML = "Avançar para Etapa Final"; // Texto mais claro
+            
+            botaoProsseguir.onclick = () => {
+                // Passa o parâmetro 'destino' EXATAMENTE como recebeu para a página 3
+                window.location.href = 'pagina3.html?destino=' + encodeURIComponent(destinoParam || '');
             };
-        </script>
-        <script type="text/javascript" src="//victimfatalsentiments.com/2f2aa93bee1aa52954a8f17f3434c3db/invoke.js"></script>
-      </div>
-      </div>
-
-  <div id="status-container">
-    <button id="botao-prosseguir" class="botao-azul desabilitado" disabled>
-       Aguarde<span class="loading-dots"><span>.</span><span>.</span><span>.</span></span>
-    </button>
-  </div>
-
-  <script>
-    const params = new URLSearchParams(window.location.search);
-    const destinoParam = params.get('destino'); // Recebe o destino (pode ser Base64 ou normal)
-    const tempoEspera = 5000; // 5 segundos
-    const botaoProsseguir = document.getElementById('botao-prosseguir');
-
-    // Após 5 segundos, ativa o botão
-    setTimeout(() => {
-        botaoProsseguir.disabled = false;
-        botaoProsseguir.classList.remove('desabilitado');
-        botaoProsseguir.innerHTML = "Próxima Etapa"; // Remove os pontos e muda o texto
-        
-        botaoProsseguir.onclick = () => {
-          // Passa o parâmetro 'destino' EXATAMENTE como recebeu para a página 3
-          window.location.href = 'pagina3.html?destino=' + encodeURIComponent(destinoParam || '');
-        };
-    }, tempoEspera);
-  </script>
+        }, tempoEspera);
+    </script>
 </body>
 </html>
