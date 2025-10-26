@@ -1,91 +1,230 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Página 1</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Página 1</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
   <style>
-    /* Estilos específicos que podem estar no style.css, mas mantidos aqui para garantir */
-    body{font-family:sans-serif;text-align:center;padding:20px;padding-top:80px}.ad-placeholder{width:100%;min-height:50px;margin:20px auto;display:flex;align-items:center;justify-content:center;max-width:728px}#aviso-contador{background-color:rgba(0,0,0,.85);color:#fff;padding:12px;border-radius:0 0 12px 12px;box-shadow:0 4px 8px rgba(0,0,0,.2);position:fixed;top:0;left:0;right:0;z-index:9999;width:90%;max-width:400px;margin:0 auto;font-size:1.2em}#contador{font-size:1.5em;font-weight:700;color:#ffc107}.botao-azul{background-color:#007bff;color:#fff;padding:12px 28px;border-radius:50px;text-decoration:none;border:none;cursor:pointer;font-weight:700;text-transform:uppercase;font-size:16px;transition:filter .2s;display:inline-block;margin-top:15px}.botao-azul:hover{filter:brightness(1.1)}.botao-azul.desabilitado{background-color:#aaa;cursor:not-allowed;filter:none}.status-liberado{color:#28a745;font-weight:700;margin-top:10px;display:none}#rodape-final{margin-top:50vh}.amazon-banner{display:flex;flex-direction:column;width:300px;border:1px solid #ddd;border-radius:12px;overflow:hidden;text-decoration:none;color:#111;background-color:#fff;box-shadow:0 4px 6px rgba(0,0,0,.1);transition:transform .3s ease}.amazon-banner:hover{transform:translateY(-5px)}.amazon-banner-image img{width:100%;height:auto;display:block;border-bottom:1px solid #ddd}.amazon-banner-details{padding:1rem;text-align:center}.amazon-product-title{font-size:.9rem;font-weight:500;margin-bottom:1rem;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;min-height:40px}.amazon-buy-button{display:inline-block;background-color:#ff9900;color:#111;font-weight:600;padding:10px 20px;border-radius:8px;font-size:1rem}
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #ffffff;
+      color: #111;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #111;
+      color: #fff;
+      padding: 10px 0;
+      font-size: 1.2em;
+      font-weight: 600;
+    }
+
+    .counter {
+      font-size: 1.5em;
+      font-weight: 700;
+      color: #fbbf24;
+    }
+
+    .main-ad {
+      margin: 20px auto;
+      width: 90%;
+      max-width: 500px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      padding: 20px;
+    }
+
+    .main-ad h2 {
+      font-size: 1.4em;
+      margin-bottom: 10px;
+    }
+
+    .main-ad img {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+
+    .next-button {
+      background-color: #999;
+      color: white;
+      font-weight: 600;
+      padding: 15px 35px;
+      border-radius: 50px;
+      border: none;
+      cursor: not-allowed;
+      transition: all 0.2s ease;
+      margin: 30px 0;
+    }
+
+    .next-button.active {
+      background: linear-gradient(90deg, #007bff, #0056b3);
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0,123,255,0.3);
+    }
+
+    /* --- AdBlock Modal (bloqueia tudo) --- */
+    .adblock-modal-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.85);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      padding: 20px;
+      backdrop-filter: blur(5px);
+    }
+
+    .adblock-modal-content {
+      background-color: #fff;
+      padding: 35px 25px;
+      border-radius: 15px;
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      animation: fadeIn 0.5s ease-out;
+    }
+
+    .adblock-modal-content .icon {
+      width: 90px;
+      height: 90px;
+      margin: 0 auto 20px auto;
+      background-color: #fbecec;
+      border: 5px solid #e53e3e;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #e53e3e;
+    }
+
+    .adblock-modal-content .icon svg {
+      width: 45px;
+      height: 45px;
+    }
+
+    .adblock-modal-content h2 {
+      font-size: 1.6em;
+      color: #333;
+      margin-bottom: 12px;
+    }
+
+    .adblock-modal-content p {
+      color: #555;
+      font-size: 1em;
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+
+    .adblock-refresh-button {
+      display: inline-block;
+      background-color: #2d8a5b;
+      color: white;
+      padding: 12px 30px;
+      border-radius: 50px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .adblock-refresh-button:hover {
+      background-color: #256d49;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(15px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
   </style>
 </head>
 <body>
-  <div id="aviso-contador">Aguarde <span id="contador">12</span> segundos...</div>
-  <h1>Anúncio Principal</h1>
-  <div class="ad-placeholder">
-      <a href="https://amzn.to/47EpLPs" target="_blank" rel="sponsored" class="amazon-banner">
-          <div class="amazon-banner-image"><img src="https://m.media-amazon.com/images/I/61K7fAOac9L._AC_UF1000,1000_QL80_.jpg" alt="Fire TV Stick na Amazon"></div>
-          <div class="amazon-banner-details">
-              <p class="amazon-product-title">Fire TV Stick | Streaming em Full HD com Alexa</p><span class="amazon-buy-button">Ver Oferta na Amazon</span>
-          </div>
-      </a>
+
+  <header>
+    Aguarde <span class="counter" id="contador">10</span> segundos...
+  </header>
+
+  <div class="main-ad ad-placeholder">
+    <h2>Anúncio Principal</h2>
+    <img src="https://m.media-amazon.com/images/I/71E+7mRQhBL._AC_SL1500_.jpg" alt="Fire TV Stick">
+    <p>Fire TV Stick | Streaming em Full HD com Alexa</p>
+    <a href="https://www.amazon.com.br" target="_blank" style="text-decoration:none;">
+      <button style="background-color:#fbbf24;color:#000;padding:10px 20px;border:none;border-radius:8px;font-weight:600;cursor:pointer;">
+        Ver Oferta na Amazon
+      </button>
+    </a>
   </div>
-  <div class="ad-placeholder">
-    <script async="async" data-cfasync="false" src="//victimfatalsentiments.com/694579ced308045c2c6c156cc2dceaba/invoke.js"></script>
-    <div id="container-694579ced308045c2c6c156cc2dceaba"></div>
+
+  <div style="margin:20px auto;">
+    <!-- Outro bloco de anúncio (ex: Adsterra, etc.) -->
+    <div class="ad-placeholder">
+      <img src="https://via.placeholder.com/468x60?text=Banner+Ad+Example" alt="Ad banner" />
+    </div>
   </div>
-   <div class="ad-placeholder">
-    <script type="text/javascript">
-	atOptions = {
-		'key' : '2f2aa93bee1aa52954a8f17f3434c3db',
-		'format' : 'iframe',
-		'height' : 50,
-		'width' : 320,
-		'params' : {}
-	};
-</script>
-<script type="text/javascript" src="//victimfatalsentiments.com/2f2aa93bee1aa52954a8f17f3434c3db/invoke.js"></script>
+
+  <button id="botao" class="next-button">PRÓXIMA ETAPA</button>
+
+  <!-- Modal de Bloqueio AdBlock -->
+  <div class="adblock-modal-overlay" id="adblock-modal">
+    <div class="adblock-modal-content">
+      <div class="icon">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M15.936 2.5L21.5 8.064V15.936L15.936 21.5H8.064L2.5 15.936V8.064L8.064 2.5H15.936ZM15 17H9V19H15V17ZM15 5H9V15H15V5Z"/>
+        </svg>
+      </div>
+      <h2>AdBlocker Detectado!</h2>
+      <p>Detectamos que você está usando uma extensão para bloquear anúncios.<br>
+      Por favor, desative seu AdBlocker e atualize a página para continuar.</p>
+      <a class="adblock-refresh-button" onclick="location.reload()">Atualizar Página</a>
+    </div>
   </div>
-  <div id="rodape-final">
-    <div id="status-pg1" class="status-liberado">✅ Etapa Desbloqueada!</div>
-    <button id="botao-prosseguir" class="botao-azul desabilitado" disabled>Carregando...</button>
-  </div>
+
   <script>
-    const params = new URLSearchParams(window.location.search);
-    const destinoParam = params.get('destino');
-    let destino = 'https://www.vidiofy.com.br'; // Destino padrão seguro
-    let isBase64 = false;
+    // --- Contador ---
+    let segundos = 10;
+    const contador = document.getElementById("contador");
+    const botao = document.getElementById("botao");
 
-    if (destinoParam) {
-      try {
-        const decoded = atob(destinoParam);
-        if (decoded.startsWith('http')) {
-            destino = decoded;
-            isBase64 = true; // Marca que o destino veio codificado
-        } else {
-            destino = destinoParam; // Assume que era link antigo
-        }
-      } catch (e) {
-        destino = destinoParam; // Se falhou, é link antigo
-      }
-    }
-    
-    let tempoRestante = 12;
-    const contadorElemento = document.getElementById('contador');
-    const botaoProsseguir = document.getElementById('botao-prosseguir');
-    const avisoContador = document.getElementById('aviso-contador');
-    const statusPg1 = document.getElementById('status-pg1');
-    const smartLink = 'https://victimfatalsentiments.com/fxgzhb5e?key=3823c25827101f6ca9e1188db300506f';
-    botaoProsseguir.textContent = "Próxima Etapa";
-
-    const intervalo = setInterval(() => {
-      tempoRestante--;
-      contadorElemento.textContent = tempoRestante;
-      if (tempoRestante <= 0) {
-        clearInterval(intervalo);
-        avisoContador.style.display = 'none';
-        statusPg1.style.display = 'block';
-        botaoProsseguir.disabled = false;
-        botaoProsseguir.classList.remove('desabilitado');
-        botaoProsseguir.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        
-        botaoProsseguir.onclick = () => {
-          window.open(smartLink, '_blank', 'noopener,noreferrer');
-          // Passa o destino para a próxima página, CODIFICADO se era Base64, ou normal se era antigo
-          const proximoDestinoParam = isBase64 ? btoa(destino) : destino;
-          window.location.href = 'pagina2.html?destino=' + encodeURIComponent(proximoDestinoParam);
-        };
+    const interval = setInterval(() => {
+      segundos--;
+      contador.textContent = segundos;
+      if (segundos <= 0) {
+        clearInterval(interval);
+        botao.classList.add("active");
+        botao.disabled = false;
+        botao.style.cursor = "pointer";
+        botao.onclick = () => window.location.href = "pagina2.html";
       }
     }, 1000);
+
+    // --- Detecção de AdBlock ---
+    document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        const ads = document.querySelectorAll('.ad-placeholder');
+        let bloqueado = false;
+
+        ads.forEach(ad => {
+          if (ad.offsetHeight < 20 || ad.offsetWidth < 20) {
+            bloqueado = true;
+          }
+        });
+
+        if (bloqueado) {
+          document.getElementById('adblock-modal').style.display = 'flex';
+          document.body.style.overflow = 'hidden';
+        }
+      }, 1200);
+    });
   </script>
 </body>
 </html>
