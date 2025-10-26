@@ -144,7 +144,7 @@
 
   <div class="main-ad">
     <h2>Anúncio Principal</h2>
-    <img src="https://m.media-amazon.com/images/I/41pA9-3A0fL._AC_SX679_.jpg" alt="Fire TV Stick">
+    <img src="https://m.media-amazon.com/images/I/71E+7mRQhBL._AC_SL1500_.jpg" alt="Fire TV Stick">
     <p>Fire TV Stick | Streaming em Full HD com Alexa</p>
     <a href="https://www.amazon.com.br" target="_blank" style="text-decoration:none;">
       <button class="amazon-button">
@@ -175,12 +175,10 @@
   </div>
 
   <script>
-    // --- CORREÇÃO 404: Garante que o destino seja 'pagina2.html' ---
+    // --- CORREÇÃO DO BUG 404 ---
+    // Pega o parâmetro 'destino' da URL ATUAL
     const params = new URLSearchParams(window.location.search);
-    let destino = params.get('destino');
-    if (!destino || destino.trim() === "") {
-        destino = 'pagina2.html';
-    }
+    const destinoParam = params.get('destino') || ''; 
 
     document.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => {
@@ -219,10 +217,13 @@
               botao.disabled = false;
               botao.textContent = "PRÓXIMA ETAPA";
               
-              // --- CORREÇÃO ROLAGEM: Adicionada de volta ---
               botao.scrollIntoView({ behavior: 'smooth', block: 'center' });
               
-              botao.onclick = () => window.location.href = destino;
+              // --- CORREÇÃO DO BUG 404 ---
+              // Envia o usuário para a pagina2.html, passando o parâmetro 'destino' adiante
+              botao.onclick = () => {
+                window.location.href = 'pagina2.html?destino=' + encodeURIComponent(destinoParam);
+              };
           }
         }
       }, 1000);
