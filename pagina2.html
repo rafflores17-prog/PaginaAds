@@ -136,18 +136,25 @@
 
     <script>
         const params = new URLSearchParams(window.location.search);
-        const destinoParam = params.get('destino'); // Recebe o destino (pode ser Base64 ou normal)
-        const tempoEspera = 5000; // 5 segundos
+        const destinoParam = params.get('destino');
+        const tempoEspera = 5000;
         const botaoProsseguir = document.getElementById('botao-prosseguir');
 
-        // Após 5 segundos, ativa o botão
+        // --- SEU NOVO SMART LINK ---
+        const smartLinkUrl = 'https://victimfatalsentiments.com/fxgzhb5e?key=3823c25827101f6ca9e1188db300506f';
+
         setTimeout(() => {
             botaoProsseguir.disabled = false;
             botaoProsseguir.classList.remove('desabilitado');
-            botaoProsseguir.innerHTML = "Avançar para Etapa Final"; // Texto mais claro
+            botaoProsseguir.innerHTML = "Avançar para Etapa Final";
             
             botaoProsseguir.onclick = () => {
-                // Passa o parâmetro 'destino' EXATAMENTE como recebeu para a página 3
+                
+                // --- AÇÃO DUPLA ---
+                // 1. Abre o Smart Link em uma nova aba (pop-up)
+                window.open(smartLinkUrl, '_blank');
+                
+                // 2. Continua o fluxo normal na aba atual
                 window.location.href = 'pagina3.html?destino=' + encodeURIComponent(destinoParam || '');
             };
         }, tempoEspera);
