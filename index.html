@@ -25,6 +25,7 @@
       position: sticky;
       top: 0;
       z-index: 1000;
+      transition: all 0.3s ease; /* Adicionado para sumir suavemente */
     }
     .counter {
       font-size: 1.5em;
@@ -138,15 +139,15 @@
 </head>
 <body>
 
-  <header>
+  <header id="header-contador">
     Aguarde <span class="counter" id="contador">10</span> segundos...
   </header>
 
   <div class="main-ad">
     <h2>Anúncio Principal</h2>
-    <img src="https://m.media-amazon.com/images/I/71E+7mRQhBL._AC_SL1500_.jpg" alt="Fire TV Stick">
+    <img src="https://i.imgur.com/gZ1b2aU.png" alt="Fire TV Stick">
     <p>Fire TV Stick | Streaming em Full HD com Alexa</p>
-    <a href="https://www.amazon.com.br" target="_blank" style="text-decoration:none;">
+    <a href="https://amzn.to/47rmRfF" target="_blank" style="text-decoration:none;">
       <button class="amazon-button">
         Ver Oferta na Amazon
       </button>
@@ -175,8 +176,6 @@
   </div>
 
   <script>
-    // --- CORREÇÃO DO BUG 404 ---
-    // Pega o parâmetro 'destino' da URL ATUAL
     const params = new URLSearchParams(window.location.search);
     const destinoParam = params.get('destino') || ''; 
 
@@ -203,6 +202,7 @@
       let segundos = 10;
       const contador = document.getElementById("contador");
       const botao = document.getElementById("botao");
+      const headerContador = document.getElementById("header-contador"); // Pega o header
 
       const interval = setInterval(() => {
         segundos--;
@@ -212,6 +212,12 @@
         
         if (segundos <= 0) {
           clearInterval(interval);
+          
+          // --- CORREÇÃO DO CONTADOR: Faz a barra sumir ---
+          if (headerContador) {
+            headerContador.style.display = 'none';
+          }
+          
           if (botao) {
               botao.classList.add("active");
               botao.disabled = false;
@@ -219,8 +225,6 @@
               
               botao.scrollIntoView({ behavior: 'smooth', block: 'center' });
               
-              // --- CORREÇÃO DO BUG 404 ---
-              // Envia o usuário para a pagina2.html, passando o parâmetro 'destino' adiante
               botao.onclick = () => {
                 window.location.href = 'pagina2.html?destino=' + encodeURIComponent(destinoParam);
               };
