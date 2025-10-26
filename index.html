@@ -25,7 +25,7 @@
       position: sticky;
       top: 0;
       z-index: 1000;
-      transition: all 0.3s ease; /* Adicionado para sumir suavemente */
+      transition: all 0.3s ease;
     }
     .counter {
       font-size: 1.5em;
@@ -144,16 +144,15 @@
   </header>
 
   <div class="main-ad">
-    <h2>Anúncio Principal</h2>
-    <img src="https://i.imgur.com/gZ1b2aU.png" alt="Fire TV Stick">
-    <p>Fire TV Stick | Streaming em Full HD com Alexa</p>
-    <a href="https://amzn.to/47rmRfF" target="_blank" style="text-decoration:none;">
+    <h2>Oferta Especial</h2>
+    <img src="https://m.media-amazon.com/images/I/712s95O2evL._AC_SX679_.jpg" alt="Extensor Hub USB">
+    <p>Extensor Hub USB Adaptador 4 Portas 5 Gbps</p>
+    <a href="https://amzn.to/4o3phbr" target="_blank" style="text-decoration:none;">
       <button class="amazon-button">
         Ver Oferta na Amazon
       </button>
     </a>
   </div>
-
   <div style="margin:20px auto;">
     <div class="ad-placeholder">
       <script async="async" data-cfasync="false" src="//victimfatalsentiments.com/694579ced308045c2c6c156cc2dceaba/invoke.js"></script>
@@ -202,7 +201,7 @@
       let segundos = 10;
       const contador = document.getElementById("contador");
       const botao = document.getElementById("botao");
-      const headerContador = document.getElementById("header-contador"); // Pega o header
+      const headerContador = document.getElementById("header-contador"); 
 
       const interval = setInterval(() => {
         segundos--;
@@ -213,7 +212,6 @@
         if (segundos <= 0) {
           clearInterval(interval);
           
-          // --- CORREÇÃO DO CONTADOR: Faz a barra sumir ---
           if (headerContador) {
             headerContador.style.display = 'none';
           }
