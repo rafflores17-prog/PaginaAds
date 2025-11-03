@@ -153,11 +153,17 @@
       </button>
     </a>
   </div>
+  
   <div style="margin:20px auto;">
     <div class="ad-placeholder">
       <script async="async" data-cfasync="false" src="//victimfatalsentiments.com/694579ced308045c2c6c156cc2dceaba/invoke.js"></script>
       <div id="container-694579ced308045c2c6c156cc2dceaba"></div>
     </div>
+    
+    <div class="ad-placeholder">
+      <script src="https://fpyf8.com/88/tag.min.js" data-zone="182494" async data-cfasync="false"></script>
+    </div>
+    
   </div>
 
   <button id="botao" class="next-button" disabled>PRÓXIMA ETAPA</button>
@@ -180,9 +186,11 @@
 
     document.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => {
+        // Agora, o detector de AdBlock verifica AMBOS os 'ad-placeholder'
         const ads = document.querySelectorAll('.ad-placeholder');
         let bloqueado = false;
         ads.forEach(ad => {
+          // Se qualquer um dos placeholders tiver uma altura muito pequena, assumimos que está bloqueado
           if (ad.offsetHeight < 20) {
             bloqueado = true;
           }
@@ -224,6 +232,7 @@
               botao.scrollIntoView({ behavior: 'smooth', block: 'center' });
               
               botao.onclick = () => {
+                // Mantém o link para a próxima etapa (pagina2.html ou sua rota /bonus)
                 window.location.href = 'pagina2.html?destino=' + encodeURIComponent(destinoParam);
               };
           }
