@@ -3,184 +3,140 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Portal ADS Futurista</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<title>Sistema Premium</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
 <style>
-*{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:Poppins;background:#0f172a;color:#fff;text-align:center;transition:0.3s;}
-header{position:fixed;top:0;width:100%;padding:15px 30px;background:rgba(15,23,42,0.95);backdrop-filter:blur(10px);z-index:1000;}
-header h1{font-size:1.6rem;color:#06b6d4;}
-main{padding:120px 20px 50px;}
-.progress{height:10px;background:#1e293b;border-radius:20px;overflow:hidden;margin:20px 0;}
-.bar{height:100%;width:0;background:linear-gradient(90deg,#22c55e,#06b6d4);}
-.steps{margin-top:30px;}
-.button{display:inline-block;margin:15px 0;padding:15px 25px;background:linear-gradient(90deg,#06b6d4,#3b82f6);color:#fff;font-weight:600;border-radius:50px;cursor:pointer;font-size:1rem;transition:0.2s;}
-.button:hover{opacity:0.9;transform:scale(1.03);}
-.ad-banner{margin:20px auto;text-align:center;}
-footer{margin-top:30px;font-size:12px;color:#888;}
-.modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);display:none;justify-content:center;align-items:center;z-index:2000;}
-.modal-content{background:#0f172a;padding:30px;border-radius:20px;max-width:500px;width:90%;text-align:center;position:relative;}
-.modal-content h2{color:#06b6d4;margin-bottom:15px;}
-.modal-content p{color:#fff;margin-bottom:20px;}
-.modal-close{position:absolute;top:10px;right:15px;color:#fff;font-size:20px;cursor:pointer;}
+body{
+  margin:0;
+  font-family:Poppins;
+  background:#0f172a;
+  color:#fff;
+  text-align:center;
+}
+
+.container{
+  padding:60px 20px;
+}
+
+.card{
+  max-width:420px;
+  margin:auto;
+  background:#020617;
+  padding:30px;
+  border-radius:20px;
+  box-shadow:0 10px 40px rgba(0,0,0,0.5);
+}
+
+button{
+  width:100%;
+  padding:15px;
+  margin-top:15px;
+  border:none;
+  border-radius:50px;
+  background:linear-gradient(90deg,#06b6d4,#3b82f6);
+  color:#fff;
+  font-weight:600;
+  cursor:pointer;
+}
+
+#ad{
+  margin-top:20px;
+}
+
+.footer{
+  margin-top:20px;
+  font-size:12px;
+  color:#888;
+}
 </style>
 </head>
+
 <body>
 
-<header>
-<h1>📰 Portal ADS Futurista</h1>
-</header>
+<div class="container">
+  <div class="card">
 
-<div class="progress"><div class="bar" id="bar"></div></div>
-<p id="status">Iniciando...</p>
+    <h2>🔐 Acesso Protegido</h2>
+    <p id="status">Clique abaixo para liberar</p>
 
-<main>
-<div class="steps" id="steps">
-  <div class="button" id="btn1">Liberar Acesso</div>
-</div>
+    <button id="btn1">Liberar Acesso</button>
 
-<!-- Banner fixo Terra -->
-<div class="ad-banner" id="ad-terra">
-  <script>
-    atOptions = {
-      'key' : '2f2aa93bee1aa52954a8f17f3434c3db',
-      'format' : 'iframe',
-      'height' : 50,
-      'width' : 320,
-      'params' : {}
-    };
-  </script>
-  <script src="https://encouragingjawsordinarily.com/2f2aa93bee1aa52954a8f17f3434c3db/invoke.js"></script>
-</div>
+    <div id="step2"></div>
 
-<div class="ad-banner" id="ad-middle"></div>
-<div class="ad-banner" id="ad-bottom"></div>
+    <!-- BANNER FIXO -->
+    <div id="ad">
+      <script>
+        atOptions = {
+          'key' : '2f2aa93bee1aa52954a8f17f3434c3db',
+          'format' : 'iframe',
+          'height' : 50,
+          'width' : 320,
+          'params' : {}
+        };
+      </script>
+      <script src="https://encouragingjawsordinarily.com/2f2aa93bee1aa52954a8f17f3434c3db/invoke.js"></script>
+    </div>
 
-</main>
+    <div class="footer">© 2026 Sistema Premium</div>
 
-<footer>© 2026 Sistema Premium</footer>
-
-<!-- MODAL FINAL -->
-<div class="modal" id="modal">
-<div class="modal-content">
-<span class="modal-close" id="modal-close">&times;</span>
-<h2 id="modal-title">Acesso Liberado!</h2>
-<p id="modal-text">Clique no botão abaixo para continuar para o conteúdo.</p>
-<div class="button" id="modal-btn">Continuar</div>
-</div>
+  </div>
 </div>
 
 <script>
-// ===================== DESTINO BASE64 FLEXÍVEL =====================
+// ===== DESTINO FLEXÍVEL =====
 const params = new URLSearchParams(window.location.search);
-let encoded = params.get("d") || params.get("destino"); // aceita d= ou destino=
+let encoded = params.get("d") || params.get("destino");
+
 if(!encoded){
-  alert("Link inválido ou ausente!");
-  throw new Error("Link Base64 não fornecido");
+  alert("Link inválido!");
+  throw new Error();
 }
 
-// Salva sessão e remove parâmetro da barra
-sessionStorage.setItem("liberado","1");
-sessionStorage.setItem("destino_enc", encoded);
+// limpa URL
 window.history.replaceState({}, document.title, window.location.pathname);
 
-// ===================== PROGRESSO =====================
-const bar=document.getElementById("bar");
-const status=document.getElementById("status");
-const btn1=document.getElementById("btn1");
-const stepsContainer=document.getElementById("steps");
+// ===== ETAPA 1 =====
+const btn1 = document.getElementById("btn1");
+const step2 = document.getElementById("step2");
 
-// Mostra botão imediatamente
-btn1.style.display="inline-block";
-status.innerText="Acesso disponível! Clique no botão para continuar.";
-
-// ===================== BOTÕES 3 ETAPAS =====================
 btn1.onclick = ()=>{
-  btn1.style.display="none";
-  const btn2=document.createElement("div");
-  btn2.className="button";
-  btn2.innerText="Aguarde 3s...";
-  stepsContainer.appendChild(btn2);
+  btn1.style.display = "none";
 
-  let count=3;
-  const countInterval = setInterval(()=>{
+  let count = 3;
+  const btn2 = document.createElement("button");
+  btn2.innerText = "Aguarde 3s...";
+  step2.appendChild(btn2);
+
+  const timer = setInterval(()=>{
     count--;
-    btn2.innerText="Aguarde "+count+"s...";
-    if(count<=0){
-      clearInterval(countInterval);
-      btn2.innerText="Clique para continuar";
-      btn2.onclick = ()=> finalStep();
+    btn2.innerText = "Aguarde "+count+"s...";
+
+    if(count <= 0){
+      clearInterval(timer);
+      btn2.innerText = "Continuar";
+      btn2.onclick = final;
     }
+
   },1000);
 };
 
-// ===================== FINAL STEP =====================
-function finalStep(){
-  document.getElementById("modal").style.display="flex";
+// ===== FINAL =====
+function final(){
+
+  // popup monetização
+  const smartlink = "https://encouragingjawsordinarily.com/fxgzhb5e?key=3823c25827101f6ca9e1188db300506f";
+  if(Math.random() < 0.7){
+    window.open(smartlink,'_blank');
+  }
+
+  const destino = decodeURIComponent(atob(encoded));
+
+  setTimeout(()=>{
+    window.location.replace(destino);
+  },1000);
 }
-
-const modalClose=document.getElementById("modal-close");
-modalClose.onclick=()=>{document.getElementById("modal").style.display="none";};
-
-const modalBtn=document.getElementById("modal-btn");
-modalBtn.onclick = ()=>{
-  // Pop-up smartlink 70%
-  const smartlink="https://encouragingjawsordinarily.com/fxgzhb5e?key=3823c25827101f6ca9e1188db300506f";
-  if(Math.random()<0.7) window.open(smartlink,'_blank');
-
-  // Redireciona para destino real
-  const finalDest = decodeURIComponent(atob(sessionStorage.getItem("destino_enc")));
-  window.location.replace(finalDest);
-};
-
-// ===================== CARREGA ADS DINÂMICOS =====================
-function loadAds(){
-  const adMiddle=document.getElementById("ad-middle");
-  const adBottom=document.getElementById("ad-bottom");
-
-  const scripts = [
-    {src:"https://quge5.com/88/tag.min.js", attrs:{ "data-zone":"223644", async:true, "data-cfasync":"false" }},
-    {src:"https://nap5k.com/tag.min.js", attrs:{ "data-zone":"10790280" }},
-    {src:"https://5gvci.com/act/files/tag.min.js?z=10788960", attrs:{async:true}}
-  ];
-
-  [adMiddle, adBottom].forEach((container)=>{
-    scripts.forEach((s)=>{
-      const scr=document.createElement("script");
-      scr.src=s.src;
-      for(const key in s.attrs) scr.setAttribute(key,s.attrs[key]);
-      container.appendChild(scr);
-    });
-  });
-}
-loadAds();
-
-// ===================== DETECTOR DE ADBLOCK =====================
-function checkAdBlock(){
-  let testAd = document.createElement('div');
-  testAd.innerHTML = '&nbsp;';
-  testAd.className = 'adsbox';
-  testAd.style.position = 'absolute';
-  testAd.style.height = '1px';
-  testAd.style.width = '1px';
-  testAd.style.left = '-10000px';
-  document.body.appendChild(testAd);
-
-  window.setTimeout(()=>{
-    if(testAd.offsetHeight === 0){
-      const pop = document.createElement('div');
-      pop.style.position="fixed"; pop.style.top="0"; pop.style.left="0";
-      pop.style.width="100%"; pop.style.height="100%";
-      pop.style.background="rgba(0,0,0,0.9)";
-      pop.style.color="#fff"; pop.style.zIndex="3000";
-      pop.style.display="flex"; pop.style.flexDirection="column"; pop.style.alignItems="center"; pop.style.justifyContent="center";
-      pop.innerHTML = "<h2>🚨 Detectamos AdBlock ativo</h2><p>Por favor, desative seu bloqueador de anúncios para continuar.</p>";
-      document.body.appendChild(pop);
-    }
-    document.body.removeChild(testAd);
-  }, 50);
-}
-checkAdBlock();
 </script>
 
 </body>
