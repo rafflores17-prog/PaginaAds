@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Portal ADS Futurista</title>
+<title>Portal ADS Futurista Premium</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
@@ -21,9 +21,9 @@ body{
 }
 
 .card{
-  max-width:480px;
+  max-width:500px;
   margin:auto;
-  background:rgba(0,0,0,0.6);
+  background:rgba(0,0,0,0.7);
   padding:30px;
   border-radius:20px;
   box-shadow:0 10px 40px rgba(0,0,0,0.5);
@@ -56,13 +56,7 @@ button:hover{
   margin:20px auto;
 }
 
-.card .footer{
-  margin-top:20px;
-  font-size:12px;
-  color:#888;
-}
-
-/* Pop-up Anti-AdBlock */
+/* Anti-AdBlock Pop-up */
 #adblock-popup{
   display:none;
   position:fixed;
@@ -78,21 +72,29 @@ button:hover{
 #adblock-popup button{
   margin-top:20px;
   background:#22c55e;
+  padding:10px 20px;
+  border-radius:20px;
+  border:none;
+  cursor:pointer;
+}
+
+.footer{
+  margin-top:20px;
+  font-size:12px;
+  color:#888;
 }
 </style>
 </head>
-
 <body>
 
 <div class="container">
   <div class="card">
     <h2>🔐 Acesso Protegido</h2>
-    <p id="status">Clique abaixo para liberar</p>
+    <p id="status">Clique abaixo para liberar o acesso</p>
     <button id="btn1">Liberar Acesso</button>
-
     <div id="step2"></div>
 
-    <!-- BANNER FIXO -->
+    <!-- Banner Terra fixo -->
     <div id="ad-banner">
       <script>
         atOptions = {
@@ -127,7 +129,7 @@ if(!encoded){
   throw new Error();
 }
 
-// limpa URL
+// limpa URL para esconder Base64
 window.history.replaceState({}, document.title, window.location.pathname);
 
 // ===== ETAPA 1 =====
@@ -137,40 +139,64 @@ const status = document.getElementById("status");
 
 btn1.onclick = ()=>{
   btn1.style.display = "none";
-
   status.innerText = "Preparando próxima etapa...";
-  
+
   let count = 3;
   const btn2 = document.createElement("button");
   btn2.innerText = "Aguarde 3s...";
   step2.appendChild(btn2);
 
-  const timer = setInterval(()=>{
+  const timer1 = setInterval(()=>{
     count--;
     btn2.innerText = "Aguarde "+count+"s...";
-
     if(count <= 0){
-      clearInterval(timer);
+      clearInterval(timer1);
       btn2.innerText = "Continuar";
-      btn2.onclick = final;
+      btn2.onclick = etapa2;
     }
-
   },1000);
 };
 
-// ===== FINAL =====
-function final(){
-  // Pop-up monetização
+// ===== ETAPA 2 =====
+function etapa2(){
+  step2.innerHTML = "";
+  status.innerText = "Etapa 2: Pop-up Monetização";
+
+  const btn3 = document.createElement("button");
+  btn3.innerText = "Aguarde 3s...";
+  step2.appendChild(btn3);
+
+  // Pop-up Monetização
   const smartlink = "https://encouragingjawsordinarily.com/fxgzhb5e?key=3823c25827101f6ca9e1188db300506f";
   if(Math.random() < 0.7){
     window.open(smartlink,'_blank');
   }
 
-  const destino = decodeURIComponent(atob(encoded));
-
-  setTimeout(()=>{
-    window.location.replace(destino);
+  let count = 3;
+  const timer2 = setInterval(()=>{
+    count--;
+    btn3.innerText = "Aguarde "+count+"s...";
+    if(count <= 0){
+      clearInterval(timer2);
+      btn3.innerText = "Continuar";
+      btn3.onclick = finalStep;
+    }
   },1000);
+}
+
+// ===== ETAPA FINAL =====
+function finalStep(){
+  step2.innerHTML = "";
+  status.innerText = "Finalizando...";
+
+  const btnFinal = document.createElement("button");
+  btnFinal.innerText = "Clique para ir ao destino";
+  step2.appendChild(btnFinal);
+
+  btnFinal.onclick = ()=>{
+    const destino = decodeURIComponent(atob(encoded));
+    window.location.replace(destino);
+  };
 }
 
 // ===== DETECTA ANTI-ADBLOCK =====
