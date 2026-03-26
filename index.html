@@ -3,14 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Portal ADS Futurista - Ultra Final</title>
+<title>Portal ADS Futurista</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:Poppins;background:#0f172a;color:#fff;text-align:center;transition:0.3s;}
-header{position:fixed;top:0;width:100%;padding:15px 30px;background:rgba(15,23,42,0.95);backdrop-filter:blur(10px);display:flex;justify-content:space-between;align-items:center;z-index:1000;}
+header{position:fixed;top:0;width:100%;padding:15px 30px;background:rgba(15,23,42,0.95);backdrop-filter:blur(10px);z-index:1000;}
 header h1{font-size:1.6rem;color:#06b6d4;}
-.toggle-dark{cursor:pointer;font-weight:600;padding:8px 12px;border-radius:12px;background:#22c55e;color:#fff;user-select:none;}
 main{padding:120px 20px 50px;}
 .progress{height:10px;background:#1e293b;border-radius:20px;overflow:hidden;margin:20px 0;}
 .bar{height:100%;width:0;background:linear-gradient(90deg,#22c55e,#06b6d4);}
@@ -30,7 +29,6 @@ footer{margin-top:30px;font-size:12px;color:#888;}
 
 <header>
 <h1>📰 Portal ADS Futurista</h1>
-<div class="toggle-dark" id="darkBtn">Dark Mode</div>
 </header>
 
 <div class="progress"><div class="bar" id="bar"></div></div>
@@ -41,7 +39,7 @@ footer{margin-top:30px;font-size:12px;color:#888;}
   <div class="button" id="btn1" style="display:none">Liberar Acesso</div>
 </div>
 
-<!-- ADS FIXOS -->
+<!-- Banner fixo Terra -->
 <div class="ad-banner" id="ad-terra">
   <script>
     atOptions = {
@@ -57,9 +55,10 @@ footer{margin-top:30px;font-size:12px;color:#888;}
 
 <div class="ad-banner" id="ad-middle"></div>
 <div class="ad-banner" id="ad-bottom"></div>
+
 </main>
 
-<footer>© 2026 Portal ADS Futurista Premium</footer>
+<footer>© 2026 Sistema Premium</footer>
 
 <!-- MODAL FINAL -->
 <div class="modal" id="modal">
@@ -72,32 +71,28 @@ footer{margin-top:30px;font-size:12px;color:#888;}
 </div>
 
 <script>
-// DARK MODE
-const darkBtn=document.getElementById("darkBtn");
-darkBtn.onclick=()=>{ 
-  if(document.body.style.background=="#0f172a"){
-    document.body.style.background="#fff"; document.body.style.color="#111";
-    document.querySelectorAll('.button').forEach(b=>b.style.color="#fff");
-  }else{
-    document.body.style.background="#0f172a"; document.body.style.color="#fff";
-  }
-};
+// ===================== DESTINO BASE64 =====================
+const params = new URLSearchParams(window.location.search);
+let encoded = params.get("d"); // parâmetro d contém Base64
 
-// DESTINO SEGURO
-let destino = "https://devuploads.com/36lgeo3f83ct"; // aqui você muda o link que deseja
-const encoded = btoa(encodeURIComponent(destino));
+if(!encoded){
+  alert("Link inválido ou ausente!");
+  throw new Error("Link Base64 não fornecido");
+}
+
+// Salva sessão e remove parâmetro da barra
 sessionStorage.setItem("liberado","1");
 sessionStorage.setItem("destino_enc", encoded);
-
-// REMOVE PARAMETRO DA BARRA
 window.history.replaceState({}, document.title, window.location.pathname);
 
-// PROGRESSO
+// ===================== PROGRESSO =====================
 let tempo = Math.floor(Math.random()*4)+4;
 let atual=0;
 const bar=document.getElementById("bar");
 const status=document.getElementById("status");
 const btn1=document.getElementById("btn1");
+const stepsContainer=document.getElementById("steps");
+
 let i = setInterval(()=>{
   atual++;
   bar.style.width = (atual/tempo*100)+"%";
@@ -110,8 +105,7 @@ let i = setInterval(()=>{
   }
 },1000);
 
-// BOTÕES DE ETAPAS
-const stepsContainer=document.getElementById("steps");
+// ===================== BOTÕES 3 ETAPAS =====================
 btn1.onclick = ()=>{
   btn1.style.display="none";
   const btn2=document.createElement("div");
@@ -131,7 +125,7 @@ btn1.onclick = ()=>{
   },1000);
 };
 
-// FINAL STEP
+// ===================== FINAL STEP =====================
 function finalStep(){
   document.getElementById("modal").style.display="flex";
 }
@@ -144,13 +138,13 @@ modalBtn.onclick = ()=>{
   // Pop-up smartlink 70%
   const smartlink="https://encouragingjawsordinarily.com/fxgzhb5e?key=3823c25827101f6ca9e1188db300506f";
   if(Math.random()<0.7) window.open(smartlink,'_blank');
-  
+
   // Redireciona para destino real
   const finalDest = decodeURIComponent(atob(sessionStorage.getItem("destino_enc")));
   window.location.replace(finalDest);
 };
 
-// INSERIR ADS FIXOS DINAMICOS
+// ===================== CARREGA ADS DINÂMICOS =====================
 function loadAds(){
   const adMiddle=document.getElementById("ad-middle");
   const adBottom=document.getElementById("ad-bottom");
@@ -171,6 +165,33 @@ function loadAds(){
   });
 }
 loadAds();
+
+// ===================== DETECTOR DE ADBLOCK =====================
+function checkAdBlock(){
+  let testAd = document.createElement('div');
+  testAd.innerHTML = '&nbsp;';
+  testAd.className = 'adsbox';
+  testAd.style.position = 'absolute';
+  testAd.style.height = '1px';
+  testAd.style.width = '1px';
+  testAd.style.left = '-10000px';
+  document.body.appendChild(testAd);
+
+  window.setTimeout(()=>{
+    if(testAd.offsetHeight === 0){
+      const pop = document.createElement('div');
+      pop.style.position="fixed"; pop.style.top="0"; pop.style.left="0";
+      pop.style.width="100%"; pop.style.height="100%";
+      pop.style.background="rgba(0,0,0,0.9)";
+      pop.style.color="#fff"; pop.style.zIndex="3000";
+      pop.style.display="flex"; pop.style.flexDirection="column"; pop.style.alignItems="center"; pop.style.justifyContent="center";
+      pop.innerHTML = "<h2>🚨 Detectamos AdBlock ativo</h2><p>Por favor, desative seu bloqueador de anúncios para continuar.</p>";
+      document.body.appendChild(pop);
+    }
+    document.body.removeChild(testAd);
+  }, 50);
+}
+checkAdBlock();
 </script>
 
 </body>
