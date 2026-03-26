@@ -1,228 +1,151 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+<!-- ======================================
+PÁGINA 1 - PREMIUM (index.html)
+====================================== --><!DOCTYPE html><html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Página 1</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Acesso Seguro</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"><style>
+body{
+  margin:0;
+  font-family:Poppins;
+  background: radial-gradient(circle at top,#0f172a,#020617);
+  color:#fff;
+  text-align:center;
+}
+.container{
+  padding:50px 20px;
+}
+.card{
+  max-width:420px;
+  margin:auto;
+  padding:30px;
+  border-radius:20px;
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(15px);
+  box-shadow:0 10px 40px rgba(0,0,0,0.6);
+}
+.progress{
+  height:10px;
+  background:#1e293b;
+  border-radius:20px;
+  overflow:hidden;
+  margin:25px 0;
+}
+.bar{
+  height:100%;
+  width:0;
+  background:linear-gradient(90deg,#22c55e,#06b6d4);
+  transition:width 1s linear;
+}
+button{
+  width:100%;
+  padding:15px;
+  border-radius:50px;
+  border:none;
+  background:#334155;
+  color:#fff;
+  font-weight:600;
+  cursor:not-allowed;
+}
+button.active{
+  background:linear-gradient(90deg,#06b6d4,#3b82f6);
+  cursor:pointer;
+}
+.hidden{display:none}
+</style></head><body>
+<div class="container">
+  <div class="card">
+    <h2>🔐 Verificando acesso seguro</h2>
+    <p>Estamos preparando seu conteúdo exclusivo...</p><div class="progress">
+  <div class="bar" id="bar"></div>
+</div>
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<p id="status">Iniciando...</p>
 
-  <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: #ffffff;
-      color: #111;
-      text-align: center;
-      margin: 0;
-      padding: 0;
-    }
-    header {
-      background-color: #111;
-      color: #fff;
-      padding: 15px 0;
-      font-size: 1.2em;
-      font-weight: 600;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      transition: all 0.3s ease;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    }
-    .counter {
-      font-size: 1.5em;
-      font-weight: 700;
-      color: #fbbf24;
-    }
-    
-    /* Novo container para organizar o layout no centro da tela */
-    .content-wrapper {
-      padding: 40px 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: calc(80vh - 60px);
-    }
+<!-- ADS AQUI -->
+<div id="ads-area">
+  <!-- COLE SCRIPT AQUI -->
+</div>
 
-    .ad-container {
-      width: 100%;
-      max-width: 728px;
-      margin: 0 auto;
-    }
+<button id="btn" disabled>Continuar</button>
 
-    .ad-placeholder {
-      margin: 20px auto;
-      min-height: 50px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    
-    .next-button {
-      background-color: #999;
-      color: white;
-      font-weight: 600;
-      padding: 15px 35px;
-      border-radius: 50px;
-      border: none;
-      cursor: not-allowed;
-      transition: all 0.2s ease;
-      margin: 40px 0;
-      font-size: 1.1em;
-      font-family: 'Poppins', sans-serif;
-    }
-    .next-button.active {
-      background: linear-gradient(90deg, #007bff, #0056b3);
-      cursor: pointer;
-      box-shadow: 0 4px 15px rgba(0,123,255,0.3);
-    }
-    
-    /* Modal do AdBlock */
-    .adblock-modal-overlay {
-      position: fixed; top: 0; left: 0;
-      width: 100%; height: 100%;
-      background-color: rgba(0, 0, 0, 0.85);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-      padding: 20px;
-      box-sizing: border-box;
-      backdrop-filter: blur(5px);
-    }
-    .adblock-modal-content {
-      background-color: #fff; padding: 35px 25px;
-      border-radius: 15px; max-width: 400px;
-      width: 100%; text-align: center;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-      animation: fadeIn 0.5s ease-out;
-    }
-    .adblock-modal-content .icon {
-      width: 90px; height: 90px;
-      margin: 0 auto 20px auto;
-      background-color: #fbecec;
-      border: 5px solid #e53e3e;
-      border-radius: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: #e53e3e;
-    }
-    .adblock-modal-content .icon svg { width: 45px; height: 45px; }
-    .adblock-modal-content h2 { font-size: 1.6em; color: #333; margin-bottom: 12px; }
-    .adblock-modal-content p { color: #555; font-size: 1em; line-height: 1.5; margin-bottom: 20px; }
-    .adblock-refresh-button {
-      display: inline-block; background-color: #2d8a5b;
-      color: white; padding: 12px 30px;
-      border-radius: 50px; font-weight: 600;
-      text-decoration: none; cursor: pointer;
-      transition: background-color 0.2s ease;
-      font-family: 'Poppins', sans-serif;
-    }
-    .adblock-refresh-button:hover { background-color: #256d49; }
-    @keyframes fadeIn {
-      from {opacity: 0; transform: translateY(15px);}
-      to {opacity: 1; transform: translateY(0);}
-    }
-  </style>
+  </div>
+</div><!-- MODAL ADBLOCK --><div id="adblock" class="hidden">
+  <div style="position:fixed;top:0;left:0;width:100%;height:100%;background:#000c;display:flex;align-items:center;justify-content:center;">
+    <div style="background:#111;padding:30px;border-radius:15px;text-align:center;max-width:300px">
+      <h3>⚠️ Desative o AdBlock</h3>
+      <p>Precisamos dos anúncios para liberar o acesso.</p>
+      <button onclick="location.reload()">Atualizar</button>
+    </div>
+  </div>
+</div><script>
+// Anti AdBlock real
+setTimeout(()=>{
+  const ads=document.getElementById("ads-area");
+  if(!ads || ads.innerHTML.trim()===""){
+    document.getElementById("adblock").classList.remove("hidden");
+  }
+},1500);
+
+let tempo=Math.floor(Math.random()*5)+9;
+let atual=0;
+
+const bar=document.getElementById("bar");
+const btn=document.getElementById("btn");
+const status=document.getElementById("status");
+
+const textos=[
+ "Conectando servidor...",
+ "Verificando segurança...",
+ "Carregando conteúdo...",
+ "Finalizando acesso..."
+];
+
+let i=setInterval(()=>{
+ atual++;
+ bar.style.width=(atual/tempo*100)+"%";
+ status.innerText=textos[Math.floor(atual/3)]||"Finalizando...";
+
+ if(atual>=tempo){
+  clearInterval(i);
+  btn.disabled=false;
+  btn.classList.add("active");
+  btn.onclick=()=>location.href="page2.html";
+ }
+},1000);
+</script></body>
+</html><!-- ======================================
+PÁGINA 2 - MONETIZAÇÃO PESADA
+====================================== --><!DOCTYPE html><html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Finalizando</title>
+<style>
+body{background:#020617;color:#fff;text-align:center;font-family:Poppins}
+.card{max-width:400px;margin:100px auto;padding:30px;background:#0f172a;border-radius:20px}
+button{width:100%;padding:15px;border:none;border-radius:50px;background:#22c55e;color:#fff;font-weight:600}
+</style>
 </head>
+<body><div class="card">
+<h2>🚀 Liberar acesso</h2>
+<p>Clique abaixo para continuar</p><!-- POPUNDER / PUSH --><script src="SEU_SCRIPT_AQUI.js"></script><button onclick="go()">Continuar</button>
+
+</div><script>
+function go(){
+  const link="SEU_SMARTLINK_AQUI";
+
+  window.open(link,'_blank');
+  location.href="fallback.html";
+}
+</script></body>
+</html><!-- ======================================
+FALLBACK
+====================================== --><!DOCTYPE html><html>
 <body>
-
-  <header id="header-contador">
-    Aguarde <span class="counter" id="contador">10</span> segundos...
-  </header>
-
-  <div class="content-wrapper">
-    
-    <div class="ad-container">
-      <div class="ad-placeholder">
-        <script async="async" data-cfasync="false" src="//victimfatalsentiments.com/694579ced308045c2c6c156cc2dceaba/invoke.js"></script>
-        <div id="container-694579ced308045c2c6c156cc2dceaba"></div>
-      </div>
-      
-      <div class="ad-placeholder">
-        <script src="https://fpyf8.com/88/tag.min.js" data-zone="182494" async data-cfasync="false"></script>
-      </div>
-    </div>
-
-    <button id="botao" class="next-button" disabled>PRÓXIMA ETAPA</button>
-    
-  </div>
-
-  <div class="adblock-modal-overlay" id="adblock-modal">
-    <div class="adblock-modal-content">
-      <div class="icon">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path d="M15.936 2.5L21.5 8.064V15.936L15.936 21.5H8.064L2.5 15.936V8.064L8.064 2.5H15.936ZM15 17H9V19H15V17ZM15 5H9V15H15V5Z"/></svg>
-      </div>
-      <h2>AdBlocker Detectado!</h2>
-      <p>Detectamos que você está usando uma extensão para bloquear anúncios.<br>
-      Por favor, desative seu AdBlocker e atualize a página para continuar.</p>
-      <a class="adblock-refresh-button" onclick="location.reload()">Atualizar Página</a>
-    </div>
-  </div>
-
-  <script>
-    const params = new URLSearchParams(window.location.search);
-    const destinoParam = params.get('destino') || ''; 
-
-    document.addEventListener('DOMContentLoaded', () => {
-      setTimeout(() => {
-        // Agora, o detector de AdBlock verifica AMBOS os 'ad-placeholder'
-        const ads = document.querySelectorAll('.ad-placeholder');
-        let bloqueado = false;
-        ads.forEach(ad => {
-          // Se qualquer um dos placeholders tiver uma altura muito pequena, assumimos que está bloqueado
-          if (ad.offsetHeight < 20) {
-            bloqueado = true;
-          }
-        });
-
-        if (bloqueado) {
-          document.getElementById('adblock-modal').style.display = 'flex';
-          document.body.style.overflow = 'hidden';
-        } else {
-          iniciarContador();
-        }
-      }, 1000);
-    });
-
-    function iniciarContador() {
-      let segundos = 10;
-      const contador = document.getElementById("contador");
-      const botao = document.getElementById("botao");
-      const headerContador = document.getElementById("header-contador"); 
-
-      const interval = setInterval(() => {
-        segundos--;
-        if (contador) {
-            contador.textContent = segundos;
-        }
-        
-        if (segundos <= 0) {
-          clearInterval(interval);
-          
-          if (headerContador) {
-            headerContador.style.display = 'none';
-          }
-          
-          if (botao) {
-              botao.classList.add("active");
-              botao.disabled = false;
-              botao.textContent = "PRÓXIMA ETAPA";
-              
-              botao.scrollIntoView({ behavior: 'smooth', block: 'center' });
-              
-              botao.onclick = () => {
-                // Mantém o link para a próxima etapa (pagina2.html)
-                window.location.href = 'pagina2.html?destino=' + encodeURIComponent(destinoParam);
-              };
-          }
-        }
-      }, 1000);
-    }
-  </script>
-  
-  <script src="https://publisher.linkvertise.com/cdn/linkvertise.js"></script><script>linkvertise(3184971, {whitelist: [], blacklist: ["https://paginaadsxpro.vercel.app/?destino="]});</script>
-  
+<script>
+location.href="https://google.com";
+</script>
 </body>
 </html>
