@@ -23,7 +23,7 @@ body{
 .card{
   max-width:500px;
   margin:auto;
-  background:rgba(0,0,0,0.7);
+  background:rgba(0,0,0,0.75);
   padding:30px;
   border-radius:20px;
   box-shadow:0 10px 40px rgba(0,0,0,0.5);
@@ -90,8 +90,8 @@ button:hover{
 <div class="container">
   <div class="card">
     <h2>🔐 Acesso Protegido</h2>
-    <p id="status">Clique abaixo para liberar o acesso</p>
-    <button id="btn1">Liberar Acesso</button>
+    <p id="status">Clique abaixo para liberar</p>
+    <button id="btn1" disabled>Liberar Acesso</button>
     <div id="step2"></div>
 
     <!-- Banner Terra fixo -->
@@ -116,7 +116,7 @@ button:hover{
 <div id="adblock-popup">
   🚨 Detectamos AdBlock ativo!<br>
   Por favor, desative seu bloqueador de anúncios para continuar.<br>
-  <button onclick="document.getElementById('adblock-popup').style.display='none'">Ok, entendi</button>
+  <button onclick="closeAdblock()">Ok, entendi</button>
 </div>
 
 <script>
@@ -129,17 +129,41 @@ if(!encoded){
   throw new Error();
 }
 
-// limpa URL para esconder Base64
+// Limpa URL para esconder Base64
 window.history.replaceState({}, document.title, window.location.pathname);
 
-// ===== ETAPA 1 =====
+// ===== ELEMENTOS =====
 const btn1 = document.getElementById("btn1");
 const step2 = document.getElementById("step2");
 const status = document.getElementById("status");
+const adblockPopup = document.getElementById("adblock-popup");
 
+// ===== FUNÇÃO PARA FECHAR POP-UP =====
+function closeAdblock(){
+  adblockPopup.style.display = "none";
+  btn1.disabled = false;
+}
+
+// ===== DETECTA ANTI-ADBLOCK =====
+window.addEventListener("load",()=>{
+  let adTest = document.createElement('div');
+  adTest.innerHTML = '&nbsp;';
+  adTest.className = 'adsbox';
+  document.body.appendChild(adTest);
+  window.setTimeout(()=>{
+    if(adTest.offsetHeight === 0){
+      adblockPopup.style.display='block';
+    } else {
+      btn1.disabled = false;
+    }
+    adTest.remove();
+  },100);
+});
+
+// ===== ETAPA 1 =====
 btn1.onclick = ()=>{
   btn1.style.display = "none";
-  status.innerText = "Preparando próxima etapa...";
+  status.innerText = "Preparando conteúdo...";
 
   let count = 3;
   const btn2 = document.createElement("button");
@@ -160,7 +184,7 @@ btn1.onclick = ()=>{
 // ===== ETAPA 2 =====
 function etapa2(){
   step2.innerHTML = "";
-  status.innerText = "Etapa 2: Pop-up Monetização";
+  status.innerText = "Quase pronto...";
 
   const btn3 = document.createElement("button");
   btn3.innerText = "Aguarde 3s...";
@@ -178,7 +202,7 @@ function etapa2(){
     btn3.innerText = "Aguarde "+count+"s...";
     if(count <= 0){
       clearInterval(timer2);
-      btn3.innerText = "Continuar";
+      btn3.innerText = "Clique para continuar";
       btn3.onclick = finalStep;
     }
   },1000);
@@ -187,7 +211,7 @@ function etapa2(){
 // ===== ETAPA FINAL =====
 function finalStep(){
   step2.innerHTML = "";
-  status.innerText = "Finalizando...";
+  status.innerText = "Quase lá...";
 
   const btnFinal = document.createElement("button");
   btnFinal.innerText = "Clique para ir ao destino";
@@ -198,20 +222,6 @@ function finalStep(){
     window.location.replace(destino);
   };
 }
-
-// ===== DETECTA ANTI-ADBLOCK =====
-window.addEventListener("load",()=>{
-  let adTest = document.createElement('div');
-  adTest.innerHTML = '&nbsp;';
-  adTest.className = 'adsbox';
-  document.body.appendChild(adTest);
-  window.setTimeout(()=>{
-    if(adTest.offsetHeight === 0){
-      document.getElementById('adblock-popup').style.display='block';
-    }
-    adTest.remove();
-  },100);
-});
 </script>
 
 </body>
