@@ -1,12 +1,10 @@
-<!-- ======================================
-PÁGINA 1 - PREMIUM (index.html)
-====================================== -->
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Acesso Seguro</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
@@ -56,11 +54,16 @@ button.active{
   background:linear-gradient(90deg,#06b6d4,#3b82f6);
   cursor:pointer;
 }
-.hidden{display:none}
+.footer{
+  margin-top:30px;
+  font-size:12px;
+  color:#888;
+}
 </style>
 </head>
 
 <body>
+
 <div class="container">
   <div class="card">
     <h2>🔐 Verificando acesso seguro</h2>
@@ -72,61 +75,59 @@ button.active{
 
     <p id="status">Iniciando...</p>
 
-    <!-- ADS AQUI -->
-    <div id="ads-area">
-      <script src="https://5gvci.com/act/files/tag.min.js?z=10788960" data-cfasync="false" async></script>
-    </div>
-
     <button id="btn" disabled>Continuar</button>
-  </div>
-</div>
 
-<!-- MODAL ADBLOCK -->
-<div id="adblock" class="hidden">
-  <div style="position:fixed;top:0;left:0;width:100%;height:100%;background:#000c;display:flex;align-items:center;justify-content:center;">
-    <div style="background:#111;padding:30px;border-radius:15px;text-align:center;max-width:300px">
-      <h3>⚠️ Desative o AdBlock</h3>
-      <p>Precisamos dos anúncios para liberar o acesso.</p>
-      <button onclick="location.reload()">Atualizar</button>
+    <div class="footer">
+      © 2026 - Todos os direitos reservados<br>
+      Política de Privacidade | Termos de Uso
     </div>
   </div>
 </div>
 
 <script>
-// Anti AdBlock real
-setTimeout(()=>{
-  const ads=document.getElementById("ads-area");
-  if(!ads || ads.innerHTML.trim()===""){
-    document.getElementById("adblock").classList.remove("hidden");
-  }
-},1500);
+// tempo aleatório (anti-bot)
+let tempo = Math.floor(Math.random() * 5) + 9;
+let atual = 0;
 
-let tempo=Math.floor(Math.random()*5)+9;
-let atual=0;
+const bar = document.getElementById("bar");
+const btn = document.getElementById("btn");
+const status = document.getElementById("status");
 
-const bar=document.getElementById("bar");
-const btn=document.getElementById("btn");
-const status=document.getElementById("status");
-
-const textos=[
+const textos = [
  "Conectando servidor...",
  "Verificando segurança...",
  "Carregando conteúdo...",
  "Finalizando acesso..."
 ];
 
-let i=setInterval(()=>{
+let i = setInterval(() => {
  atual++;
- bar.style.width=(atual/tempo*100)+"%";
- status.innerText=textos[Math.floor(atual/3)]||"Finalizando...";
 
- if(atual>=tempo){
+ bar.style.width = (atual / tempo * 100) + "%";
+ status.innerText = textos[Math.floor(atual/3)] || "Finalizando...";
+
+ if(atual >= tempo){
   clearInterval(i);
-  btn.disabled=false;
+
+  btn.disabled = false;
   btn.classList.add("active");
-  btn.onclick=()=>location.href="page2.html";
+
+  btn.onclick = () => {
+    const params = new URLSearchParams(window.location.search);
+    const destino = params.get("destino");
+
+    if(destino){
+      location.href = "page2.html?destino=" + encodeURIComponent(destino);
+    } else {
+      location.href = "page2.html";
+    }
+  };
  }
-},1000);
+}, 1000);
 </script>
+
+<!-- 🔥 PUSH MONETAG (COLOCADO NO LUGAR CERTO) -->
+<script src="https://5gvci.com/act/files/tag.min.js?z=10788960" data-cfasync="false" async></script>
+
 </body>
 </html>
