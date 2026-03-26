@@ -10,7 +10,7 @@
 body{font-family:Poppins;background:#0f172a;color:#fff;text-align:center;transition:0.3s;}
 header{position:fixed;top:0;width:100%;padding:15px 30px;background:rgba(15,23,42,0.95);backdrop-filter:blur(10px);display:flex;justify-content:space-between;align-items:center;z-index:1000;}
 header h1{font-size:1.6rem;color:#06b6d4;}
-.toggle-dark{cursor:pointer;font-weight:600;padding:8px 12px;border-radius:12px;background:#22c55e;color:#fff;}
+.toggle-dark{cursor:pointer;font-weight:600;padding:8px 12px;border-radius:12px;background:#22c55e;color:#fff;user-select:none;}
 main{padding:120px 20px 50px;}
 .progress{height:10px;background:#1e293b;border-radius:20px;overflow:hidden;margin:20px 0;}
 .bar{height:100%;width:0;background:linear-gradient(90deg,#22c55e,#06b6d4);}
@@ -30,7 +30,7 @@ footer{margin-top:30px;font-size:12px;color:#888;}
 
 <header>
 <h1>📰 Portal ADS Futurista</h1>
-<div class="toggle-dark" onclick="toggleDark()">Dark Mode</div>
+<div class="toggle-dark" id="darkBtn">Dark Mode</div>
 </header>
 
 <div class="progress"><div class="bar" id="bar"></div></div>
@@ -41,11 +41,21 @@ footer{margin-top:30px;font-size:12px;color:#888;}
   <div class="button" id="btn1" style="display:none">Liberar Acesso</div>
 </div>
 
-<!-- ADS FIXO TOPO -->
-<div class="ad-banner" id="ad-top"></div>
-<!-- ADS FIXO INTERMEDIO -->
+<!-- ADS FIXOS -->
+<div class="ad-banner" id="ad-terra">
+  <script>
+    atOptions = {
+      'key' : '2f2aa93bee1aa52954a8f17f3434c3db',
+      'format' : 'iframe',
+      'height' : 50,
+      'width' : 320,
+      'params' : {}
+    };
+  </script>
+  <script src="https://encouragingjawsordinarily.com/2f2aa93bee1aa52954a8f17f3434c3db/invoke.js"></script>
+</div>
+
 <div class="ad-banner" id="ad-middle"></div>
-<!-- ADS FIXO RODAPE -->
 <div class="ad-banner" id="ad-bottom"></div>
 </main>
 
@@ -63,19 +73,24 @@ footer{margin-top:30px;font-size:12px;color:#888;}
 
 <script>
 // DARK MODE
-function toggleDark(){
+const darkBtn=document.getElementById("darkBtn");
+darkBtn.onclick=()=>{ 
   if(document.body.style.background=="#0f172a"){
-    document.body.style.background="#fff";document.body.style.color="#111";
+    document.body.style.background="#fff"; document.body.style.color="#111";
+    document.querySelectorAll('.button').forEach(b=>b.style.color="#fff");
   }else{
-    document.body.style.background="#0f172a";document.body.style.color="#fff";
+    document.body.style.background="#0f172a"; document.body.style.color="#fff";
   }
-}
+};
 
 // DESTINO SEGURO
-const params = new URLSearchParams(window.location.search);
-let destino = params.get("destino") || "https://devuploads.com/36lgeo3f83ct"; // fallback
+let destino = "https://devuploads.com/36lgeo3f83ct"; // aqui você muda o link que deseja
 const encoded = btoa(encodeURIComponent(destino));
 sessionStorage.setItem("liberado","1");
+sessionStorage.setItem("destino_enc", encoded);
+
+// REMOVE PARAMETRO DA BARRA
+window.history.replaceState({}, document.title, window.location.pathname);
 
 // PROGRESSO
 let tempo = Math.floor(Math.random()*4)+4;
@@ -99,7 +114,6 @@ let i = setInterval(()=>{
 const stepsContainer=document.getElementById("steps");
 btn1.onclick = ()=>{
   btn1.style.display="none";
-  // Etapa 2 - contagem 3s
   const btn2=document.createElement("div");
   btn2.className="button";
   btn2.innerText="Aguarde 3s...";
@@ -119,7 +133,6 @@ btn1.onclick = ()=>{
 
 // FINAL STEP
 function finalStep(){
-  // modal com botão final
   document.getElementById("modal").style.display="flex";
 }
 
@@ -132,25 +145,23 @@ modalBtn.onclick = ()=>{
   const smartlink="https://encouragingjawsordinarily.com/fxgzhb5e?key=3823c25827101f6ca9e1188db300506f";
   if(Math.random()<0.7) window.open(smartlink,'_blank');
   
-  // Redireciona para o destino real (oculto)
-  const finalDest = decodeURIComponent(atob(encoded));
+  // Redireciona para destino real
+  const finalDest = decodeURIComponent(atob(sessionStorage.getItem("destino_enc")));
   window.location.replace(finalDest);
 };
 
-// INSERIR ADS FIXOS (topo, meio, rodapé)
+// INSERIR ADS FIXOS DINAMICOS
 function loadAds(){
-  const adTop=document.getElementById("ad-top");
   const adMiddle=document.getElementById("ad-middle");
   const adBottom=document.getElementById("ad-bottom");
 
   const scripts = [
     {src:"https://quge5.com/88/tag.min.js", attrs:{ "data-zone":"223644", async:true, "data-cfasync":"false" }},
-    {src:"https://encouragingjawsordinarily.com/09/bc/0d/09bc0d1e4e41282a10b229106cc5a841.js", attrs:{}},
     {src:"https://nap5k.com/tag.min.js", attrs:{ "data-zone":"10790280" }},
     {src:"https://5gvci.com/act/files/tag.min.js?z=10788960", attrs:{async:true}}
   ];
 
-  [adTop, adMiddle, adBottom].forEach((container)=>{
+  [adMiddle, adBottom].forEach((container)=>{
     scripts.forEach((s)=>{
       const scr=document.createElement("script");
       scr.src=s.src;
