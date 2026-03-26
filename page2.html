@@ -1,0 +1,38 @@
+<!-- ======================================
+PÁGINA 2 - MONETIZAÇÃO PESADA
+====================================== -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Finalizando</title>
+<style>
+body{background:#020617;color:#fff;text-align:center;font-family:Poppins}
+.card{max-width:400px;margin:100px auto;padding:30px;background:#0f172a;border-radius:20px}
+button{width:100%;padding:15px;border:none;border-radius:50px;background:#22c55e;color:#fff;font-weight:600}
+</style>
+</head>
+<body>
+
+<div class="card">
+<h2>🚀 Liberar acesso</h2>
+<p>Clique abaixo para continuar</p>
+
+<!-- POPUNDER / PUSH -->
+<script src="SEU_SCRIPT_AQUI.js"></script>
+
+<button onclick="go()">Continuar</button>
+</div>
+
+<script>
+function go(){
+  const link="SEU_SMARTLINK_AQUI";
+
+  window.open(link,'_blank');
+  location.href="fallback.html";
+}
+</script>
+
+</body>
+</html>
