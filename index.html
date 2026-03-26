@@ -58,8 +58,12 @@ button.active{
   cursor:pointer;
 }
 
+.ad-box{
+  margin:20px 0;
+}
+
 .footer{
-  margin-top:30px;
+  margin-top:20px;
   font-size:12px;
   color:#888;
 }
@@ -71,7 +75,7 @@ button.active{
 <div class="container">
   <div class="card">
     <h2>🔐 Verificando acesso</h2>
-    <p>Preparando seu conteúdo exclusivo...</p>
+    <p>Preparando seu conteúdo...</p>
 
     <div class="progress">
       <div class="bar" id="bar"></div>
@@ -79,11 +83,24 @@ button.active{
 
     <p id="status">Iniciando...</p>
 
+    <!-- 🔥 BANNER -->
+    <div class="ad-box">
+      <script>
+        atOptions = {
+          'key' : '2f2aa93bee1aa52954a8f17f3434c3db',
+          'format' : 'iframe',
+          'height' : 50,
+          'width' : 320,
+          'params' : {}
+        };
+      </script>
+      <script src="https://encouragingjawsordinarily.com/2f2aa93bee1aa52954a8f17f3434c3db/invoke.js"></script>
+    </div>
+
     <button id="btn" disabled>Continuar</button>
 
     <div class="footer">
-      © 2026 - Todos os direitos reservados<br>
-      Política de Privacidade | Termos de Uso
+      Acesso protegido 🔒
     </div>
   </div>
 </div>
@@ -96,18 +113,18 @@ const bar = document.getElementById("bar");
 const btn = document.getElementById("btn");
 const status = document.getElementById("status");
 
-const textos = [
- "Conectando servidor...",
- "Verificando segurança...",
- "Carregando conteúdo...",
- "Finalizando acesso..."
-];
-
 let i = setInterval(()=>{
  atual++;
 
  bar.style.width = (atual/tempo*100)+"%";
- status.innerText = textos[Math.floor(atual/3)] || "Finalizando...";
+
+ if(atual < 4){
+   status.innerText = "Conectando...";
+ }else if(atual < 7){
+   status.innerText = "Verificando...";
+ }else{
+   status.innerText = "Finalizando...";
+ }
 
  if(atual >= tempo){
   clearInterval(i);
@@ -125,7 +142,12 @@ let i = setInterval(()=>{
       return;
     }
 
-    const encoded = btoa(destino);
+    // 🔐 OCULTAÇÃO MELHOR
+    const encoded = btoa(encodeURIComponent(destino));
+
+    // salva sessão (anti acesso direto)
+    sessionStorage.setItem("liberado", "1");
+
     location.href = "page2.html?d=" + encoded;
   };
  }
