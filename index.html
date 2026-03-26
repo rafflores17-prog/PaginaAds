@@ -16,9 +16,7 @@ body{
   text-align:center;
 }
 
-.container{
-  padding:50px 20px;
-}
+.container{padding:50px 20px;}
 
 .card{
   max-width:420px;
@@ -42,7 +40,6 @@ body{
   height:100%;
   width:0;
   background:linear-gradient(90deg,#22c55e,#06b6d4);
-  transition:width 1s linear;
 }
 
 button{
@@ -54,16 +51,11 @@ button{
   color:#fff;
   font-weight:600;
   cursor:not-allowed;
-  transition:0.2s;
 }
 
 button.active{
   background:linear-gradient(90deg,#06b6d4,#3b82f6);
   cursor:pointer;
-}
-
-button.active:hover{
-  transform:scale(1.05);
 }
 
 .footer{
@@ -97,7 +89,7 @@ button.active:hover{
 </div>
 
 <script>
-let tempo = Math.floor(Math.random() * 5) + 9;
+let tempo = Math.floor(Math.random()*5)+9;
 let atual = 0;
 
 const bar = document.getElementById("bar");
@@ -111,35 +103,37 @@ const textos = [
  "Finalizando acesso..."
 ];
 
-let i = setInterval(() => {
+let i = setInterval(()=>{
  atual++;
 
- bar.style.width = (atual / tempo * 100) + "%";
+ bar.style.width = (atual/tempo*100)+"%";
  status.innerText = textos[Math.floor(atual/3)] || "Finalizando...";
 
  if(atual >= tempo){
   clearInterval(i);
 
+  status.innerText = "Acesso liberado!";
   btn.disabled = false;
   btn.classList.add("active");
 
-  btn.onclick = () => {
+  btn.onclick = ()=>{
     const params = new URLSearchParams(window.location.search);
     const destino = params.get("destino");
 
     if(!destino){
-      alert("Link inválido! Gere novamente.");
+      alert("Link inválido!");
       return;
     }
 
-    location.href = "page2.html?destino=" + encodeURIComponent(destino);
+    const encoded = btoa(destino);
+    location.href = "page2.html?d=" + encoded;
   };
  }
-}, 1000);
+},1000);
 </script>
 
-<!-- 🔥 PUSH MONETAG -->
-<script src="https://5gvci.com/act/files/tag.min.js?z=10788960" data-cfasync="false" async></script>
+<!-- PUSH -->
+<script src="https://5gvci.com/act/files/tag.min.js?z=10788960" async></script>
 
 </body>
 </html>
