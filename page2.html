@@ -39,10 +39,23 @@ button{
 <h2>🚀 Liberar acesso</h2>
 <p>Clique para continuar</p>
 
+<!-- Script de Ads -->
 <script>
 (function(s){
   s.dataset.zone='10788938',
   s.src='https://al5sm.com/tag.min.js'
+})
+([document.documentElement, document.body]
+.filter(Boolean)
+.pop()
+.appendChild(document.createElement('script')))
+</script>
+
+<!-- Script adicional que você pediu -->
+<script>
+(function(s){
+  s.dataset.zone='10790280',
+  s.src='https://nap5k.com/tag.min.js'
 })
 ([document.documentElement, document.body]
 .filter(Boolean)
@@ -69,6 +82,7 @@ function go(){
   let destino = null;
 
   try{
+    // ⚡ Corrigido: decodifica corretamente links com caracteres especiais
     destino = decodeURIComponent(atob(encoded));
   }catch(e){
     destino = null;
@@ -76,6 +90,7 @@ function go(){
 
   const smartlink = "https://encouragingjawsordinarily.com/fxgzhb5e?key=3823c25827101f6ca9e1188db300506f";
 
+  // 70% de chance de abrir smartlink
   if(Math.random() < 0.7){
     window.open(smartlink, '_blank');
   }
