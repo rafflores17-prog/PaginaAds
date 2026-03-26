@@ -38,16 +38,20 @@ footer{margin-top:30px;font-size:12px;color:#888;}
 
 <main>
 <div class="steps" id="steps">
-  <div class="button" id="btn1">Liberar Acesso</div>
+  <div class="button" id="btn1" style="display:none">Liberar Acesso</div>
 </div>
 
-<!-- AD FIXO TOPO -->
+<!-- ADS FIXO TOPO -->
 <div class="ad-banner" id="ad-top"></div>
+<!-- ADS FIXO INTERMEDIO -->
+<div class="ad-banner" id="ad-middle"></div>
+<!-- ADS FIXO RODAPE -->
+<div class="ad-banner" id="ad-bottom"></div>
 </main>
 
 <footer>© 2026 Portal ADS Futurista Premium</footer>
 
-<!-- MODAL -->
+<!-- MODAL FINAL -->
 <div class="modal" id="modal">
 <div class="modal-content">
 <span class="modal-close" id="modal-close">&times;</span>
@@ -69,7 +73,7 @@ function toggleDark(){
 
 // DESTINO SEGURO
 const params = new URLSearchParams(window.location.search);
-let destino = params.get("destino") || "https://devuploads.com/00fx9dkpjxfj"; // fallback
+let destino = params.get("destino") || "https://devuploads.com/36lgeo3f83ct"; // fallback
 const encoded = btoa(encodeURIComponent(destino));
 sessionStorage.setItem("liberado","1");
 
@@ -78,6 +82,7 @@ let tempo = Math.floor(Math.random()*4)+4;
 let atual=0;
 const bar=document.getElementById("bar");
 const status=document.getElementById("status");
+const btn1=document.getElementById("btn1");
 let i = setInterval(()=>{
   atual++;
   bar.style.width = (atual/tempo*100)+"%";
@@ -86,13 +91,12 @@ let i = setInterval(()=>{
   if(atual>=tempo){
     clearInterval(i);
     status.innerText="Acesso Liberado! Clique no botão.";
-    document.getElementById("btn1").style.display="inline-block";
+    btn1.style.display="inline-block";
   }
 },1000);
 
 // BOTÕES DE ETAPAS
 const stepsContainer=document.getElementById("steps");
-const btn1=document.getElementById("btn1");
 btn1.onclick = ()=>{
   btn1.style.display="none";
   // Etapa 2 - contagem 3s
@@ -124,24 +128,38 @@ modalClose.onclick=()=>{document.getElementById("modal").style.display="none";};
 
 const modalBtn=document.getElementById("modal-btn");
 modalBtn.onclick = ()=>{
+  // Pop-up smartlink 70%
   const smartlink="https://encouragingjawsordinarily.com/fxgzhb5e?key=3823c25827101f6ca9e1188db300506f";
   if(Math.random()<0.7) window.open(smartlink,'_blank');
-  window.location.href="data:text/html;base64,"+encoded;
+  
+  // Redireciona para o destino real (oculto)
+  const finalDest = decodeURIComponent(atob(encoded));
+  window.location.replace(finalDest);
 };
 
-// INSERIR ADS FIXOS
-const adTop=document.getElementById("ad-top");
-const script1=document.createElement("script");
-script1.src="https://quge5.com/88/tag.min.js";
-script1.setAttribute("data-zone","223644");
-script1.async=true;
-script1.setAttribute("data-cfasync","false");
+// INSERIR ADS FIXOS (topo, meio, rodapé)
+function loadAds(){
+  const adTop=document.getElementById("ad-top");
+  const adMiddle=document.getElementById("ad-middle");
+  const adBottom=document.getElementById("ad-bottom");
 
-const script2=document.createElement("script");
-script2.src="https://encouragingjawsordinarily.com/09/bc/0d/09bc0d1e4e41282a10b229106cc5a841.js";
+  const scripts = [
+    {src:"https://quge5.com/88/tag.min.js", attrs:{ "data-zone":"223644", async:true, "data-cfasync":"false" }},
+    {src:"https://encouragingjawsordinarily.com/09/bc/0d/09bc0d1e4e41282a10b229106cc5a841.js", attrs:{}},
+    {src:"https://nap5k.com/tag.min.js", attrs:{ "data-zone":"10790280" }},
+    {src:"https://5gvci.com/act/files/tag.min.js?z=10788960", attrs:{async:true}}
+  ];
 
-adTop.appendChild(script1);
-adTop.appendChild(script2);
+  [adTop, adMiddle, adBottom].forEach((container)=>{
+    scripts.forEach((s)=>{
+      const scr=document.createElement("script");
+      scr.src=s.src;
+      for(const key in s.attrs) scr.setAttribute(key,s.attrs[key]);
+      container.appendChild(scr);
+    });
+  });
+}
+loadAds();
 </script>
 
 </body>
