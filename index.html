@@ -1,111 +1,9 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Acesso Seguro</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-
-<style>
-body{
-  margin:0;
-  font-family:Poppins;
-  background: radial-gradient(circle at top,#0f172a,#020617);
-  color:#fff;
-  text-align:center;
-}
-
-.container{padding:50px 20px;}
-
-.card{
-  max-width:420px;
-  margin:auto;
-  padding:30px;
-  border-radius:20px;
-  background:rgba(255,255,255,0.05);
-  backdrop-filter:blur(15px);
-  box-shadow:0 10px 40px rgba(0,0,0,0.6);
-}
-
-.progress{
-  height:10px;
-  background:#1e293b;
-  border-radius:20px;
-  overflow:hidden;
-  margin:25px 0;
-}
-
-.bar{
-  height:100%;
-  width:0;
-  background:linear-gradient(90deg,#22c55e,#06b6d4);
-}
-
-button{
-  width:100%;
-  padding:15px;
-  border-radius:50px;
-  border:none;
-  background:#334155;
-  color:#fff;
-  font-weight:600;
-  cursor:not-allowed;
-}
-
-button.active{
-  background:linear-gradient(90deg,#06b6d4,#3b82f6);
-  cursor:pointer;
-}
-
-.ad-box{
-  margin:20px 0;
-}
-
-.footer{
-  margin-top:20px;
-  font-size:12px;
-  color:#888;
-}
-</style>
-</head>
-
-<body>
-
-<div class="container">
-  <div class="card">
-    <h2>🔐 Verificando acesso</h2>
-    <p>Preparando seu conteúdo...</p>
-
-    <div class="progress">
-      <div class="bar" id="bar"></div>
-    </div>
-
-    <p id="status">Iniciando...</p>
-
-    <!-- 🔥 BANNER -->
-    <div class="ad-box">
-      <script>
-        atOptions = {
-          'key' : '2f2aa93bee1aa52954a8f17f3434c3db',
-          'format' : 'iframe',
-          'height' : 50,
-          'width' : 320,
-          'params' : {}
-        };
-      </script>
-      <script src="https://encouragingjawsordinarily.com/2f2aa93bee1aa52954a8f17f3434c3db/invoke.js"></script>
-    </div>
-
-    <button id="btn" disabled>Continuar</button>
-
-    <div class="footer">
-      Acesso protegido 🔒
-    </div>
-  </div>
-</div>
-
 <script>
+const links = {
+  "abc123": "https://devuploads.com/36lgeo3f83ct",
+  "test1": "https://google.com"
+};
+
 let tempo = Math.floor(Math.random()*5)+9;
 let atual = 0;
 
@@ -115,16 +13,7 @@ const status = document.getElementById("status");
 
 let i = setInterval(()=>{
  atual++;
-
  bar.style.width = (atual/tempo*100)+"%";
-
- if(atual < 4){
-   status.innerText = "Conectando...";
- }else if(atual < 7){
-   status.innerText = "Verificando...";
- }else{
-   status.innerText = "Finalizando...";
- }
 
  if(atual >= tempo){
   clearInterval(i);
@@ -135,27 +24,16 @@ let i = setInterval(()=>{
 
   btn.onclick = ()=>{
     const params = new URLSearchParams(window.location.search);
-    const destino = params.get("destino");
+    const id = params.get("id");
 
-    if(!destino){
+    if(!links[id]){
       alert("Link inválido!");
       return;
     }
 
-    // 🔐 OCULTAÇÃO MELHOR
-    const encoded = btoa(encodeURIComponent(destino));
-
-    // salva sessão (anti acesso direto)
-    sessionStorage.setItem("liberado", "1");
-
-    location.href = "page2.html?d=" + encoded;
+    sessionStorage.setItem("liberado","1");
+    location.href = "page2.html?id=" + id;
   };
  }
 },1000);
 </script>
-
-<!-- PUSH -->
-<script src="https://5gvci.com/act/files/tag.min.js?z=10788960" async></script>
-
-</body>
-</html>
