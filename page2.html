@@ -3,24 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Finalizando acesso</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<title>Finalizando</title>
 
 <style>
 body{
-  margin:0;
-  font-family:Poppins;
   background:#020617;
   color:#fff;
   text-align:center;
+  font-family:Poppins;
 }
 
 .card{
-  max-width:420px;
+  max-width:400px;
   margin:100px auto;
   padding:30px;
-  background:rgba(255,255,255,0.05);
+  background:#0f172a;
   border-radius:20px;
 }
 
@@ -32,7 +29,6 @@ button{
   background:#22c55e;
   color:#fff;
   font-weight:600;
-  cursor:pointer;
 }
 </style>
 </head>
@@ -41,7 +37,7 @@ button{
 
 <div class="card">
 <h2>🚀 Liberar acesso</h2>
-<p>Clique abaixo para continuar</p>
+<p>Clique para continuar</p>
 
 <script>
 (function(s){
@@ -55,11 +51,17 @@ button{
 </script>
 
 <button onclick="go()">Continuar</button>
-
 </div>
 
 <script>
 function go(){
+
+  // 🔒 bloqueia acesso direto
+  if(sessionStorage.getItem("liberado") !== "1"){
+    alert("Acesso inválido!");
+    location.href = "/";
+    return;
+  }
 
   const params = new URLSearchParams(window.location.search);
   const encoded = params.get("d");
@@ -67,7 +69,7 @@ function go(){
   let destino = null;
 
   try{
-    destino = atob(encoded);
+    destino = decodeURIComponent(atob(encoded));
   }catch(e){
     destino = null;
   }
@@ -84,8 +86,8 @@ function go(){
   }
 
   setTimeout(()=>{
-    location.href = destino;
-  },1200);
+    window.location.replace(destino);
+  },1500);
 }
 </script>
 
