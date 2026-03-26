@@ -1,11 +1,62 @@
-<script>
-const links = {
-  "abc123": "https://devuploads.com/36lgeo3f83ct",
-  "test1": "https://google.com"
-};
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Finalizando</title>
 
+<style>
+body{
+  background:#020617;
+  color:#fff;
+  text-align:center;
+  font-family:Poppins;
+}
+
+.card{
+  max-width:400px;
+  margin:100px auto;
+  padding:30px;
+  background:#0f172a;
+  border-radius:20px;
+}
+
+button{
+  width:100%;
+  padding:15px;
+  border:none;
+  border-radius:50px;
+  background:#22c55e;
+  color:#fff;
+  font-weight:600;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+<h2>🚀 Liberar acesso</h2>
+<p>Clique para continuar</p>
+
+<script>
+(function(s){
+  s.dataset.zone='10788938',
+  s.src='https://al5sm.com/tag.min.js'
+})
+([document.documentElement, document.body]
+.filter(Boolean)
+.pop()
+.appendChild(document.createElement('script')))
+</script>
+
+<button onclick="go()">Continuar</button>
+</div>
+
+<script>
 function go(){
 
+  // 🔒 bloqueia acesso direto
   if(sessionStorage.getItem("liberado") !== "1"){
     alert("Acesso inválido!");
     location.href = "/";
@@ -13,19 +64,25 @@ function go(){
   }
 
   const params = new URLSearchParams(window.location.search);
-  const id = params.get("id");
+  const encoded = params.get("d");
 
-  const destino = links[id];
+  let destino = null;
 
-  if(!destino){
-    alert("Link inválido!");
-    return;
+  try{
+    destino = decodeURIComponent(atob(encoded));
+  }catch(e){
+    destino = null;
   }
 
   const smartlink = "https://encouragingjawsordinarily.com/fxgzhb5e?key=3823c25827101f6ca9e1188db300506f";
 
-  if(Math.random() < 0.5){
+  if(Math.random() < 0.7){
     window.open(smartlink, '_blank');
+  }
+
+  if(!destino){
+    alert("Erro no link!");
+    return;
   }
 
   setTimeout(()=>{
@@ -33,3 +90,6 @@ function go(){
   },1500);
 }
 </script>
+
+</body>
+</html>
