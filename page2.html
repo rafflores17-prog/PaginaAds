@@ -11,7 +11,7 @@
 body{
   margin:0;
   font-family:Poppins;
-  background: radial-gradient(circle at top,#020617,#000);
+  background:#020617;
   color:#fff;
   text-align:center;
 }
@@ -22,8 +22,6 @@ body{
   padding:30px;
   background:rgba(255,255,255,0.05);
   border-radius:20px;
-  backdrop-filter:blur(10px);
-  box-shadow:0 10px 40px rgba(0,0,0,0.7);
 }
 
 button{
@@ -31,22 +29,10 @@ button{
   padding:15px;
   border:none;
   border-radius:50px;
-  background:linear-gradient(90deg,#22c55e,#16a34a);
+  background:#22c55e;
   color:#fff;
   font-weight:600;
-  font-size:16px;
   cursor:pointer;
-  transition:0.2s;
-}
-
-button:hover{
-  transform:scale(1.05);
-}
-
-.loading{
-  margin-top:15px;
-  font-size:14px;
-  color:#aaa;
 }
 </style>
 </head>
@@ -54,52 +40,52 @@ button:hover{
 <body>
 
 <div class="card">
-  <h2>🚀 Liberar acesso</h2>
-  <p>Clique abaixo para continuar</p>
+<h2>🚀 Liberar acesso</h2>
+<p>Clique abaixo para continuar</p>
 
-  <!-- 🔥 POPUNDER MONETAG -->
-  <script>
-  (function(s){
-    s.dataset.zone='10788938',
-    s.src='https://al5sm.com/tag.min.js'
-  })
-  ([document.documentElement, document.body]
-  .filter(Boolean)
-  .pop()
-  .appendChild(document.createElement('script')))
-  </script>
+<script>
+(function(s){
+  s.dataset.zone='10788938',
+  s.src='https://al5sm.com/tag.min.js'
+})
+([document.documentElement, document.body]
+.filter(Boolean)
+.pop()
+.appendChild(document.createElement('script')))
+</script>
 
-  <button onclick="go()">Continuar</button>
+<button onclick="go()">Continuar</button>
 
-  <div class="loading" id="msg"></div>
 </div>
 
 <script>
 function go(){
 
   const params = new URLSearchParams(window.location.search);
-  const destino = params.get("destino");
+  const encoded = params.get("d");
+
+  let destino = null;
+
+  try{
+    destino = atob(encoded);
+  }catch(e){
+    destino = null;
+  }
 
   const smartlink = "https://encouragingjawsordinarily.com/fxgzhb5e?key=3823c25827101f6ca9e1188db300506f";
 
-  const msg = document.getElementById("msg");
-  msg.innerText = "Abrindo acesso...";
-
-  // 🔥 abre smartlink (70% dos usuários)
   if(Math.random() < 0.7){
     window.open(smartlink, '_blank');
   }
 
-  // 🔥 valida destino
   if(!destino){
-    msg.innerText = "Erro: link inválido!";
+    alert("Erro no link!");
     return;
   }
 
-  // 🔥 redireciona corretamente
   setTimeout(()=>{
     location.href = destino;
-  }, 1200);
+  },1200);
 }
 </script>
 
