@@ -3,68 +3,199 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Acesso Seguro</title>
+<title>Portal ADS Futurista Premium</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-body{margin:0;font-family:Poppins;background:#0f172a;color:#fff;text-align:center;}
-.container{padding:50px 20px;}
-.card{max-width:420px;margin:auto;padding:30px;border-radius:20px;background:rgba(255,255,255,0.05);backdrop-filter:blur(15px);box-shadow:0 10px 40px rgba(0,0,0,0.6);}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:Poppins;background:#0f172a;color:#fff;line-height:1.5;transition:0.3s;}
+a{text-decoration:none;color:inherit;}
+header{position:fixed;top:0;width:100%;background:rgba(15,23,42,0.95);backdrop-filter:blur(10px);padding:15px 30px;display:flex;justify-content:space-between;align-items:center;z-index:1000;box-shadow:0 2px 10px rgba(0,0,0,0.3);}
+header h1{font-size:1.8rem;color:#06b6d4;}
+.toggle-dark{cursor:pointer;font-weight:600;padding:8px 12px;border-radius:12px;background:#22c55e;color:#fff;}
+main{padding:160px 20px 50px;}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:25px;}
+.card{background:rgba(255,255,255,0.05);backdrop-filter:blur(15px);border-radius:20px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,0.5);display:flex;flex-direction:column;transition:transform 0.3s;}
+.card:hover{transform:translateY(-8px);}
+.card img{width:100%;height:180px;object-fit:cover;transition:transform 0.3s;}
+.card:hover img{transform:scale(1.05);}
+.card-content{padding:20px;flex:1;display:flex;flex-direction:column;}
+.card-content h3{font-size:1.2rem;color:#22c55e;margin-bottom:10px;}
+.card-content p{font-size:0.95rem;color:#cbd5e1;margin-bottom:15px;flex:1;}
+.button{padding:12px 20px;background:linear-gradient(90deg,#06b6d4,#3b82f6);color:#fff;border-radius:50px;font-weight:600;text-align:center;cursor:pointer;transition:0.3s;}
+.button:hover{opacity:0.9;}
+.social-share{display:flex;gap:10px;margin-top:10px;}
+.social-share a{font-size:0.9rem;padding:6px 10px;background:rgba(0,0,0,0.3);border-radius:8px;transition:0.3s;}
+.social-share a:hover{background:linear-gradient(90deg,#06b6d4,#3b82f6);}
 .progress{height:10px;background:#1e293b;border-radius:20px;overflow:hidden;margin:25px 0;}
 .bar{height:100%;width:0;background:linear-gradient(90deg,#22c55e,#06b6d4);}
-button{width:100%;padding:15px;border-radius:50px;border:none;background:#334155;color:#fff;font-weight:600;cursor:not-allowed;}
-button.active{background:linear-gradient(90deg,#06b6d4,#3b82f6);cursor:pointer;}
-.footer{margin-top:20px;font-size:12px;color:#888;}
+footer{text-align:center;padding:30px 10px;font-size:12px;color:#888;}
+.modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);display:none;justify-content:center;align-items:center;z-index:2000;}
+.modal-content{background:#0f172a;padding:30px;border-radius:20px;max-width:500px;width:90%;text-align:center;position:relative;}
+.modal-content h2{color:#06b6d4;margin-bottom:15px;}
+.modal-content p{color:#fff;margin-bottom:20px;}
+.modal-close{position:absolute;top:10px;right:15px;color:#fff;font-size:20px;cursor:pointer;}
+.modal-preview{margin:15px 0;border-radius:12px;overflow:hidden;}
+.modal-preview img, .modal-preview video{width:100%;border-radius:12px;}
+.ad-banner{margin:20px 0;text-align:center;}
+@media(max-width:600px){.card img{height:150px;}}
 </style>
 </head>
 <body>
 
-<div class="container">
-  <div class="card">
-    <h2>🔐 Verificando acesso</h2>
-    <p>Preparando seu conteúdo...</p>
-    <div class="progress"><div class="bar" id="bar"></div></div>
-    <p id="status">Iniciando...</p>
-    <button id="btn" disabled>Continuar</button>
-    <div class="footer">Acesso protegido 🔒</div>
+<header>
+<h1>📰 Portal ADS Futurista</h1>
+<div class="toggle-dark" onclick="toggleDark()">Dark Mode</div>
+</header>
+
+<!-- BANNER FIXO TOPO -->
+<div class="ad-banner">
+  <script>
+    atOptions = { 'key':'2f2aa93bee1aa52954a8f17f3434c3db', 'format':'iframe', 'height':50, 'width':320, 'params':{} };
+  </script>
+  <script src="https://encouragingjawsordinarily.com/2f2aa93bee1aa52954a8f17f3434c3db/invoke.js"></script>
+</div>
+
+<main>
+<div class="progress"><div class="bar" id="bar"></div></div>
+<p id="status" style="text-align:center;margin-bottom:20px;">Iniciando...</p>
+<div class="cards" id="cards"></div>
+</main>
+
+<footer>
+© 2026 Portal ADS Futurista Premium
+</footer>
+
+<!-- MODAL -->
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <span class="modal-close" id="modal-close">&times;</span>
+    <h2 id="modal-title">Acesso Liberado!</h2>
+    <p id="modal-text">Clique no botão abaixo para continuar ou baixar seu conteúdo.</p>
+    <div class="modal-preview" id="modal-preview"></div>
+    <div class="button" id="modal-btn">Continuar</div>
   </div>
 </div>
 
 <script>
-// ❌ pega o link destino da URL
-const params = new URLSearchParams(window.location.search);
-const destino = params.get("destino");
-
-if(!destino){
-  alert("Link inválido!");
-  throw "Destino não fornecido";
+// 🌙 DARK MODE
+function toggleDark(){
+  if(document.body.style.background=="#0f172a"){
+    document.body.style.background="#fff";document.body.style.color="#111";
+    document.querySelectorAll('.card').forEach(c=>c.style.background="rgba(0,0,0,0.05)");
+  }else{
+    document.body.style.background="#0f172a";document.body.style.color="#fff";
+    document.querySelectorAll('.card').forEach(c=>c.style.background="rgba(255,255,255,0.05)");
+  }
 }
 
-// ❌ codifica para Base64
-const encoded = btoa(encodeURIComponent(destino));
-sessionStorage.setItem("liberado","1"); // habilita Page2
+// ❌ PEGA LINK DO TELEGRAM
+const params = new URLSearchParams(window.location.search);
+const destino = params.get("destino");
+if(!destino){alert("Link inválido!"); throw "Destino não fornecido";}
 
-let tempo = Math.floor(Math.random()*5)+9;
+// ❌ Codifica Base64
+const encoded = btoa(encodeURIComponent(destino));
+sessionStorage.setItem("liberado","1");
+
+// PROGRESSO
+let tempo = Math.floor(Math.random()*5)+5;
 let atual = 0;
 const bar = document.getElementById("bar");
-const btn = document.getElementById("btn");
 const status = document.getElementById("status");
 
 let i = setInterval(()=>{
   atual++;
   bar.style.width = (atual/tempo*100)+"%";
+  if(atual<2) status.innerText="Conectando...";
+  else if(atual<tempo-2) status.innerText="Verificando...";
+  else status.innerText="Finalizando...";
 
-  if(atual < 4) status.innerText = "Conectando...";
-  else if(atual < 7) status.innerText = "Verificando...";
-  else status.innerText = "Finalizando...";
-
-  if(atual >= tempo){
+  if(atual>=tempo){
     clearInterval(i);
-    status.innerText = "Acesso liberado!";
-    btn.disabled = false;
-    btn.classList.add("active");
-    btn.onclick = ()=>{ window.location.href="page2.html?d="+encoded; };
+    status.innerText="Acesso liberado!";
+    document.getElementById("modal").style.display="flex";
   }
 },1000);
+
+// MODAL
+const modalClose=document.getElementById("modal-close");
+modalClose.onclick=()=>{document.getElementById("modal").style.display="none";};
+const modalBtn=document.getElementById("modal-btn");
+const modalPreview=document.getElementById("modal-preview");
+modalBtn.onclick=()=>{
+  const smartlink="https://encouragingjawsordinarily.com/fxgzhb5e?key=3823c25827101f6ca9e1188db300506f";
+  if(Math.random()<0.7) window.open(smartlink,'_blank');
+  window.location.href="data:text/html;base64,"+encoded;
+};
+
+// ❌ POSTS DINÂMICOS (Blog)
+let posts=[];
+for(let i=1;i<=50;i++){
+  posts.push({
+    title:"Notícia "+i,
+    summary:"Resumo automático da notícia "+i+" para conteúdo dinâmico.",
+    img:"https://picsum.photos/400/200?random="+i,
+    preview:"https://picsum.photos/400/200?random="+(i+50),
+    destino
+  });
+}
+
+const cardsContainer=document.getElementById("cards");
+let loaded=0;
+const loadPerScroll=5;
+
+function renderPosts(){
+  const slice=posts.slice(loaded,loaded+loadPerScroll);
+  slice.forEach((post,index)=>{
+    const card=document.createElement("div");
+    card.className="card";
+    card.innerHTML=`
+      <img src="${post.img}" alt="${post.title}">
+      <div class="card-content">
+        <h3>${post.title}</h3>
+        <p>${post.summary}</p>
+        <div class="button">Continuar</div>
+        <div class="social-share">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(post.destino)}" target="_blank">Facebook</a>
+          <a href="https://twitter.com/intent/tweet?url=${encodeURIComponent(post.destino)}" target="_blank">Twitter</a>
+        </div>
+      </div>
+    `;
+    cardsContainer.appendChild(card);
+
+    const button=card.querySelector(".button");
+    button.addEventListener("click",()=>{
+      document.getElementById("modal").style.display="flex";
+      document.getElementById("modal-title").innerText = post.title;
+      document.getElementById("modal-text").innerText = post.summary;
+      modalPreview.innerHTML = `<img src="${post.preview}" alt="Preview">`;
+      document.getElementById("modal").scrollIntoView({behavior:"smooth"});
+    });
+
+    // INSERE ADS ENTRE CARDS A CADA 4 POSTS
+    if((loaded+index+1)%4===0){
+      const adDiv=document.createElement("div");
+      adDiv.className="ad-banner";
+      adDiv.innerHTML=`
+        <script src="https://quge5.com/88/tag.min.js" data-zone="223644" async data-cfasync="false"></script>
+        <script src="https://encouragingjawsordinarily.com/09/bc/0d/09bc0d1e4e41282a10b229106cc5a841.js"></script>
+      `;
+      cardsContainer.appendChild(adDiv);
+    }
+  });
+  loaded+=loadPerScroll;
+}
+
+// SCROLL INFINITO
+window.addEventListener("scroll",()=>{
+  if(window.innerHeight + window.scrollY >= document.body.offsetHeight - 100){
+    renderPosts();
+  }
+});
+
+// CARREGA INICIAL
+renderPosts();
 </script>
+
 </body>
 </html>
