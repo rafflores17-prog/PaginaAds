@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Acesso Seguro</title>
+<title>Finalizando acesso</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
@@ -11,123 +11,97 @@
 body{
   margin:0;
   font-family:Poppins;
-  background: radial-gradient(circle at top,#0f172a,#020617);
+  background: radial-gradient(circle at top,#020617,#000);
   color:#fff;
   text-align:center;
 }
-.container{
-  padding:50px 20px;
-}
+
 .card{
   max-width:420px;
-  margin:auto;
+  margin:100px auto;
   padding:30px;
-  border-radius:20px;
   background:rgba(255,255,255,0.05);
-  backdrop-filter:blur(15px);
-  box-shadow:0 10px 40px rgba(0,0,0,0.6);
-}
-.progress{
-  height:10px;
-  background:#1e293b;
   border-radius:20px;
-  overflow:hidden;
-  margin:25px 0;
+  backdrop-filter:blur(10px);
+  box-shadow:0 10px 40px rgba(0,0,0,0.7);
 }
-.bar{
-  height:100%;
-  width:0;
-  background:linear-gradient(90deg,#22c55e,#06b6d4);
-  transition:width 1s linear;
-}
+
 button{
   width:100%;
   padding:15px;
-  border-radius:50px;
   border:none;
-  background:#334155;
+  border-radius:50px;
+  background:linear-gradient(90deg,#22c55e,#16a34a);
   color:#fff;
   font-weight:600;
-  cursor:not-allowed;
-}
-button.active{
-  background:linear-gradient(90deg,#06b6d4,#3b82f6);
+  font-size:16px;
   cursor:pointer;
+  transition:0.2s;
 }
-.footer{
-  margin-top:30px;
-  font-size:12px;
-  color:#888;
+
+button:hover{
+  transform:scale(1.05);
+}
+
+.loading{
+  margin-top:15px;
+  font-size:14px;
+  color:#aaa;
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
-  <div class="card">
-    <h2>🔐 Verificando acesso seguro</h2>
-    <p>Estamos preparando seu conteúdo exclusivo...</p>
+<div class="card">
+  <h2>🚀 Liberar acesso</h2>
+  <p>Clique abaixo para continuar</p>
 
-    <div class="progress">
-      <div class="bar" id="bar"></div>
-    </div>
+  <!-- 🔥 POPUNDER MONETAG -->
+  <script>
+  (function(s){
+    s.dataset.zone='10788938',
+    s.src='https://al5sm.com/tag.min.js'
+  })
+  ([document.documentElement, document.body]
+  .filter(Boolean)
+  .pop()
+  .appendChild(document.createElement('script')))
+  </script>
 
-    <p id="status">Iniciando...</p>
+  <button onclick="go()">Continuar</button>
 
-    <button id="btn" disabled>Continuar</button>
-
-    <div class="footer">
-      © 2026 - Todos os direitos reservados<br>
-      Política de Privacidade | Termos de Uso
-    </div>
-  </div>
+  <div class="loading" id="msg"></div>
 </div>
 
 <script>
-// tempo aleatório (anti-bot)
-let tempo = Math.floor(Math.random() * 5) + 9;
-let atual = 0;
+function go(){
 
-const bar = document.getElementById("bar");
-const btn = document.getElementById("btn");
-const status = document.getElementById("status");
+  const params = new URLSearchParams(window.location.search);
+  const destino = params.get("destino");
 
-const textos = [
- "Conectando servidor...",
- "Verificando segurança...",
- "Carregando conteúdo...",
- "Finalizando acesso..."
-];
+  const smartlink = "https://encouragingjawsordinarily.com/fxgzhb5e?key=3823c25827101f6ca9e1188db300506f";
 
-let i = setInterval(() => {
- atual++;
+  const msg = document.getElementById("msg");
+  msg.innerText = "Abrindo acesso...";
 
- bar.style.width = (atual / tempo * 100) + "%";
- status.innerText = textos[Math.floor(atual/3)] || "Finalizando...";
+  // 🔥 abre smartlink (70% dos usuários)
+  if(Math.random() < 0.7){
+    window.open(smartlink, '_blank');
+  }
 
- if(atual >= tempo){
-  clearInterval(i);
+  // 🔥 valida destino
+  if(!destino){
+    msg.innerText = "Erro: link inválido!";
+    return;
+  }
 
-  btn.disabled = false;
-  btn.classList.add("active");
-
-  btn.onclick = () => {
-    const params = new URLSearchParams(window.location.search);
-    const destino = params.get("destino");
-
-    if(destino){
-      location.href = "page2.html?destino=" + encodeURIComponent(destino);
-    } else {
-      location.href = "page2.html";
-    }
-  };
- }
-}, 1000);
+  // 🔥 redireciona corretamente
+  setTimeout(()=>{
+    location.href = destino;
+  }, 1200);
+}
 </script>
-
-<!-- 🔥 PUSH MONETAG (COLOCADO NO LUGAR CERTO) -->
-<script src="https://5gvci.com/act/files/tag.min.js?z=10788960" data-cfasync="false" async></script>
 
 </body>
 </html>
