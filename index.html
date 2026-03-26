@@ -1,11 +1,15 @@
 <!-- ======================================
 PÁGINA 1 - PREMIUM (index.html)
-====================================== --><!DOCTYPE html><html lang="pt-BR">
+====================================== -->
+<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Acesso Seguro</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"><style>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
 body{
   margin:0;
   font-family:Poppins;
@@ -53,25 +57,32 @@ button.active{
   cursor:pointer;
 }
 .hidden{display:none}
-</style></head><body>
+</style>
+</head>
+
+<body>
 <div class="container">
   <div class="card">
     <h2>🔐 Verificando acesso seguro</h2>
-    <p>Estamos preparando seu conteúdo exclusivo...</p><div class="progress">
-  <div class="bar" id="bar"></div>
-</div>
+    <p>Estamos preparando seu conteúdo exclusivo...</p>
 
-<p id="status">Iniciando...</p>
+    <div class="progress">
+      <div class="bar" id="bar"></div>
+    </div>
 
-<!-- ADS AQUI -->
-<div id="ads-area">
-  <!-- COLE SCRIPT AQUI -->
-</div>
+    <p id="status">Iniciando...</p>
 
-<button id="btn" disabled>Continuar</button>
+    <!-- ADS AQUI -->
+    <div id="ads-area">
+      <!-- COLE SCRIPT AQUI -->
+    </div>
 
+    <button id="btn" disabled>Continuar</button>
   </div>
-</div><!-- MODAL ADBLOCK --><div id="adblock" class="hidden">
+</div>
+
+<!-- MODAL ADBLOCK -->
+<div id="adblock" class="hidden">
   <div style="position:fixed;top:0;left:0;width:100%;height:100%;background:#000c;display:flex;align-items:center;justify-content:center;">
     <div style="background:#111;padding:30px;border-radius:15px;text-align:center;max-width:300px">
       <h3>⚠️ Desative o AdBlock</h3>
@@ -79,7 +90,9 @@ button.active{
       <button onclick="location.reload()">Atualizar</button>
     </div>
   </div>
-</div><script>
+</div>
+
+<script>
 // Anti AdBlock real
 setTimeout(()=>{
   const ads=document.getElementById("ads-area");
@@ -114,38 +127,6 @@ let i=setInterval(()=>{
   btn.onclick=()=>location.href="page2.html";
  }
 },1000);
-</script></body>
-</html><!-- ======================================
-PÁGINA 2 - MONETIZAÇÃO PESADA
-====================================== --><!DOCTYPE html><html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Finalizando</title>
-<style>
-body{background:#020617;color:#fff;text-align:center;font-family:Poppins}
-.card{max-width:400px;margin:100px auto;padding:30px;background:#0f172a;border-radius:20px}
-button{width:100%;padding:15px;border:none;border-radius:50px;background:#22c55e;color:#fff;font-weight:600}
-</style>
-</head>
-<body><div class="card">
-<h2>🚀 Liberar acesso</h2>
-<p>Clique abaixo para continuar</p><!-- POPUNDER / PUSH --><script src="SEU_SCRIPT_AQUI.js"></script><button onclick="go()">Continuar</button>
-
-</div><script>
-function go(){
-  const link="SEU_SMARTLINK_AQUI";
-
-  window.open(link,'_blank');
-  location.href="fallback.html";
-}
-</script></body>
-</html><!-- ======================================
-FALLBACK
-====================================== --><!DOCTYPE html><html>
-<body>
-<script>
-location.href="https://google.com";
 </script>
 </body>
 </html>
