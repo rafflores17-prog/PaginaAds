@@ -37,7 +37,8 @@ button{
   transition:0.3s;
 }
 button:hover{opacity:0.9;}
-#ad-banner{margin:20px auto;}
+button:disabled { background: #555; cursor: not-allowed; color: #999; }
+#ad-banner{margin:20px auto; min-height: 50px;}
 #adblock-popup{
   display:none;
   position:fixed;
@@ -48,6 +49,7 @@ button:hover{opacity:0.9;}
   font-size:18px;
   text-align:center;
   padding:50px 20px;
+  backdrop-filter: blur(5px);
 }
 #adblock-popup button{
   margin-top:20px;
@@ -69,11 +71,10 @@ button:hover{opacity:0.9;}
 <div class="container">
   <div class="card">
     <h2>🔐 Acesso Protegido</h2>
-    <p id="status">Clique abaixo para liberar</p>
+    <p id="status">Verificando conexão...</p>
     <button id="btn1" disabled>Liberar Acesso</button>
     <div id="step2"></div>
 
-    <!-- Banner fixo -->
     <div id="ad-banner">
       <script>
         atOptions = {
@@ -94,9 +95,9 @@ button:hover{opacity:0.9;}
 </div>
 
 <div id="adblock-popup">
-  🚨 Detectamos AdBlock ativo!<br>
-  Por favor, desative seu bloqueador de anúncios para continuar.<br>
-  <button onclick="closeAdblock()">Ok, entendi</button>
+  <h2>🚨 AdBlocker Detectado!</h2>
+  <p>Por favor, desative sua extensão de bloqueio de anúncios para liberar o acesso ao link.</p>
+  <button onclick="closeAdblock()">Ok, já desativei</button>
 </div>
 
 <script>
@@ -118,18 +119,34 @@ const step2 = document.getElementById("step2");
 const status = document.getElementById("status");
 const adblockPopup = document.getElementById("adblock-popup");
 
-// ===== Anti-AdBlock =====
-function closeAdblock(){ adblockPopup.style.display="none"; btn1.disabled=false; }
-window.addEventListener("load",()=>{
-  let adTest=document.createElement('div');
-  adTest.innerHTML='&nbsp;';
-  adTest.className='adsbox';
+// ===== Anti-AdBlock (CORRIGIDO) =====
+function closeAdblock(){ 
+  // O usuário diz que desativou, então recarregamos a página para conferir
+  window.location.reload(); 
+}
+
+window.addEventListener("load", ()=>{
+  // Cria uma isca super agressiva para atrair os bloqueadores
+  let adTest = document.createElement('div');
+  adTest.innerHTML = '&nbsp;';
+  adTest.className = 'ad ads ad-banner doubleclick sponsor pub_300x250';
+  adTest.style.position = 'absolute';
+  adTest.style.top = '-999px';
   document.body.appendChild(adTest);
+
+  // Aumentei o tempo para 600ms para dar tempo do banner real tentar carregar
   setTimeout(()=>{
-    if(adTest.offsetHeight===0){ adblockPopup.style.display='block'; }
-    else{ btn1.disabled=false; }
+    const adBanner = document.getElementById('ad-banner');
+    
+    // Se a isca sumiu OU o banner real tem altura menor que 10px (bloqueado)
+    if(adTest.offsetHeight === 0 || (adBanner && adBanner.offsetHeight < 10)){ 
+      adblockPopup.style.display = 'block'; 
+    } else { 
+      btn1.disabled = false;
+      status.innerText = "Clique abaixo para liberar";
+    }
     adTest.remove();
-  },100);
+  }, 600);
 });
 
 // ===== ETAPA 1 =====
