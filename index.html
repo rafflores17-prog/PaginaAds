@@ -15,23 +15,17 @@
     
     body { 
         background-color: var(--dark); 
-        background-image: 
-            linear-gradient(rgba(0, 136, 204, 0.1) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(0, 136, 204, 0.1) 1px, transparent 1px);
+        background-image: linear-gradient(rgba(0, 136, 204, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 136, 204, 0.1) 1px, transparent 1px);
         background-size: 30px 30px;
-        color: #fff; font-family: 'Roboto', sans-serif; margin: 0; 
-        padding: 0 20px 100px 20px; /* Padding no fundo para não colar no rodapé */
+        color: #fff; font-family: 'Roboto', sans-serif; margin: 0; padding: 0 20px 100px 20px;
         display: flex; flex-direction: column; align-items: center;
     }
 
-    /* ESPAÇO PARA AS POP-UPS NÃO COBRIREM O BOTÃO NO TOPO */
-    .top-spacer { height: 120px; width: 100%; }
+    .top-spacer { height: 130px; } /* Espaço para fugir das popups */
     
-    .ad-slot { width: 100%; max-width: 400px; min-height: 100px; margin: 20px 0; background: rgba(255,255,255,0.03); border: 1px dashed #334155; display: flex; align-items: center; justify-content: center; border-radius: 8px; }
-
-    .card { background: #fff; color: #1e293b; width: 100%; max-width: 450px; border-radius: 16px; padding: 20px; margin: 40px 0; box-shadow: 0 10px 25px rgba(0,0,0,0.5); position: relative; }
+    .card { background: #fff; color: #1e293b; width: 100%; max-width: 450px; border-radius: 16px; padding: 25px; margin: 40px 0; box-shadow: 0 10px 30px rgba(0,0,0,0.6); position: relative; }
     
-    .status-box { background: #f1f5f9; padding: 15px; border-radius: 10px; border-left: 5px solid var(--blue); margin-bottom: 15px; text-align: left; }
+    .status-box { background: #f1f5f9; padding: 15px; border-radius: 10px; border-left: 5px solid var(--blue); margin-bottom: 15px; text-align: left; font-size: 14px; }
     
     .progress-bar { background: #e2e8f0; height: 12px; border-radius: 6px; overflow: hidden; margin: 15px 0; }
     .fill { width: 5%; height: 100%; background: linear-gradient(90deg, var(--blue), var(--green)); transition: width 0.5s ease; }
@@ -39,13 +33,24 @@
     button { 
         width: 100%; padding: 22px; border: none; border-radius: 14px; 
         font-size: 18px; font-weight: bold; cursor: pointer; transition: 0.3s; 
-        z-index: 99; position: relative;
+        text-transform: uppercase; letter-spacing: 1px;
     }
-    .btn-step { background: var(--blue); color: #fff; box-shadow: 0 6px 0 #005f8d; text-transform: uppercase; letter-spacing: 1px; }
-    .btn-step:active { transform: translateY(3px); box-shadow: 0 3px 0 #005f8d; }
+    .btn-step { background: var(--blue); color: #fff; box-shadow: 0 6px 0 #005f8d; }
+    
+    /* ANIMAÇÃO DE PULSAR QUANDO ATIVO */
+    .pulse-active:not(:disabled) {
+        animation: pulse-blue 2s infinite;
+    }
+
+    @keyframes pulse-blue {
+        0% { transform: scale(1); box-shadow: 0 6px 0 #005f8d; }
+        50% { transform: scale(1.02); box-shadow: 0 0 20px rgba(0, 136, 204, 0.6); }
+        100% { transform: scale(1); box-shadow: 0 6px 0 #005f8d; }
+    }
+
     .btn-step:disabled { background: #64748b; box-shadow: none; color: #cbd5e1; cursor: not-allowed; }
     
-    #ab-alert { display: none; background: #fee2e2; color: #ef4444; padding: 10px; border-radius: 8px; margin-bottom: 10px; font-weight: bold; font-size: 13px; border: 1px solid #fca5a5; }
+    #ab-alert { display: none; background: #fee2e2; color: #ef4444; padding: 12px; border-radius: 8px; margin-bottom: 15px; font-weight: bold; font-size: 13px; border: 1px solid #fca5a5; text-align: center; }
 </style>
 </head>
 <body>
@@ -53,34 +58,36 @@
     <div class="top-spacer"></div>
 
     <div id="pos-1" style="width:100%; max-width:450px;">
-        <div id="ab-alert">⚠️ BLOQUEADOR ATIVO: Desative para liberar o link.</div>
-        <button id="main-btn" class="btn-step" disabled>VERIFICANDO SEGURANÇA...</button>
+        <div id="ab-alert">⚠️ SISTEMA TRAVADO: Desative o AdBlock para liberar.</div>
+        <button id="main-btn" class="btn-step pulse-active" disabled>AGUARDE A ANALISE...</button>
     </div>
 
     <div id="main-card" class="card">
         <div class="status-box">
-            <b>🛡️ Verificação de Link</b><br>
+            <b>🛡️ Verificação de Link Criptografado</b><br>
             Status: <span id="scan-text" style="color:var(--blue)">Aguardando início...</span>
         </div>
         <div class="progress-bar"><div id="fill" class="fill"></div></div>
-        <div id="pos-2"></div> </div>
+        <div id="pos-2"></div>
+    </div>
 
-    <div class="ad-slot">
+    <div style="min-height: 100px; margin: 20px 0;">
         <script async="async" data-cfasync="false" src="https://encouragingjawsordinarily.com/694579ced308045c2c6c156cc2dceaba/invoke.js"></script>
         <div id="container-694579ced308045c2c6c156cc2dceaba"></div>
     </div>
 
-    <div style="height: 150px;"></div>
+    <div style="height: 120px;"></div>
+    <div id="pos-3" style="width:100%; max-width:450px;"></div>
 
-    <div id="pos-3" style="width:100%; max-width:450px;"></div> <script>
+<script>
     const params = new URLSearchParams(window.location.search);
-    let target = params.get("d") || params.get("destino") || sessionStorage.getItem("final_dest");
+    let target = params.get("d") || params.get("destino") || sessionStorage.getItem("dest_final");
 
     if(target) {
-        sessionStorage.setItem("final_dest", target);
+        sessionStorage.setItem("dest_final", target);
         window.history.replaceState({}, document.title, window.location.pathname);
     } else {
-        document.body.innerHTML = "<div style='padding-top:100px;text-align:center;'><h2>Link Expirado.</h2></div>";
+        document.body.innerHTML = "<div style='color:white;text-align:center;padding-top:100px'><h2>Link Inválido.</h2></div>";
     }
 
     const btn = document.getElementById("main-btn");
@@ -88,19 +95,17 @@
     const scan = document.getElementById("scan-text");
     const abAlert = document.getElementById("ab-alert");
 
-    // ANTI-ADBLOCK MELHORADO
     window.onload = () => {
-        let checkCount = 0;
-        const checkAds = setInterval(() => {
-            checkCount++;
-            const adLoaded = document.getElementById("container-694579ced308045c2c6c156cc2dceaba").innerHTML.length > 20;
-            
-            if(adLoaded) {
-                clearInterval(checkAds);
+        let attempts = 0;
+        const check = setInterval(() => {
+            attempts++;
+            const ad = document.getElementById("container-694579ced308045c2c6c156cc2dceaba").innerHTML.length > 20;
+            if(ad) {
+                clearInterval(check);
                 btn.disabled = false;
                 btn.innerText = "INICIAR VERIFICAÇÃO";
                 abAlert.style.display = "none";
-            } else if (checkCount > 6) {
+            } else if (attempts > 6) {
                 abAlert.style.display = "block";
                 btn.innerText = "ADBLOCK DETECTADO";
             }
@@ -110,17 +115,17 @@
     btn.onclick = function() {
         window.open("https://omg10.com/4/9975998", "_blank");
         this.disabled = true;
-        fill.style.width = "40%";
-        scan.innerText = "Validando Etapa 1/2...";
+        fill.style.width = "45%";
+        scan.innerText = "Etapa 1 concluída. Validando...";
 
         let timer = 3;
-        const countdown = setInterval(() => {
+        const count = setInterval(() => {
             timer--;
             this.innerText = `AGUARDE ${timer}s...`;
             if(timer <= 0) {
-                clearInterval(countdown);
+                clearInterval(count);
                 document.getElementById("pos-2").appendChild(this);
-                this.innerText = "PROSSEGUIR PARA ETAPA FINAL";
+                this.innerText = "PROSSEGUIR PARA O FINAL";
                 this.disabled = false;
                 window.scrollTo({ top: document.getElementById("main-card").offsetTop - 20, behavior: 'smooth' });
                 this.onclick = etapaFinal;
@@ -132,18 +137,18 @@
         window.open("https://encouragingjawsordinarily.com/fxgzhb5e?key=3823c25827101f6ca9e1188db300506f", "_blank");
         this.disabled = true;
         fill.style.width = "100%";
-        scan.innerText = "Link Verificado!";
+        scan.innerText = "Verificação Completa!";
 
         setTimeout(() => {
             document.getElementById("pos-3").appendChild(this);
-            this.innerText = "ACESSAR DESTINO";
+            this.innerText = "ACESSAR AGORA";
             this.style.background = "#22c55e";
             this.style.boxShadow = "0 6px 0 #16a34a";
             this.disabled = false;
             window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
             this.onclick = () => {
-                const finalUrl = decodeURIComponent(atob(sessionStorage.getItem("final_dest")));
-                window.location.replace(finalUrl);
+                const final = decodeURIComponent(atob(sessionStorage.getItem("dest_final")));
+                window.location.replace(final);
             };
         }, 2000);
     }
