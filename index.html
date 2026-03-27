@@ -11,152 +11,141 @@
 <script type='text/javascript' src='https://encouragingjawsordinarily.com/09/bc/0d/09bc0d1e4e41282a10b229106cc5a841.js'></script>
 
 <style>
-    :root { --blue: #0088cc; --green: #22c55e; }
+    :root { --blue: #0088cc; --green: #22c55e; --dark: #020617; }
+    
     body { 
-        background-color: #020617; 
-        background-image: radial-gradient(#1e293b 0.5px, transparent 0.5px);
-        background-size: 15px 15px;
-        color: #fff; font-family: 'Roboto', sans-serif; margin: 0; padding: 20px; 
+        background-color: var(--dark); 
+        background-image: 
+            linear-gradient(rgba(0, 136, 204, 0.1) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0, 136, 204, 0.1) 1px, transparent 1px);
+        background-size: 30px 30px;
+        color: #fff; font-family: 'Roboto', sans-serif; margin: 0; 
+        padding: 0 20px 100px 20px; /* Padding no fundo para não colar no rodapé */
         display: flex; flex-direction: column; align-items: center;
     }
-    
-    .ad-slot { width: 100%; max-width: 400px; min-height: 100px; margin: 20px 0; background: rgba(255,255,255,0.03); border: 1px dashed #334155; display: flex; align-items: center; justify-content: center; border-radius: 8px; font-size: 10px; color: #475569; }
 
-    .card { background: #fff; color: #1e293b; width: 100%; max-width: 450px; border-radius: 16px; padding: 20px; margin-bottom: 30px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
+    /* ESPAÇO PARA AS POP-UPS NÃO COBRIREM O BOTÃO NO TOPO */
+    .top-spacer { height: 120px; width: 100%; }
+    
+    .ad-slot { width: 100%; max-width: 400px; min-height: 100px; margin: 20px 0; background: rgba(255,255,255,0.03); border: 1px dashed #334155; display: flex; align-items: center; justify-content: center; border-radius: 8px; }
+
+    .card { background: #fff; color: #1e293b; width: 100%; max-width: 450px; border-radius: 16px; padding: 20px; margin: 40px 0; box-shadow: 0 10px 25px rgba(0,0,0,0.5); position: relative; }
     
     .status-box { background: #f1f5f9; padding: 15px; border-radius: 10px; border-left: 5px solid var(--blue); margin-bottom: 15px; text-align: left; }
     
-    .progress-bar { background: #e2e8f0; height: 10px; border-radius: 5px; overflow: hidden; margin: 15px 0; }
-    .fill { width: 5%; height: 100%; background: var(--blue); transition: width 0.5s ease; }
+    .progress-bar { background: #e2e8f0; height: 12px; border-radius: 6px; overflow: hidden; margin: 15px 0; }
+    .fill { width: 5%; height: 100%; background: linear-gradient(90deg, var(--blue), var(--green)); transition: width 0.5s ease; }
 
-    button { width: 100%; padding: 20px; border: none; border-radius: 12px; font-size: 18px; font-weight: bold; cursor: pointer; transition: 0.3s; }
-    .btn-step { background: var(--blue); color: #fff; box-shadow: 0 5px 0 #005f8d; }
-    .btn-step:disabled { background: #94a3b8; box-shadow: none; cursor: not-allowed; }
+    button { 
+        width: 100%; padding: 22px; border: none; border-radius: 14px; 
+        font-size: 18px; font-weight: bold; cursor: pointer; transition: 0.3s; 
+        z-index: 99; position: relative;
+    }
+    .btn-step { background: var(--blue); color: #fff; box-shadow: 0 6px 0 #005f8d; text-transform: uppercase; letter-spacing: 1px; }
+    .btn-step:active { transform: translateY(3px); box-shadow: 0 3px 0 #005f8d; }
+    .btn-step:disabled { background: #64748b; box-shadow: none; color: #cbd5e1; cursor: not-allowed; }
     
-    #ab-alert { display: none; color: #ef4444; font-weight: bold; font-size: 14px; margin-bottom: 10px; }
+    #ab-alert { display: none; background: #fee2e2; color: #ef4444; padding: 10px; border-radius: 8px; margin-bottom: 10px; font-weight: bold; font-size: 13px; border: 1px solid #fca5a5; }
 </style>
 </head>
 <body>
 
-    <div class="ad-slot" id="top-ad">
+    <div class="top-spacer"></div>
+
+    <div id="pos-1" style="width:100%; max-width:450px;">
+        <div id="ab-alert">⚠️ BLOQUEADOR ATIVO: Desative para liberar o link.</div>
+        <button id="main-btn" class="btn-step" disabled>VERIFICANDO SEGURANÇA...</button>
+    </div>
+
+    <div id="main-card" class="card">
+        <div class="status-box">
+            <b>🛡️ Verificação de Link</b><br>
+            Status: <span id="scan-text" style="color:var(--blue)">Aguardando início...</span>
+        </div>
+        <div class="progress-bar"><div id="fill" class="fill"></div></div>
+        <div id="pos-2"></div> </div>
+
+    <div class="ad-slot">
         <script async="async" data-cfasync="false" src="https://encouragingjawsordinarily.com/694579ced308045c2c6c156cc2dceaba/invoke.js"></script>
         <div id="container-694579ced308045c2c6c156cc2dceaba"></div>
     </div>
 
-    <div id="pos-1" style="width:100%; max-width:450px;">
-        <div id="ab-alert">🛑 DESATIVE O ADBLOCK PARA CONTINUAR</div>
-        <button id="main-btn" class="btn-step" disabled>ANALISANDO SISTEMA...</button>
-    </div>
+    <div style="height: 150px;"></div>
 
-    <div style="height: 300px;"></div>
-
-    <div class="card" id="main-card">
-        <div class="status-box">
-            <b>🛡️ Verificação de Link</b><br>
-            Status: <span id="scan-text" style="color:var(--blue)">Pendente...</span>
-        </div>
-        <div class="progress-bar"><div id="fill" class="fill"></div></div>
-        <p style="font-size: 12px; color: #64748b;">Aguarde a validação dos protocolos de segurança para liberar o acesso.</p>
-        
-        <div id="pos-2"></div>
-    </div>
-
-    <div class="ad-slot">
-        ANÚNCIO PATROCINADO
-    </div>
-
-    <div style="height: 300px;"></div>
-
-    <div id="pos-3" style="width:100%; max-width:450px; margin-bottom: 50px;"></div>
-
-<script>
-    // 1. LINK SEGURO
+    <div id="pos-3" style="width:100%; max-width:450px;"></div> <script>
     const params = new URLSearchParams(window.location.search);
-    let target = params.get("d") || params.get("destino") || sessionStorage.getItem("safe_url");
+    let target = params.get("d") || params.get("destino") || sessionStorage.getItem("final_dest");
+
     if(target) {
-        sessionStorage.setItem("safe_url", target);
+        sessionStorage.setItem("final_dest", target);
         window.history.replaceState({}, document.title, window.location.pathname);
     } else {
-        document.body.innerHTML = "<h2 style='color:white;text-align:center'>Link Inválido</h2>";
+        document.body.innerHTML = "<div style='padding-top:100px;text-align:center;'><h2>Link Expirado.</h2></div>";
     }
 
     const btn = document.getElementById("main-btn");
     const fill = document.getElementById("fill");
     const scan = document.getElementById("scan-text");
-    const abMsg = document.getElementById("ab-alert");
+    const abAlert = document.getElementById("ab-alert");
 
-    // 2. ANTI-ADBLOCK AGRESSIVO (RETOQUE)
+    // ANTI-ADBLOCK MELHORADO
     window.onload = () => {
-        let attempts = 0;
-        const check = setInterval(() => {
-            attempts++;
-            const adArea = document.getElementById("container-694579ced308045c2c6c156cc2dceaba");
-            if(adArea && adArea.innerHTML.length > 20) {
-                clearInterval(check);
+        let checkCount = 0;
+        const checkAds = setInterval(() => {
+            checkCount++;
+            const adLoaded = document.getElementById("container-694579ced308045c2c6c156cc2dceaba").innerHTML.length > 20;
+            
+            if(adLoaded) {
+                clearInterval(checkAds);
                 btn.disabled = false;
                 btn.innerText = "INICIAR VERIFICAÇÃO";
-                abMsg.style.display = "none";
-            } else if (attempts > 5) {
-                abMsg.style.display = "block";
-                btn.innerText = "BLOQUEADO (ADBLOCK)";
+                abAlert.style.display = "none";
+            } else if (checkCount > 6) {
+                abAlert.style.display = "block";
+                btn.innerText = "ADBLOCK DETECTADO";
             }
         }, 1000);
     };
 
-    // 3. LÓGICA DE MOVIMENTO E ROLAGEM
     btn.onclick = function() {
-        // Monetag Link
         window.open("https://omg10.com/4/9975998", "_blank");
-        
         this.disabled = true;
-        fill.style.width = "50%";
-        scan.innerText = "Validando Etapa 1...";
+        fill.style.width = "40%";
+        scan.innerText = "Validando Etapa 1/2...";
 
-        let c = 3;
-        const t1 = setInterval(() => {
-            c--;
-            this.innerText = `AGUARDE ${c}s...`;
-            if(c <= 0) {
-                clearInterval(t1);
-                // MOVE O BOTÃO PARA O MEIO (POS 2)
+        let timer = 3;
+        const countdown = setInterval(() => {
+            timer--;
+            this.innerText = `AGUARDE ${timer}s...`;
+            if(timer <= 0) {
+                clearInterval(countdown);
                 document.getElementById("pos-2").appendChild(this);
-                this.innerText = "PROSSEGUIR ETAPA 2";
+                this.innerText = "PROSSEGUIR PARA ETAPA FINAL";
                 this.disabled = false;
-                // ROLA PARA O MEIO
-                window.scrollTo({ top: document.getElementById("main-card").offsetTop - 50, behavior: 'smooth' });
-                this.onclick = etapa2;
+                window.scrollTo({ top: document.getElementById("main-card").offsetTop - 20, behavior: 'smooth' });
+                this.onclick = etapaFinal;
             }
         }, 1000);
     };
 
-    function etapa2() {
-        // AdsTerra Link
+    function etapaFinal() {
         window.open("https://encouragingjawsordinarily.com/fxgzhb5e?key=3823c25827101f6ca9e1188db300506f", "_blank");
-        
         this.disabled = true;
-        fill.style.width = "85%";
-        scan.innerText = "Quase pronto...";
+        fill.style.width = "100%";
+        scan.innerText = "Link Verificado!";
 
-        let c = 3;
-        const t2 = setInterval(() => {
-            c--;
-            this.innerText = `AGUARDE ${c}s...`;
-            if(c <= 0) {
-                clearInterval(t2);
-                // MOVE O BOTÃO PARA O FIM (POS 3)
-                document.getElementById("pos-3").appendChild(this);
-                this.innerText = "FINALIZAR E ACESSAR";
-                this.style.background = "#22c55e";
-                this.style.boxShadow = "0 5px 0 #16a34a";
-                this.disabled = false;
-                // ROLA PARA O FIM
-                window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-                this.onclick = () => {
-                    const final = decodeURIComponent(atob(sessionStorage.getItem("safe_url")));
-                    window.location.replace(final);
-                };
-            }
-        }, 1000);
+        setTimeout(() => {
+            document.getElementById("pos-3").appendChild(this);
+            this.innerText = "ACESSAR DESTINO";
+            this.style.background = "#22c55e";
+            this.style.boxShadow = "0 6px 0 #16a34a";
+            this.disabled = false;
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+            this.onclick = () => {
+                const finalUrl = decodeURIComponent(atob(sessionStorage.getItem("final_dest")));
+                window.location.replace(finalUrl);
+            };
+        }, 2000);
     }
 </script>
 </body>
