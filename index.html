@@ -6,205 +6,216 @@
 <title>Portal ADS Futurista Premium</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-body{
-  margin:0;
-  font-family:Poppins, sans-serif;
-  background: radial-gradient(circle at top,#0f172a,#020617);
-  color:#fff;
-  text-align:center;
+:root {
+  --primary: #06b6d4;
+  --secondary: #3b82f6;
 }
-.container{padding:40px 20px;}
-.card{
-  max-width:500px;
-  margin:auto;
-  background:rgba(0,0,0,0.85);
-  padding:30px;
-  border-radius:20px;
-  box-shadow:0 10px 40px rgba(0,0,0,0.5);
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: #020617;
+  /* Efeito de iluminação no fundo */
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(6, 182, 212, 0.15) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(59, 130, 246, 0.15) 0px, transparent 50%);
+  color: #fff;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-h2{font-weight:700;margin-bottom:10px;}
-button{
-  width:100%;
-  padding:15px;
-  margin-top:15px;
-  border:none;
-  border-radius:50px;
-  background:linear-gradient(90deg,#06b6d4,#3b82f6);
-  color:#fff;
-  font-weight:600;
-  font-size:16px;
-  cursor:pointer;
-  transition:0.3s;
+
+.container { width: 100%; padding: 20px; }
+
+.card {
+  max-width: 450px;
+  margin: auto;
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(12px); /* Efeito Vidro */
+  padding: 40px 30px;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
 }
-button:hover{opacity:0.9;}
-button:disabled { background: #555; cursor: not-allowed; color: #999; }
-#ad-banner{margin:20px auto; min-height: 50px;}
-#adblock-popup{
+
+.progress-container {
+  width: 100%;
+  height: 6px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 10px;
+  margin: 20px 0;
+  overflow: hidden;
+}
+
+#progress-bar {
+  width: 10%;
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  transition: width 0.5s ease;
+}
+
+h2 { font-weight: 700; font-size: 1.8em; margin-bottom: 5px; letter-spacing: -1px; }
+#status { color: #94a3b8; font-size: 0.95em; margin-bottom: 25px; }
+
+button {
+  width: 100%;
+  padding: 18px;
+  border: none;
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: #fff;
+  font-weight: 700;
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 10px 20px -5px rgba(6, 182, 212, 0.4);
+}
+
+button:hover { transform: translateY(-2px); filter: brightness(1.1); }
+button:active { transform: translateY(0); }
+button:disabled { background: #1e293b; color: #475569; cursor: not-allowed; box-shadow: none; }
+
+#ad-banner { 
+  margin: 25px auto 0; 
+  padding: 10px;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+/* Modal Anti-AdBlock Premium */
+#adblock-popup {
   display:none;
   position:fixed;
-  top:0;left:0;width:100%;height:100%;
-  background:rgba(0,0,0,0.95);
-  z-index:9999;
-  color:#fff;
-  font-size:18px;
-  text-align:center;
-  padding:50px 20px;
-  backdrop-filter: blur(5px);
+  top:0; left:0; width:100%; height:100%;
+  background: rgba(2, 6, 23, 0.98);
+  z-index: 9999;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
 }
-#adblock-popup button{
-  margin-top:20px;
-  background:#22c55e;
-  padding:10px 20px;
-  border-radius:20px;
-  border:none;
-  cursor:pointer;
-}
-.footer{
-  margin-top:20px;
-  font-size:12px;
-  color:#888;
-}
+
+#adblock-popup .icon { font-size: 60px; margin-bottom: 20px; }
+
+.footer { margin-top: 30px; font-size: 11px; color: #475569; text-transform: uppercase; letter-spacing: 2px; }
 </style>
 </head>
 <body>
 
 <div class="container">
   <div class="card">
-    <h2>🔐 Acesso Protegido</h2>
-    <p id="status">Verificando conexão...</p>
-    <button id="btn1" disabled>Liberar Acesso</button>
-    <div id="step2"></div>
-
-    <div id="ad-banner">
-      <script>
-        atOptions = {
-          'key' : '2f2aa93bee1aa52954a8f17f3434c3db',
-          'format' : 'iframe',
-          'height' : 50,
-          'width' : 320,
-          'params' : {}
-        };
-      </script>
-      <script src="https://encouragingjawsordinarily.com/2f2aa93bee1aa52954a8f17f3434c3db/invoke.js"></script>
-      <script src="https://quge5.com/88/tag.min.js" data-zone="223644" async data-cfasync="false"></script>
-      <script src="https://encouragingjawsordinarily.com/09/bc/0d/09bc0d1e4e41282a10b229106cc5a841.js"></script>
+    <h2>🔐 Acesso VIP</h2>
+    <div class="progress-container"><div id="progress-bar"></div></div>
+    <p id="status">Verificando segurança...</p>
+    
+    <div id="step-area">
+        <button id="btn1" disabled>Iniciar Verificação</button>
     </div>
 
-    <div class="footer">© 2026 Portal ADS Futurista Premium</div>
+    <div id="ad-banner">
+      <script>atOptions={'key':'2f2aa93bee1aa52954a8f17f3434c3db','format':'iframe','height':50,'width':320,'params':{}};</script>
+      <script src="https://encouragingjawsordinarily.com/2f2aa93bee1aa52954a8f17f3434c3db/invoke.js"></script>
+    </div>
+
+    <div class="footer">Encrypted & Secure © 2026</div>
   </div>
 </div>
 
 <div id="adblock-popup">
-  <h2>🚨 AdBlocker Detectado!</h2>
-  <p>Por favor, desative sua extensão de bloqueio de anúncios para liberar o acesso ao link.</p>
-  <button onclick="closeAdblock()">Ok, já desativei</button>
+  <div class="icon">🛑</div>
+  <h2 style="color:#ef4444">Bloqueador Ativo!</h2>
+  <p style="color:#94a3b8; max-width:300px">Nosso portal requer a exibição de anúncios para manter o acesso gratuito. Por favor, desative o AdBlock e recarregue.</p>
+  <button onclick="location.reload()" style="max-width:200px; background:#22c55e">Recarregar Página</button>
 </div>
 
 <script>
-// ===== DESTINO FLEXÍVEL =====
+// Mantendo sua lógica de URL
 const params = new URLSearchParams(window.location.search);
 let encoded = params.get("d") || params.get("destino");
-
-if(!encoded){
-  alert("Link inválido!");
-  throw new Error();
-}
-
-// Oculta Base64 na barra
+if(!encoded){ alert("Link inválido!"); throw new Error(); }
 window.history.replaceState({}, document.title, window.location.pathname);
 
-// ===== ELEMENTOS =====
 const btn1 = document.getElementById("btn1");
-const step2 = document.getElementById("step2");
 const status = document.getElementById("status");
+const stepArea = document.getElementById("step-area");
+const progressBar = document.getElementById("progress-bar");
 const adblockPopup = document.getElementById("adblock-popup");
 
-// ===== Anti-AdBlock (CORRIGIDO) =====
-function closeAdblock(){ 
-  // O usuário diz que desativou, então recarregamos a página para conferir
-  window.location.reload(); 
-}
-
-window.addEventListener("load", ()=>{
-  // Cria uma isca super agressiva para atrair os bloqueadores
+// Verificação de AdBlock Melhorada
+window.addEventListener("load", () => {
   let adTest = document.createElement('div');
-  adTest.innerHTML = '&nbsp;';
-  adTest.className = 'ad ads ad-banner doubleclick sponsor pub_300x250';
-  adTest.style.position = 'absolute';
-  adTest.style.top = '-999px';
+  adTest.className = 'ad-banner ads sponsor pub_300x250';
+  adTest.style = 'position:absolute; top:-999px; height:1px; width:1px;';
   document.body.appendChild(adTest);
 
-  // Aumentei o tempo para 600ms para dar tempo do banner real tentar carregar
-  setTimeout(()=>{
-    const adBanner = document.getElementById('ad-banner');
-    
-    // Se a isca sumiu OU o banner real tem altura menor que 10px (bloqueado)
-    if(adTest.offsetHeight === 0 || (adBanner && adBanner.offsetHeight < 10)){ 
-      adblockPopup.style.display = 'block'; 
-    } else { 
+  setTimeout(() => {
+    if (adTest.offsetHeight === 0) {
+      adblockPopup.style.display = 'flex';
+    } else {
       btn1.disabled = false;
-      status.innerText = "Clique abaixo para liberar";
+      status.innerText = "Pronto para liberar seu acesso";
+      progressBar.style.width = "30%";
     }
     adTest.remove();
-  }, 600);
+  }, 700);
 });
 
-// ===== ETAPA 1 =====
-btn1.onclick = ()=>{
-  btn1.style.display="none";
-  status.innerText="Preparando conteúdo...";
-  let count=3;
-  const btn2=document.createElement("button");
-  btn2.innerText="Aguarde 3s...";
-  step2.appendChild(btn2);
+// LÓGICA DE ETAPAS (Igual a sua, apenas com visual melhorado)
+btn1.onclick = () => {
+  stepArea.innerHTML = '<button id="btn-timer" disabled>Preparando (3s)</button>';
+  status.innerText = "Iniciando protocolos...";
+  progressBar.style.width = "50%";
 
-  const timer1=setInterval(()=>{
+  let count = 3;
+  const timer1 = setInterval(() => {
     count--;
-    btn2.innerText="Aguarde "+count+"s...";
-    if(count<=0){
+    const btn = document.getElementById("btn-timer");
+    btn.innerText = `Aguarde (${count}s)`;
+    if(count <= 0) {
       clearInterval(timer1);
-      btn2.innerText="Continuar";
-      btn2.onclick=etapa2;
+      btn.innerText = "Avançar Etapa";
+      btn.disabled = false;
+      btn.onclick = etapa2;
     }
-  },1000);
+  }, 1000);
 };
 
-// ===== ETAPA 2 =====
-function etapa2(){
-  step2.innerHTML="";
-  status.innerText="Quase pronto...";
+function etapa2() {
+  stepArea.innerHTML = '<button id="btn-timer-2" disabled>Processando (3s)</button>';
+  status.innerText = "Validando tokens de segurança...";
+  progressBar.style.width = "80%";
 
-  const btn3=document.createElement("button");
-  btn3.innerText="Aguarde 3s...";
-  step2.appendChild(btn3);
+  // Pop-up Monetização (Seu link)
+  window.open("https://encouragingjawsordinarily.com/fxgzhb5e?key=3823c25827101f6ca9e1188db300506f", '_blank');
 
-  // Pop-up Monetização
-  const smartlink="https://encouragingjawsordinarily.com/fxgzhb5e?key=3823c25827101f6ca9e1188db300506f";
-  window.open(smartlink,'_blank');
-
-  let count=3;
-  const timer2=setInterval(()=>{
+  let count = 3;
+  const timer2 = setInterval(() => {
     count--;
-    btn3.innerText="Aguarde "+count+"s...";
-    if(count<=0){
+    const btn = document.getElementById("btn-timer-2");
+    btn.innerText = `Processando (${count}s)`;
+    if(count <= 0) {
       clearInterval(timer2);
-      btn3.innerText="Clique para continuar";
-      btn3.onclick=finalStep;
+      btn.innerText = "Liberar Destino Agora";
+      btn.disabled = false;
+      btn.onclick = finalStep;
     }
-  },1000);
+  }, 1000);
 }
 
-// ===== ETAPA FINAL =====
-function finalStep(){
-  step2.innerHTML="";
-  status.innerText="Quase lá...";
-  const btnFinal=document.createElement("button");
-  btnFinal.innerText="Clique para ir ao destino";
-  step2.appendChild(btnFinal);
-
-  btnFinal.onclick=()=>{
-    const destino=decodeURIComponent(atob(encoded));
-    window.location.replace(destino);
+function finalStep() {
+  status.innerText = "Acesso concedido!";
+  progressBar.style.width = "100%";
+  stepArea.innerHTML = '<button id="btn-final">Acessar Link Final</button>';
+  
+  document.getElementById("btn-final").onclick = () => {
+    try {
+      const destino = decodeURIComponent(atob(encoded));
+      window.location.replace(destino);
+    } catch(e) {
+      alert("Erro ao processar link.");
+    }
   };
 }
 </script>
