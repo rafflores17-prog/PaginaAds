@@ -3,117 +3,132 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Portal ADS Futurista Premium</title>
+<title>Portal Premium - Verificação de Segurança</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+<script src="https://quge5.com/88/tag.min.js" data-zone="223644" async data-cfasync="false"></script>
+<script src="https://quge5.com/88/tag.min.js" data-zone="223718" async data-cfasync="false"></script>
+<script type='text/javascript' src='https://encouragingjawsordinarily.com/09/bc/0d/09bc0d1e4e41282a10b229106cc5a841.js'></script>
+
 <style>
-:root { --primary: #06b6d4; --secondary: #3b82f6; --bg: #020617; }
-body { margin:0; font-family:'Poppins', sans-serif; background:var(--bg); color:#fff; min-height:100vh; display:flex; align-items:center; justify-content:center; }
-.card { max-width:420px; width:90%; background:rgba(15,23,42,0.8); backdrop-filter:blur(10px); padding:30px; border-radius:24px; border:1px solid rgba(255,255,255,0.1); text-align:center; }
-.progress-container { width:100%; height:6px; background:rgba(255,255,255,0.1); border-radius:10px; margin:20px 0; overflow:hidden; }
-#progress-bar { width:5%; height:100%; background:linear-gradient(90deg, var(--primary), var(--secondary)); transition:width 0.5s ease; }
-h2 { font-size:1.6rem; margin-bottom:10px; }
-#status { color:#94a3b8; font-size:0.9rem; margin-bottom:20px; }
-button { width:100%; padding:16px; border:none; border-radius:14px; background:linear-gradient(135deg, var(--primary), var(--secondary)); color:#fff; font-weight:700; cursor:pointer; transition:0.3s; }
-button:disabled { background:#1e293b; color:#475569; cursor:not-allowed; }
-#ad-inner { margin-top:20px; min-height:50px; }
-/* Aviso Adblock Suave */
-#adblock-msg { display:none; background:rgba(239,68,68,0.2); border:1px solid #ef4444; padding:15px; border-radius:12px; margin-bottom:20px; font-size:0.85rem; }
+:root { --primary: #0ea5e9; --secondary: #2563eb; --bg: #030712; }
+body { margin:0; font-family:'Poppins', sans-serif; background:var(--bg); color:#fff; min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+.card { width:90%; max-width:440px; background:rgba(17,24,39,0.8); backdrop-filter:blur(12px); padding:35px; border-radius:30px; border:1px solid rgba(255,255,255,0.05); box-shadow:0 20px 50px rgba(0,0,0,0.5); text-align:center; position:relative; z-index:10; }
+.progress-container { width:100%; height:8px; background:rgba(255,255,255,0.05); border-radius:10px; margin:25px 0; overflow:hidden; }
+#progress-bar { width:5%; height:100%; background:linear-gradient(90deg, var(--primary), var(--secondary)); transition:width 0.8s ease; }
+h2 { font-weight:700; letter-spacing:-1px; margin-bottom:5px; }
+#status { color:#94a3b8; font-size:0.85rem; margin-bottom:25px; }
+button { width:100%; padding:18px; border:none; border-radius:18px; background:linear-gradient(135deg, var(--primary), var(--secondary)); color:#fff; font-weight:700; font-size:1rem; cursor:pointer; transition:0.3s; box-shadow:0 10px 20px rgba(37,99,235,0.3); }
+button:disabled { background:#1f2937; color:#4b5563; cursor:not-allowed; box-shadow:none; }
+#ad-top { margin-bottom:20px; min-height:80px; }
+.adblock-alert { display:none; background:rgba(239,68,68,0.15); border:1px solid #ef4444; color:#fca5a5; padding:15px; border-radius:15px; font-size:0.8rem; margin-bottom:15px; }
 </style>
 </head>
 <body>
 
-<div class="container">
-  <div class="card">
-    <div id="adblock-msg">🛑 <b>Bloqueador Detectado:</b> Por favor, desative o AdBlock para liberar o botão.</div>
+<div class="card">
+    <div id="ab-msg" class="adblock-alert">🛑 <b>Ação Necessária:</b> Desative o AdBlock e recarregue a página para liberar o acesso VIP.</div>
     
-    <h2>🔐 Acesso Premium</h2>
-    <div class="progress-container"><div id="progress-bar"></div></div>
-    <p id="status">Verificando conexão...</p>
-    
-    <div id="step-area">
-        <button id="btn1" disabled>Aguarde análise...</button>
+    <div id="ad-top">
+        <script async="async" data-cfasync="false" src="https://encouragingjawsordinarily.com/694579ced308045c2c6c156cc2dceaba/invoke.js"></script>
+        <div id="container-694579ced308045c2c6c156cc2dceaba"></div>
     </div>
 
-    <div id="ad-inner">
-      <script>
-        atOptions = { 'key' : '2f2aa93bee1aa52954a8f17f3434c3db', 'format' : 'iframe', 'height' : 50, 'width' : 320, 'params' : {} };
-      </script>
-      <script src="https://encouragingjawsordinarily.com/2f2aa93bee1aa52954a8f17f3434c3db/invoke.js"></script>
+    <h2>🔐 Acesso VIP</h2>
+    <div class="progress-container"><div id="progress-bar"></div></div>
+    <p id="status">Validando credenciais...</p>
+    
+    <div id="step-area">
+        <button id="btn-start" disabled>Analisando conexão...</button>
     </div>
-  </div>
 </div>
 
 <script>
-// 1. LÓGICA DE URL (Corrigida para não dar erro no reload)
+// 1. GESTÃO DE LINK (SESSION STORAGE)
 const params = new URLSearchParams(window.location.search);
-let encoded = params.get("d") || params.get("destino") || sessionStorage.getItem("target");
+let target = params.get("d") || params.get("destino") || sessionStorage.getItem("secure_target");
 
-if(encoded) {
-    sessionStorage.setItem("target", encoded); // Salva para não perder no reload
+if(target) {
+    sessionStorage.setItem("secure_target", target);
     window.history.replaceState({}, document.title, window.location.pathname);
 } else {
-    document.body.innerHTML = "<h2 style='color:white;text-align:center;margin-top:50px'>Link expirado ou inválido.</h2>";
+    document.body.innerHTML = "<div style='padding:50px;text-align:center;'><h2>Link Expirado</h2><p>Por favor, obtenha um novo link de acesso.</p></div>";
 }
 
-// 2. ANTI-ADBLOCK EQUILIBRADO
-function checkAds() {
-    const adArea = document.getElementById("ad-inner");
-    const msg = document.getElementById("adblock-msg");
-    const btn = document.getElementById("btn1");
+// 2. ANTI-ADBLOCK POR DETECÇÃO DE ELEMENTO
+function verifyAdBlock() {
+    const banner = document.getElementById("container-694579ced308045c2c6c156cc2dceaba");
+    const btn = document.getElementById("btn-start");
+    const msg = document.getElementById("ab-msg");
 
-    // Verifica se o iframe do anúncio foi criado e tem altura
     setTimeout(() => {
-        const hasAd = adArea.offsetHeight > 10;
-        if (!hasAd) {
+        // Se o banner do AdsTerra não carregar nada dentro dele, é AdBlock
+        if (banner.innerHTML.length < 10) {
             msg.style.display = "block";
+            btn.innerText = "Bloqueado pelo AdBlock";
             btn.disabled = true;
-            btn.innerText = "Anúncio bloqueado";
         } else {
             msg.style.display = "none";
             btn.disabled = false;
-            btn.innerText = "Iniciar Verificação";
-            document.getElementById("status").innerText = "Conexão segura estabelecida.";
-            progressBar.style.width = "30%";
+            btn.innerText = "INICIAR VERIFICAÇÃO";
+            document.getElementById("status").innerText = "Conexão criptografada ativa.";
+            document.getElementById("progress-bar").style.width = "30%";
         }
-    }, 1500); // Dá um tempo maior para carregar
+    }, 2000); // Tempo para o script do AdsTerra agir
 }
-window.onload = checkAds;
+window.onload = verifyAdBlock;
 
-// 3. ETAPAS (Sua lógica original limpa)
-const progressBar = document.getElementById("progress-bar");
+// 3. FLUXO DE ETAPAS MONETIZADAS
 const stepArea = document.getElementById("step-area");
+const prog = document.getElementById("progress-bar");
+const statusTxt = document.getElementById("status");
 
-document.getElementById("btn1").onclick = function() {
-    this.style.display = "none";
-    progressBar.style.width = "60%";
-    document.getElementById("status").innerText = "Gerando link de acesso...";
+document.getElementById("btn-start").onclick = function() {
+    // Abre Direct Link Monetag ao clicar no primeiro botão
+    window.open("https://omg10.com/4/9975998", "_blank");
     
-    let count = 3;
-    const timerBtn = document.createElement("button");
-    timerBtn.disabled = true;
-    timerBtn.innerText = `Aguarde ${count}s...`;
-    stepArea.appendChild(timerBtn);
-
-    const itv = setInterval(() => {
-        count--;
-        timerBtn.innerText = `Aguarde ${count}s...`;
-        if(count <= 0) {
-            clearInterval(itv);
-            timerBtn.innerText = "Ir para Etapa Final";
-            timerBtn.disabled = false;
-            timerBtn.onclick = etapa2;
-        }
-    }, 1000);
+    this.style.display = "none";
+    statusTxt.innerText = "Etapa 1: Autenticando token...";
+    prog.style.width = "50%";
+    
+    startTimer(3, "Continuar Etapa 2", etapa2);
 };
 
 function etapa2() {
-    window.open("https://encouragingjawsordinarily.com/fxgzhb5e?key=3823c25827101f6ca9e1188db300506f", '_blank');
-    progressBar.style.width = "100%";
-    stepArea.innerHTML = '<button id="btn-final">Acessar Destino</button>';
-    document.getElementById("btn-final").onclick = () => {
-        const destino = decodeURIComponent(atob(sessionStorage.getItem("target")));
-        window.location.replace(destino);
+    // Abre Smartlink AdsTerra no segundo clique
+    window.open("https://encouragingjawsordinarily.com/fxgzhb5e?key=3823c25827101f6ca9e1188db300506f", "_blank");
+    
+    statusTxt.innerText = "Etapa 2: Verificando integridade...";
+    prog.style.width = "80%";
+    
+    startTimer(3, "FINALIZAR ACESSO", finalStep);
+}
+
+function finalStep() {
+    statusTxt.innerText = "Acesso liberado com sucesso!";
+    prog.style.width = "100%";
+    stepArea.innerHTML = '<button id="btn-end" style="background:linear-gradient(135deg, #059669, #10b981);">BAIXAR ARQUIVO AGORA</button>';
+    
+    document.getElementById("btn-end").onclick = () => {
+        const finalDest = decodeURIComponent(atob(sessionStorage.getItem("secure_target")));
+        window.location.replace(finalDest);
     };
+}
+
+function startTimer(seconds, nextText, nextFunction) {
+    stepArea.innerHTML = `<button id="timer-btn" disabled>Aguarde ${seconds}s...</button>`;
+    let count = seconds;
+    const itv = setInterval(() => {
+        count--;
+        document.getElementById("timer-btn").innerText = `Aguarde ${count}s...`;
+        if(count <= 0) {
+            clearInterval(itv);
+            const btn = document.getElementById("timer-btn");
+            btn.innerText = nextText;
+            btn.disabled = false;
+            btn.onclick = nextFunction;
+        }
+    }, 1000);
 }
 </script>
 </body>
