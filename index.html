@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Verificação de Acesso Seguro</title>
+<title>Protocolo de Segurança</title>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 
 <script src="https://quge5.com/88/tag.min.js" data-zone="223644" async data-cfasync="false"></script>
@@ -11,131 +11,152 @@
 <script type='text/javascript' src='https://encouragingjawsordinarily.com/09/bc/0d/09bc0d1e4e41282a10b229106cc5a841.js'></script>
 
 <style>
-    body { background: #f0f2f5; color: #333; font-family: 'Roboto', sans-serif; margin: 0; padding: 15px; display: flex; flex-direction: column; align-items: center; }
+    :root { --blue: #0088cc; --green: #22c55e; }
+    body { 
+        background-color: #020617; 
+        background-image: radial-gradient(#1e293b 0.5px, transparent 0.5px);
+        background-size: 15px 15px;
+        color: #fff; font-family: 'Roboto', sans-serif; margin: 0; padding: 20px; 
+        display: flex; flex-direction: column; align-items: center;
+    }
     
-    .ad-top-box { min-height: 60px; margin-bottom: 10px; text-align: center; font-size: 10px; color: #bbb; }
-    
-    .main-card { background: #fff; width: 100%; max-width: 450px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); padding: 25px; text-align: center; }
-    
-    .info-box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px; text-align: left; margin-bottom: 20px; font-size: 14px; }
-    .info-box b { color: #0088cc; }
+    .ad-slot { width: 100%; max-width: 400px; min-height: 100px; margin: 20px 0; background: rgba(255,255,255,0.03); border: 1px dashed #334155; display: flex; align-items: center; justify-content: center; border-radius: 8px; font-size: 10px; color: #475569; }
 
-    #status-text { font-weight: bold; font-size: 14px; color: #64748b; margin-bottom: 10px; display: block; }
+    .card { background: #fff; color: #1e293b; width: 100%; max-width: 450px; border-radius: 16px; padding: 20px; margin-bottom: 30px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
     
-    .bar-bg { background: #e2e8f0; height: 10px; border-radius: 5px; overflow: hidden; margin-bottom: 25px; }
-    .bar-fill { width: 5%; height: 100%; background: linear-gradient(90deg, #0088cc, #22c55e); transition: width 0.5s; }
+    .status-box { background: #f1f5f9; padding: 15px; border-radius: 10px; border-left: 5px solid var(--blue); margin-bottom: 15px; text-align: left; }
+    
+    .progress-bar { background: #e2e8f0; height: 10px; border-radius: 5px; overflow: hidden; margin: 15px 0; }
+    .fill { width: 5%; height: 100%; background: var(--blue); transition: width 0.5s ease; }
 
-    button { width: 100%; padding: 18px; border: none; border-radius: 10px; font-size: 18px; font-weight: bold; cursor: pointer; transition: 0.3s; margin-bottom: 10px; }
-    .btn-main { background: #0088cc; color: #fff; box-shadow: 0 4px 0 #005f8d; }
-    .btn-main:active { transform: translateY(2px); box-shadow: 0 2px 0 #005f8d; }
-    .btn-main:disabled { background: #cbd5e1; box-shadow: none; color: #94a3b8; cursor: not-allowed; }
-
-    .ad-label { font-size: 10px; color: #bbb; margin-top: 15px; display: block; text-transform: uppercase; }
-    .ad-bottom-space { margin-top: 10px; min-height: 50px; border-top: 1px solid #eee; padding-top: 10px; }
+    button { width: 100%; padding: 20px; border: none; border-radius: 12px; font-size: 18px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+    .btn-step { background: var(--blue); color: #fff; box-shadow: 0 5px 0 #005f8d; }
+    .btn-step:disabled { background: #94a3b8; box-shadow: none; cursor: not-allowed; }
+    
+    #ab-alert { display: none; color: #ef4444; font-weight: bold; font-size: 14px; margin-bottom: 10px; }
 </style>
 </head>
 <body>
 
-    <div class="ad-top-box">
-        PUBLICIDADE<br>
+    <div class="ad-slot" id="top-ad">
         <script async="async" data-cfasync="false" src="https://encouragingjawsordinarily.com/694579ced308045c2c6c156cc2dceaba/invoke.js"></script>
         <div id="container-694579ced308045c2c6c156cc2dceaba"></div>
     </div>
 
-    <div class="main-card">
-        <div class="info-box">
-            <b>🛡️ Verificação de Segurança</b><br>
-            Analizando integridade do link de destino...<br>
-            Status: <span id="scan-status" style="color:#0ea5e9">Aguardando...</span>
-        </div>
-
-        <span id="status-text">Analise pendente...</span>
-        <div class="bar-bg"><div id="bar" class="bar-fill"></div></div>
-        
-        <div id="step-area">
-            <button id="main-btn" class="btn-main" disabled>AGUARDE...</button>
-        </div>
-
-        <span class="ad-label">Anúncios Relacionados</span>
-        <div class="ad-bottom-space">
-            <p style="font-size:12px; color:#999">O link será liberado após a verificação.</p>
-        </div>
+    <div id="pos-1" style="width:100%; max-width:450px;">
+        <div id="ab-alert">🛑 DESATIVE O ADBLOCK PARA CONTINUAR</div>
+        <button id="main-btn" class="btn-step" disabled>ANALISANDO SISTEMA...</button>
     </div>
 
-<script>
-    // Recuperação Segura do Link
-    const params = new URLSearchParams(window.location.search);
-    let target = params.get("d") || params.get("destino") || sessionStorage.getItem("dest_link");
+    <div style="height: 300px;"></div>
 
+    <div class="card" id="main-card">
+        <div class="status-box">
+            <b>🛡️ Verificação de Link</b><br>
+            Status: <span id="scan-text" style="color:var(--blue)">Pendente...</span>
+        </div>
+        <div class="progress-bar"><div id="fill" class="fill"></div></div>
+        <p style="font-size: 12px; color: #64748b;">Aguarde a validação dos protocolos de segurança para liberar o acesso.</p>
+        
+        <div id="pos-2"></div>
+    </div>
+
+    <div class="ad-slot">
+        ANÚNCIO PATROCINADO
+    </div>
+
+    <div style="height: 300px;"></div>
+
+    <div id="pos-3" style="width:100%; max-width:450px; margin-bottom: 50px;"></div>
+
+<script>
+    // 1. LINK SEGURO
+    const params = new URLSearchParams(window.location.search);
+    let target = params.get("d") || params.get("destino") || sessionStorage.getItem("safe_url");
     if(target) {
-        sessionStorage.setItem("dest_link", target);
+        sessionStorage.setItem("safe_url", target);
         window.history.replaceState({}, document.title, window.location.pathname);
     } else {
-        document.body.innerHTML = "<div style='text-align:center;padding-top:100px'>Link Inválido ou Expirado.</div>";
+        document.body.innerHTML = "<h2 style='color:white;text-align:center'>Link Inválido</h2>";
     }
 
-    const mainBtn = document.getElementById("main-btn");
-    const bar = document.getElementById("bar");
-    const statusTxt = document.getElementById("status-text");
-    const scanTxt = document.getElementById("scan-status");
+    const btn = document.getElementById("main-btn");
+    const fill = document.getElementById("fill");
+    const scan = document.getElementById("scan-text");
+    const abMsg = document.getElementById("ab-alert");
 
-    // Início automático (Respeita conexão lenta)
+    // 2. ANTI-ADBLOCK AGRESSIVO (RETOQUE)
     window.onload = () => {
-        let loadCounter = 0;
-        const checkAds = setInterval(() => {
-            loadCounter++;
-            const adIsLoaded = document.getElementById("container-694579ced308045c2c6c156cc2dceaba").innerHTML.length > 10;
-            
-            if(adIsLoaded || loadCounter > 4) {
-                clearInterval(checkAds);
-                mainBtn.disabled = false;
-                mainBtn.innerText = "LIBERAR LINK AGORA";
-                statusTxt.innerText = "Link verificado e seguro!";
-                scanTxt.innerText = "Concluído!";
-                bar.style.width = "30%";
+        let attempts = 0;
+        const check = setInterval(() => {
+            attempts++;
+            const adArea = document.getElementById("container-694579ced308045c2c6c156cc2dceaba");
+            if(adArea && adArea.innerHTML.length > 20) {
+                clearInterval(check);
+                btn.disabled = false;
+                btn.innerText = "INICIAR VERIFICAÇÃO";
+                abMsg.style.display = "none";
+            } else if (attempts > 5) {
+                abMsg.style.display = "block";
+                btn.innerText = "BLOQUEADO (ADBLOCK)";
             }
         }, 1000);
     };
 
-    mainBtn.onclick = () => {
-        // Monetag Direct Link
+    // 3. LÓGICA DE MOVIMENTO E ROLAGEM
+    btn.onclick = function() {
+        // Monetag Link
         window.open("https://omg10.com/4/9975998", "_blank");
         
-        mainBtn.disabled = true;
-        bar.style.width = "60%";
-        statusTxt.innerText = "Gerando redirecionamento seguro...";
-        
-        let count = 3;
-        const timer = setInterval(() => {
-            count--;
-            mainBtn.innerText = `AGUARDE ${count}s...`;
-            if(count <= 0) {
-                clearInterval(timer);
-                mainBtn.innerText = "CONTINUAR ACESSO";
-                mainBtn.disabled = false;
-                mainBtn.onclick = etapa2;
+        this.disabled = true;
+        fill.style.width = "50%";
+        scan.innerText = "Validando Etapa 1...";
+
+        let c = 3;
+        const t1 = setInterval(() => {
+            c--;
+            this.innerText = `AGUARDE ${c}s...`;
+            if(c <= 0) {
+                clearInterval(t1);
+                // MOVE O BOTÃO PARA O MEIO (POS 2)
+                document.getElementById("pos-2").appendChild(this);
+                this.innerText = "PROSSEGUIR ETAPA 2";
+                this.disabled = false;
+                // ROLA PARA O MEIO
+                window.scrollTo({ top: document.getElementById("main-card").offsetTop - 50, behavior: 'smooth' });
+                this.onclick = etapa2;
             }
         }, 1000);
     };
 
     function etapa2() {
-        // AdsTerra Smartlink
+        // AdsTerra Link
         window.open("https://encouragingjawsordinarily.com/fxgzhb5e?key=3823c25827101f6ca9e1188db300506f", "_blank");
         
-        bar.style.width = "100%";
-        statusTxt.innerText = "Finalizando protocolos...";
-        mainBtn.disabled = true;
+        this.disabled = true;
+        fill.style.width = "85%";
+        scan.innerText = "Quase pronto...";
 
-        setTimeout(() => {
-            mainBtn.innerText = "ACESSAR DESTINO FINAL";
-            mainBtn.style.background = "#22c55e";
-            mainBtn.style.boxShadow = "0 4px 0 #15803d";
-            mainBtn.disabled = false;
-            mainBtn.onclick = () => {
-                const finalUrl = decodeURIComponent(atob(sessionStorage.getItem("dest_link")));
-                window.location.replace(finalUrl);
-            };
-        }, 2000);
+        let c = 3;
+        const t2 = setInterval(() => {
+            c--;
+            this.innerText = `AGUARDE ${c}s...`;
+            if(c <= 0) {
+                clearInterval(t2);
+                // MOVE O BOTÃO PARA O FIM (POS 3)
+                document.getElementById("pos-3").appendChild(this);
+                this.innerText = "FINALIZAR E ACESSAR";
+                this.style.background = "#22c55e";
+                this.style.boxShadow = "0 5px 0 #16a34a";
+                this.disabled = false;
+                // ROLA PARA O FIM
+                window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+                this.onclick = () => {
+                    const final = decodeURIComponent(atob(sessionStorage.getItem("safe_url")));
+                    window.location.replace(final);
+                };
+            }
+        }, 1000);
     }
 </script>
 </body>
